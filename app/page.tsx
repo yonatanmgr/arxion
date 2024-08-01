@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
-
 import papersApi from "./api/papers";
 
 import { QueryClientProvider, QueryClient, useQuery } from "react-query";
 import ArxivPaper from "./components/Paper";
 import { CgSpinner } from "react-icons/cg";
+import { QueryState } from "./store/common";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +18,8 @@ const Home = () => {
 };
 
 const Articles = () => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const searchQuery = QueryState((state) => state.searchQuery);
+  const setSearchQuery = QueryState((state) => state.setSearchQuery);
 
   const { isLoading, data: papers } = useQuery(
     ["arxiv", searchQuery],
@@ -50,10 +50,22 @@ const Articles = () => {
           Results will appear here...
         </h2>
       )}
-      {papers?.length && (
+      {papers?.length ? (
         <h2 className="font-mono text-zinc-500">
-          <span>Showing first {papers?.length} results</span>
+          {papers.length < 25 ? (
+            papers.length == 1 ? (
+              <span>One result found</span>
+            ) : (
+              <span>Showing all {papers?.length} results</span>
+            )
+          ) : (
+            <span>Showing first 25 results</span>
+          )}
         </h2>
+      ) : (
+        !isLoading && (
+          <h2 className="font-mono text-zinc-500">No results found</h2>
+        )
       )}
       {isLoading ? (
         <>

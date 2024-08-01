@@ -83,7 +83,7 @@ const ArxivPaper = ({
           />
         </>
       ) : (
-        <div className="text-zinc-600 text-sm select-none text-center w-full">
+        <div className="text-zinc-600 text-sm select-none text-center w-full pb-4">
           Click paper title to toggle abstract
         </div>
       )}
