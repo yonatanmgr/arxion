@@ -34,9 +34,7 @@ export default function RootLayout({
         {children}
         <Analytics />
         <footer className="absolute left-0 bottom-0 text-xs sm:text-sm bg-zinc-100 py-1 select-none w-screen font-mono text-center text-balance text-zinc-500 border-t border-zinc-300">
-          Thank you to arXiv for use of its open access interoperability. This
-          product was not reviewed or approved by, nor does it necessarily
-          express or reflect the policies or opinions of, arXiv.
+          Thank you to arXiv for use of its open access interoperability.
         </footer>
       </body>
     </html>
