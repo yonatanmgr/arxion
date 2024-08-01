@@ -7,6 +7,9 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    fontFamily: {
+      mono: "Computer Typewriter",
+    },
     extend: {
       colors: {
         background: "var(--background)",
@@ -14,7 +17,9 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)"],
-        mono: ["var(--font-geist-mono)"],
+        cmu: ["Computer Modern"],
+        "cmu-typewriter": ["Computer Typewriter"],
+        math: ["KaTeX_Math"],
       },
     },
   },
