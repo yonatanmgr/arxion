@@ -14,7 +14,9 @@ const MarkdownBlock = ({
     <Markdown
       className={className}
       remarkPlugins={[remarkMath]}
-      rehypePlugins={[() => rehypeKatex({ output: "html" })]}
+      rehypePlugins={[
+        () => rehypeKatex({ output: "html", errorColor: "#666" }),
+      ]}
     >
       {text}
     </Markdown>

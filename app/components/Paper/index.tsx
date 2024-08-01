@@ -53,8 +53,8 @@ const ArxivPaper = ({
   }
 
   return (
-    <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu text-lg flex-col sm:py-6 py-4 sm:px-8 px-4 gap-2 border border-zinc-300 hover:border-red-600 rounded-lg text-left">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-2">
+    <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu sm:text-lg flex-col sm:py-6 py-4 sm:px-8 px-4 gap-2 border border-zinc-300 hover:border-red-600 rounded-lg text-left">
+      <header className="flex flex-row justify-between items-center w-full gap-2">
         <div>
           <span className="text-zinc-500 font-mono">
             {paper.id[0].replace("http://arxiv.org/abs/", "")}
@@ -93,9 +93,7 @@ const ArxivPaper = ({
           <span className="text-zinc-500">
             <BiTime />
           </span>
-          <span className="text-zinc-500 hidden sm:inline-block">
-            Published on:
-          </span>{" "}
+          <span className="text-zinc-500">Published on:</span>{" "}
           <span>
             {moment(new Date(paper.published[0])).format("MMMM Do, YYYY")}
           </span>

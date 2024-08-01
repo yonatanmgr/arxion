@@ -25,7 +25,7 @@ const Articles = () => {
     ["arxiv", searchQuery],
     async () => {
       if (searchQuery) {
-        const xml = await papersApi.fetchArxiv(searchQuery, 5);
+        const xml = await papersApi.fetchArxiv(searchQuery, 25);
         return xml;
       }
     },
