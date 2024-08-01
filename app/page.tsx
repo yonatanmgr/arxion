@@ -35,7 +35,7 @@ const Articles = () => {
   );
 
   return (
-    <div className="flex font-cmu flex-col overflow-y-hidden max-sm:mb-10 max-h-[100dvh] gap-4">
+    <div className="flex font-cmu flex-col overflow-y-hidden max-sm:mb-3 max-h-[100dvh] gap-4">
       <input
         className="p-2 border border-zinc-300 font-mono text-lg rounded-lg px-4 placeholder:italic"
         type="text"
