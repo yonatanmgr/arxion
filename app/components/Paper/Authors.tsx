@@ -35,10 +35,10 @@ const Authors = ({ authors }: { authors: ArxivEntry["author"] }) => {
           ))}
         {authors.length > AUTHOR_LIMIT && (
           <button
-            className="font-bold ml-1.5 px-2 py-1 text-sm bg-zinc-200 rounded-md"
+            className="font-bold font-mono ml-1.5 px-2 text-sm border border-zinc-200 bg-zinc-100 rounded-md"
             onClick={() => setShowAll(!showAll)}
           >
-            {showAll ? "Show less" : "Show all"}
+            {showAll ? "Show less..." : "Show more..."}
           </button>
         )}
       </section>

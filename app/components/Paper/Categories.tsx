@@ -31,7 +31,7 @@ const Tag = ({
           <span
             onTouchStart={() => setIsOpen(true)}
             className={cn(
-              "select-none max-sm:max-w-[100px] truncate",
+              "select-none max-sm:max-w-[140px] truncate",
               className
             )}
           >

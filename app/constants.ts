@@ -15,4 +15,4 @@ export const MATHJAX_CONFIG: MathJax3Config = {
   },
 };
 
-export const AUTHOR_LIMIT = 5;
+export const AUTHOR_LIMIT = 3;

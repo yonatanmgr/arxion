@@ -44,7 +44,7 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
 
   if (paper === null) {
     return (
-      <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu text-lg flex-col py-6 px-8 gap-2 border border-zinc-300 hover:border-red-600 rounded-lg text-left">
+      <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu text-lg flex-col py-6 px-8 gap-2 border border-zinc-300 hover:border-red-600 rounded-md text-left">
         <header className="flex flex-row justify-between items-center w-full gap-2 pb-4">
           <Placeholder className="w-2/5 sm:w-1/5 h-6" />
           <Placeholder className="w-20 h-8 rounded-full" />
@@ -61,7 +61,7 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
   }
 
   return (
-    <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu sm:text-lg flex-col sm:py-6 py-4 sm:px-8 px-4 gap-2 border border-zinc-300 hover:border-red-600 rounded-lg text-left">
+    <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu sm:text-lg flex-col sm:py-6 py-4 sm:px-8 px-4 gap-2 border border-zinc-300 rounded-md text-left">
       <header className="flex flex-row justify-between items-center w-full gap-2">
         <a
           className="flex transition-all flex-row items-center gap-1.5 max-sm:underline text-zinc-500 hover:text-red-600 hover:underline font-mono"
@@ -112,7 +112,7 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
           </div>
           <MarkdownBlock
             className={
-              "text-balance sm:text-justify mb-4 break-words hyphens-auto place-self-center"
+              "text-balance sm:text-justify break-words hyphens-auto place-self-center"
             }
             text={paper.summary[0]}
           />
@@ -120,8 +120,10 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
 
         <div
           className={cn(
-            "transition-all text-zinc-500 font-mono italic text-sm select-none text-center w-full pb-4",
-            !showAbstract ? "scale-100 opacity-100" : "scale-0 opacity-0 h-0"
+            "transition-all text-pretty text-zinc-400 font-mono italic text-sm select-none text-center w-full",
+            !showAbstract
+              ? "scale-100 opacity-100 pb-4"
+              : "scale-0 opacity-0 h-0"
           )}
         >
           <span className="max-sm:hidden">long-press</span>
