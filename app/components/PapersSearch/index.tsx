@@ -11,7 +11,7 @@ const PapersSearch = () => {
 
   //   const debouncedSearchQuery = useDebounceValue(searchQuery, 100);
 
-  const { isLoading, data: papers } = useQuery(
+  const { data: papers, isFetching } = useQuery(
     ["arxiv", searchQuery],
     async () => {
       if (searchQuery) {
@@ -22,7 +22,7 @@ const PapersSearch = () => {
     {
       enabled: !!searchQuery,
       retry: 0,
-      keepPreviousData: true,
+      //   keepPreviousData: true,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
     }
@@ -39,7 +39,7 @@ const PapersSearch = () => {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-      {!searchQuery && !isLoading && (
+      {!searchQuery && !isFetching && (
         <h2 className="font-mono text-zinc-500 select-none text-center">
           Results will appear here...
         </h2>
@@ -57,12 +57,12 @@ const PapersSearch = () => {
           )}
         </h2>
       ) : (
-        !isLoading &&
+        !isFetching &&
         searchQuery !== "" && (
           <h2 className="font-mono text-zinc-500">No results found</h2>
         )
       )}
-      {isLoading ? (
+      {isFetching ? (
         <>
           <h2 className="font-mono text-zinc-500 flex flex-row gap-2 items-center">
             <CgSpinner className="animate-spin inline-block" />
