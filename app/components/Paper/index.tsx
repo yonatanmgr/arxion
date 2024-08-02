@@ -9,6 +9,7 @@ import Links from "./Links";
 import Title from "./Title";
 import { ClassNameValue } from "tailwind-merge";
 import { cn } from "@/app/utils/common";
+import { useLongPress } from "use-long-press";
 
 const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
   const Placeholder = ({ className }: { className: ClassNameValue }) => {
@@ -24,6 +25,22 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
 
   const [showAbstract, setShowAbstract] = useState(false);
   const [showUpdatedOn, setShowUpdatedOn] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+
+  const bind = useLongPress(
+    () => {
+      setShowAbstract(!showAbstract);
+    },
+    {
+      onStart: (event) => setIsPressed(true),
+      onFinish: (event) => setIsPressed(false),
+      onCancel: (event) => setIsPressed(false),
+      filterEvents: (event) => true,
+      threshold: 500,
+      cancelOnMovement: 25,
+      cancelOutsideElement: true,
+    }
+  );
 
   if (paper === null) {
     return (
@@ -38,7 +55,7 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
         <footer className="flex flex-col gap-2 sm:flex-row w-full items-start sm:items-center justify-between">
           <Placeholder className="w-1/4 h-6 sm:w-1/5" />
           <Placeholder className="w-full h-6 sm:w-1/5" />
-        </footer>{" "}
+        </footer>
       </div>
     );
   }
@@ -61,15 +78,35 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
           categories={paper.category}
         />
       </header>
-      <div
-        onDoubleClick={() => setShowAbstract(!showAbstract)}
-        onTouchEnd={() => setShowAbstract(!showAbstract)}
+      <button
+        className={cn(
+          "relative border-b border-b-transparent hover:border-b-zinc-200 select-text transition-all rounded-md"
+        )}
+        {...bind()}
       >
+        <div
+          className={cn(
+            "w-0 bg-zinc-400/50 opacity-50 absolute mix-blend-multiply bottom-0 h-[1px] rounded-lg transition-all duration-500",
+            isPressed || showAbstract ? "w-full opacity-100" : "w-0"
+          )}
+        ></div>
+        <div
+          className={cn(
+            "w-0 bg-zinc-500/50 z-10 opacity-50 absolute mix-blend-multiply bottom-0 h-[1px] rounded-lg transition-all duration-500",
+            isPressed ? "w-full opacity-100" : "w-0"
+          )}
+        ></div>
         <Title title={paper.title[0]} />
-      </div>
+      </button>
       <Authors authors={paper.author} />
-      {showAbstract ? (
-        <>
+
+      <>
+        <div
+          className={cn(
+            "transition-all overflow-clip origin-top",
+            showAbstract ? "scale-y-100 h-full" : "scale-y-0 h-0"
+          )}
+        >
           <div className="text-zinc-900 select-none font-bold text-center w-full">
             Abstract.
           </div>
@@ -79,13 +116,20 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
             }
             text={paper.summary[0]}
           />
-        </>
-      ) : (
-        <div className="text-zinc-500 font-mono italic text-sm select-none text-center w-full pb-4">
-          <span className="max-sm:hidden">Double-click</span>
-          <span className="sm:hidden">Touch</span> the title to view abstract
         </div>
-      )}
+
+        <div
+          className={cn(
+            "transition-all text-zinc-500 font-mono italic text-sm select-none text-center w-full pb-4",
+            !showAbstract ? "scale-100 opacity-100" : "scale-0 opacity-0 h-0"
+          )}
+        >
+          <span className="max-sm:hidden">long-press</span>
+          <span className="sm:hidden">Touch and hold</span> the title to view
+          abstract
+        </div>
+      </>
+
       <footer className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between">
         <Links links={paper.link} id={paper.id} />
         <div

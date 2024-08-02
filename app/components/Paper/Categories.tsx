@@ -30,7 +30,10 @@ const Tag = ({
         <TooltipTrigger asChild>
           <span
             onTouchStart={() => setIsOpen(true)}
-            className={cn("select-none", className)}
+            className={cn(
+              "select-none max-sm:max-w-[100px] truncate",
+              className
+            )}
           >
             {subject}
           </span>

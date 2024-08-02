@@ -9,18 +9,18 @@ const PapersSearch = () => {
   const searchQuery = useQueryState((state) => state.searchQuery);
   const setSearchQuery = useQueryState((state) => state.setSearchQuery);
 
-  //   const debouncedSearchQuery = useDebounceValue(searchQuery, 100);
+  const debouncedSearchQuery = useDebounceValue(searchQuery, 300)[0];
 
   const { data: papers, isFetching } = useQuery(
-    ["arxiv", searchQuery],
+    ["arxiv", debouncedSearchQuery],
     async () => {
-      if (searchQuery) {
-        const xml = await papersApi.fetchArxiv(searchQuery, 25);
+      if (debouncedSearchQuery) {
+        const xml = await papersApi.fetchArxiv(debouncedSearchQuery, 25);
         return xml;
       }
     },
     {
-      enabled: !!searchQuery,
+      enabled: !!debouncedSearchQuery,
       retry: 0,
       //   keepPreviousData: true,
       refetchOnMount: false,
@@ -39,12 +39,12 @@ const PapersSearch = () => {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-      {!searchQuery && !isFetching && (
+      {!debouncedSearchQuery && !isFetching && (
         <h2 className="font-mono text-zinc-500 select-none text-center">
           Results will appear here...
         </h2>
       )}
-      {papers?.length ? (
+      {papers?.length && !isFetching ? (
         <h2 className="font-mono text-zinc-500">
           {papers.length < 25 ? (
             papers.length == 1 ? (
@@ -58,7 +58,7 @@ const PapersSearch = () => {
         </h2>
       ) : (
         !isFetching &&
-        searchQuery !== "" && (
+        debouncedSearchQuery !== "" && (
           <h2 className="font-mono text-zinc-500">No results found</h2>
         )
       )}
