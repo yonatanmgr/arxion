@@ -1,7 +1,7 @@
 import { ArxivEntry } from "../../types";
 import { BiLinkExternal, BiTime } from "react-icons/bi";
 import { useState } from "react";
-import MarkdownBlock from "../Markdown";
+import MarkdownBlock from "./Markdown";
 import moment from "moment";
 import Authors from "./Authors";
 import Categories from "./Categories";
@@ -10,13 +10,7 @@ import Title from "./Title";
 import { ClassNameValue } from "tailwind-merge";
 import { cn } from "@/app/utils/common";
 
-const ArxivPaper = ({
-  paper,
-  index,
-}: {
-  paper: ArxivEntry | null;
-  index: number;
-}) => {
+const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
   const Placeholder = ({ className }: { className: ClassNameValue }) => {
     return (
       <div
@@ -29,6 +23,7 @@ const ArxivPaper = ({
   };
 
   const [showAbstract, setShowAbstract] = useState(false);
+  const [showUpdatedOn, setShowUpdatedOn] = useState(false);
 
   if (paper === null) {
     return (
@@ -66,7 +61,10 @@ const ArxivPaper = ({
           categories={paper.category}
         />
       </header>
-      <div onClick={() => setShowAbstract(!showAbstract)}>
+      <div
+        onDoubleClick={() => setShowAbstract(!showAbstract)}
+        onTouchEnd={() => setShowAbstract(!showAbstract)}
+      >
         <Title title={paper.title[0]} />
       </div>
       <Authors authors={paper.author} />
@@ -83,19 +81,29 @@ const ArxivPaper = ({
           />
         </>
       ) : (
-        <div className="text-zinc-600 text-sm select-none text-center w-full pb-4">
-          Click paper title to toggle abstract
+        <div className="text-zinc-500 font-mono italic text-sm select-none text-center w-full pb-4">
+          <span className="max-sm:hidden">Double-click</span>
+          <span className="sm:hidden">Touch</span> the title to view abstract
         </div>
       )}
       <footer className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between">
         <Links links={paper.link} id={paper.id} />
-        <div className="flex flex-row gap-1.5 items-center">
+        <div
+          className="flex flex-row gap-1.5 items-center"
+          onClick={() => {
+            setShowUpdatedOn(!showUpdatedOn);
+          }}
+        >
           <span className="text-zinc-500">
             <BiTime />
           </span>
-          <span className="text-zinc-500">Published on:</span>{" "}
+          <span className="text-zinc-500 select-none cursor-pointer">
+            {showUpdatedOn ? "Updated" : "Published"} on:
+          </span>{" "}
           <span>
-            {moment(new Date(paper.published[0])).format("MMMM Do, YYYY")}
+            {moment(
+              new Date(paper[showUpdatedOn ? "updated" : "published"][0])
+            ).format("MMMM Do, YYYY")}
           </span>
         </div>
       </footer>

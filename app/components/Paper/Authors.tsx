@@ -1,12 +1,12 @@
 import { AUTHOR_LIMIT } from "@/app/constants";
-import { QueryState } from "@/app/store/common";
+import { useQueryState } from "@/app/store/common";
 import { ArxivEntry } from "@/app/types";
 import { useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 
 const Authors = ({ authors }: { authors: ArxivEntry["author"] }) => {
   const [showAll, setShowAll] = useState(false);
-  const setSearchQuery = QueryState((state) => state.setSearchQuery);
+  const setSearchQuery = useQueryState((state) => state.setSearchQuery);
 
   return (
     <div className="w-full text-center pb-4">

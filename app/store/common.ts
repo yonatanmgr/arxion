@@ -5,7 +5,7 @@ type SQueryState = {
   setSearchQuery: (query: string) => void;
 };
 
-export const QueryState = create<SQueryState>((set) => ({
+export const useQueryState = create<SQueryState>((set) => ({
   searchQuery: "",
   setSearchQuery: (query: string) => set({ searchQuery: query }),
 }));

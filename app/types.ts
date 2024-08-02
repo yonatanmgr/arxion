@@ -35,3 +35,14 @@ export type ArxivEntry = {
     };
   }[];
 };
+
+export type Subject = {
+  abbreviation: string;
+  full_name: string;
+  description: string;
+};
+
+export type Category = {
+  category: string;
+  subjects: Subject[];
+};
