@@ -6,13 +6,17 @@ import { QueryClientProvider, QueryClient, useQuery } from "react-query";
 import ArxivPaper from "./components/Paper";
 import { CgSpinner } from "react-icons/cg";
 import { QueryState } from "./store/common";
+import { MathJaxContext } from "better-react-mathjax";
+import { MATHJAX_CONFIG } from "./constants";
 
 const queryClient = new QueryClient();
 
 const Home = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Articles />
+      <MathJaxContext config={MATHJAX_CONFIG}>
+        <Articles />
+      </MathJaxContext>
     </QueryClientProvider>
   );
 };
@@ -63,7 +67,8 @@ const Articles = () => {
           )}
         </h2>
       ) : (
-        !isLoading && (
+        !isLoading &&
+        searchQuery && (
           <h2 className="font-mono text-zinc-500">No results found</h2>
         )
       )}

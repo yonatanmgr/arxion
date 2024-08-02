@@ -11,6 +11,9 @@ dependencies:
   axios:
     specifier: ^1.7.2
     version: 1.7.3
+  better-react-mathjax:
+    specifier: ^2.0.3
+    version: 2.0.3(react@19.0.0-rc-f994737d14-20240522)
   clsx:
     specifier: ^2.1.1
     version: 2.1.1
@@ -924,6 +927,15 @@ packages:
 
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  /better-react-mathjax@2.0.3(react@19.0.0-rc-f994737d14-20240522):
+    resolution: {integrity: sha512-wfifT8GFOKb1TWm2+E50I6DJpLZ5kLbch283Lu043EJtwSv0XvZDjr4YfR4d2MjAhqP6SH4VjjrKgbX8R00oCQ==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      mathjax-full: 3.2.2
+      react: 19.0.0-rc-f994737d14-20240522
+    dev: false
 
   /bidi-js@1.0.3:
     resolution: {integrity: sha512-RKshQI1R3YQ+n9YJz2QQ147P66ELpa1FQEg20Dk8oW9t2KgLbpDLLp9aGZ7y8WHSshDknG0bknqGw5/tyCs5tw==}

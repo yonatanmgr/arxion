@@ -2,6 +2,17 @@ import { ArxivEntry } from "../types";
 import { client } from "./client";
 import { parseString } from "xml2js";
 
+// ti	Title
+// au	Author
+// abs	Abstract
+// co	Comment
+// jr	Journal Reference
+// cat	Subject Category
+// rn	Report Number
+// id	Id (use id_list instead)
+
+const fields = ["ti", "au", "abs", "co", "jr", "cat", "rn", "id"];
+
 /**
  * Fetches Arxiv entries based on the provided query and limit.
  *
@@ -12,7 +23,9 @@ import { parseString } from "xml2js";
 const fetchArxiv = async (query: string, limit: number) => {
   const response = await client.get("query", {
     params: {
-      search_query: `all:${query}`,
+      search_query: fields.some((f) => query.startsWith(f))
+        ? query
+        : `all:${query}`,
       max_results: limit,
       sortBy: "relevance",
       sortOrder: "descending",
