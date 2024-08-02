@@ -80,7 +80,7 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
       </header>
       <button
         className={cn(
-          "relative border-b border-b-transparent hover:border-b-zinc-200 select-text transition-all rounded-md"
+          "relative max-sm:select-none select-text border-b border-b-transparent hover:border-b-zinc-200 transition-all"
         )}
         {...bind()}
       >
