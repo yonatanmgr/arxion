@@ -38,7 +38,7 @@ const Authors = ({ authors }: { authors: ArxivEntry["author"] }) => {
             className="font-bold font-mono ml-1.5 px-2 text-sm border border-zinc-200 bg-zinc-100 rounded-md"
             onClick={() => setShowAll(!showAll)}
           >
-            {showAll ? "Show less..." : "Show more..."}
+            {showAll ? "Show less..." : `Show all ${authors.length} authors`}
           </button>
         )}
       </section>

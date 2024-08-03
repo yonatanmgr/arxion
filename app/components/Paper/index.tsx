@@ -44,14 +44,14 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
 
   if (paper === null) {
     return (
-      <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu text-lg flex-col py-6 px-8 gap-2 border border-zinc-300 hover:border-red-600 rounded-md text-left">
+      <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu text-lg flex-col py-6 px-8 gap-2 border border-zinc-300 rounded-md text-left">
         <header className="flex flex-row justify-between items-center w-full gap-2 pb-4">
           <Placeholder className="w-2/5 sm:w-1/5 h-6" />
-          <Placeholder className="w-20 h-8 rounded-full" />
+          <Placeholder className="w-20 h-6 rounded-full" />
         </header>
         <Placeholder className="w-full h-20 sm:h-10 sm:w-2/3 place-self-center mb-4" />
         <Placeholder className="w-1/2 place-self-center mb-4" />
-        <Placeholder className="w-full h-40" />
+        <Placeholder className="w-full sm:w-1/3 h-6 place-self-center" />
         <footer className="flex flex-col gap-2 sm:flex-row w-full items-start sm:items-center justify-between">
           <Placeholder className="w-1/4 h-6 sm:w-1/5" />
           <Placeholder className="w-full h-6 sm:w-1/5" />
