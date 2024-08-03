@@ -38,7 +38,7 @@ const Tag = ({
             {subject}
           </span>
         </TooltipTrigger>
-        <TooltipContent className="bg-zinc-50 border-zinc-400">
+        <TooltipContent className="bg-zinc-900 text-zinc-50 border-zinc-400">
           <div className="flex flex-col gap-2 max-w-96 max-sm:max-w-[calc(100dvw-50px)] text-base max-h-[200px] overflow-y-auto">
             <a
               className={"underline italic text-zinc-50"}

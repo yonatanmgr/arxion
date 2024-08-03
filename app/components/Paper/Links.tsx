@@ -18,7 +18,7 @@ const Links = ({
           <a
             key={link.$.href}
             href={link.$.href}
-            className="transition-all flex flex-row gap-1 items-center max-sm:underline text-zinc-500 hover:text-red-600 hover:underline"
+            className="transition-all flex flex-row gap-1 items-center max-sm:underline text-zinc-500 hover:text-arxiv-red hover:underline"
           >
             {link.$.type === "application/pdf" ? <BsFilePdf /> : <BiLink />}
             {link.$.title}

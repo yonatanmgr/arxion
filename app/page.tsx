@@ -16,7 +16,7 @@ const Home = () => {
           onClick={() => {
             useQueryState.setState({ searchQuery: "" });
           }}
-          className="font-cmu hover:text-red-500 transition-all font-bold max-sm:text-2xl text-4xl w-fit text-center cursor-pointer"
+          className="font-cmu hover:text-arxiv-red transition-all font-bold max-sm:text-2xl text-4xl w-fit text-center cursor-pointer"
         >
           arXion
         </h1>
