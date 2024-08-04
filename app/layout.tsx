@@ -19,7 +19,7 @@ export default function RootLayout({
       <TooltipProvider>
         <body
           className={
-            "xl:px-64 lg:px-32 relative max-xs:px-8 px-4 pt-8 sm:pt-16 pb-12 overflow-hidden bg-zinc-50 flex flex-col h-[100dvh] selection:bg-arxiv-red/10"
+            "xl:px-64 lg:px-32 relative max-xs:px-8 px-4 pt-4 sm:pt-16 pb-[30px] overflow-hidden bg-zinc-50 flex flex-col h-[100dvh] selection:bg-arxiv-red/10"
           }
         >
           {children}

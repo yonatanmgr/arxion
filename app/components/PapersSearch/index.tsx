@@ -10,10 +10,12 @@ import { CATEGORIES } from "@/app/categories";
 import { Button } from "../ui/button";
 import { cn } from "@/app/utils/common";
 import { LucideFilter } from "lucide-react";
+import { RESULT_LIMIT } from "@/app/constants";
 
 const PapersSearch = () => {
   const [subject, setSubject] = useState("");
   const [showFilters, setShowFilters] = useState(false);
+  const [page, setPage] = useState(0);
   const searchQuery = useQueryState((state) => state.searchQuery);
   const setSearchQuery = useQueryState((state) => state.setSearchQuery);
   const setDebouncedSearchQuery = useQueryState(
@@ -56,10 +58,14 @@ const PapersSearch = () => {
   }, [setSearchQuery, subject]);
 
   const { data: papers, isFetching } = useQuery(
-    ["arxiv", debouncedSearchQuery],
+    ["arxiv", debouncedSearchQuery, page],
     async () => {
       if (debouncedSearchQuery) {
-        const xml = await papersApi.fetchArxiv(debouncedSearchQuery, 25);
+        const xml = await papersApi.fetchArxiv(
+          debouncedSearchQuery,
+          RESULT_LIMIT,
+          page
+        );
         return xml;
       }
     },
@@ -72,13 +78,21 @@ const PapersSearch = () => {
     }
   );
 
+  useEffect(() => {
+    if (debouncedSearchQuery) {
+      setPage(0);
+    }
+  }, [debouncedSearchQuery]);
+
   // const filteredPapers = subject
   //   ? papers?.filter((paper) => paper.category[0].$.term == subject) ?? []
   //   : papers ?? [];
 
   return (
     <div className="flex font-cmu flex-col overflow-y-hidden max-sm:mb-3 max-h-[100dvh] gap-4">
-      <section className="flex flex-col w-full gap-2">
+      <section
+        className={cn("flex flex-col w-full", showFilters ? "gap-2" : "")}
+      >
         <section className="flex flex-row grow">
           <input
             className="p-2 w-full mr-2 border border-zinc-300 font-mono text-lg rounded-lg px-4 placeholder:italic"
@@ -128,37 +142,68 @@ const PapersSearch = () => {
           )}
         </div>
       </section>
-      {!debouncedSearchQuery && !isFetching && (
-        <h2 className="font-mono text-zinc-500 select-none text-center">
-          Results will appear here...
-        </h2>
-      )}
-      {papers?.length && !isFetching ? (
-        <h2 className="font-mono text-zinc-500">
-          {papers?.length < 25 ? (
-            papers?.length == 1 ? (
-              <span>One result found</span>
+      <section
+        className={cn(
+          "flex flex-row justify-between",
+          !debouncedSearchQuery && "justify-center"
+        )}
+      >
+        {!debouncedSearchQuery && !isFetching && (
+          <h2 className="font-mono text-zinc-500 select-none text-center">
+            Results will appear here...
+          </h2>
+        )}
+        {papers?.length && !isFetching ? (
+          <h2 className="font-mono text-zinc-500">
+            {papers?.length < RESULT_LIMIT ? (
+              papers?.length == 1 ? (
+                <span>One result found</span>
+              ) : (
+                <span>Found {papers?.length} results</span>
+              )
             ) : (
-              <span>Found {papers?.length} results</span>
-            )
-          ) : (
-            <span>Showing first 25 results</span>
-          )}
-        </h2>
-      ) : (
-        !isFetching &&
-        debouncedSearchQuery !== "" && (
-          <h2 className="font-mono text-zinc-500">No results found</h2>
-        )
-      )}
-      {isFetching ? (
-        <>
+              <span>
+                Showing results {page * RESULT_LIMIT + 1}-
+                {(page + 1) * papers.length}
+              </span>
+            )}
+          </h2>
+        ) : (
+          !isFetching &&
+          debouncedSearchQuery !== "" && (
+            <h2 className="font-mono text-zinc-500">No results found</h2>
+          )
+        )}
+        {isFetching && (
           <h2 className="font-mono text-zinc-500 flex flex-row gap-2 items-center">
             <CgSpinner className="animate-spin inline-block" />
             <span>Searching...</span>
           </h2>
-          <ArxivPaper paper={null} />
-        </>
+        )}
+        {debouncedSearchQuery && (
+          <div className="flex flex-row gap-2">
+            <Button
+              variant={"outline"}
+              onClick={() => setPage((prev) => prev - 1)}
+              className="font-mono h-6"
+              disabled={page == 0 || !papers}
+            >
+              Prev
+            </Button>
+            <Button
+              variant={"outline"}
+              onClick={() => setPage((prev) => prev + 1)}
+              className="font-mono h-6"
+              disabled={!papers || papers.length < RESULT_LIMIT}
+            >
+              Next
+            </Button>
+          </div>
+        )}
+      </section>
+
+      {isFetching ? (
+        <ArxivPaper paper={null} />
       ) : (
         <section className="flex flex-col gap-4 grow overflow-y-auto snap-y snap-proximity">
           {papers?.map((entry, index) => (

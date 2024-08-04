@@ -1,6 +1,7 @@
 import { ArxivEntry } from "../types";
 import { client } from "./client";
 import { parseString } from "xml2js";
+import search from "arXiv-api-ts";
 
 // ti	Title
 // au	Author
@@ -20,7 +21,7 @@ const fields = ["ti", "au", "abs", "co", "jr", "cat", "rn", "id"];
  * @param limit - The maximum number of results to fetch.
  * @returns A promise that resolves to an array of ArxivEntry objects.
  */
-const fetchArxiv = async (query: string, limit: number) => {
+const fetchArxiv = async (query: string, limit: number, page: number) => {
   const response = await client.get("query", {
     params: {
       search_query: fields.some((f) => query.startsWith(f))
@@ -29,9 +30,26 @@ const fetchArxiv = async (query: string, limit: number) => {
       max_results: limit,
       sortBy: "relevance",
       sortOrder: "descending",
+      start: page * limit,
     },
   });
   const xml = await response.data;
+  // const xml = await search({
+  //   searchQueryParams: [
+  //     {
+  //       include: [
+  //         {
+  //           name: query,
+  //           prefix: fields.some((f) => query.startsWith(f)) ? "" : "all",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  //   start: 0,
+  //   maxResults: limit,
+  //   sortBy: "relevance",
+  //   sortOrder: "descending",
+  // });
 
   return new Promise<ArxivEntry[]>((resolve, reject) => {
     parseString(xml, (err, result) => {

@@ -61,7 +61,7 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
   }
 
   return (
-    <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu sm:text-lg flex-col sm:py-6 py-4 sm:px-8 px-4 gap-2 border border-zinc-300 rounded-md text-left">
+    <div className="flex last:mb-4 opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu sm:text-lg flex-col sm:py-6 py-4 sm:px-8 px-4 gap-2 border border-zinc-300 rounded-md text-left">
       <header className="flex flex-row justify-between items-center w-full gap-2">
         <a
           className="flex transition-all flex-row items-center gap-1.5 max-sm:underline text-zinc-500 hover:text-arxiv-red hover:underline font-mono"
