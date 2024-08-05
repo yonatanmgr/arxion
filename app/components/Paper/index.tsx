@@ -16,8 +16,9 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
     return (
       <div
         className={cn(
-          "bg-zinc-200 rounded-md animate-pulse w-full h-10",
-          className
+          "h-10 w-full animate-pulse rounded-md bg-zinc-200",
+          "dark:bg-zinc-700",
+          className,
         )}
       ></div>
     );
@@ -39,32 +40,42 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
       threshold: 500,
       cancelOnMovement: 25,
       cancelOutsideElement: true,
-    }
+    },
   );
 
   if (paper === null) {
     return (
-      <div className="flex opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu text-lg flex-col py-6 px-8 gap-2 border border-zinc-300 rounded-md text-left">
-        <header className="flex flex-row justify-between items-center w-full gap-2 pb-4">
-          <Placeholder className="w-2/5 sm:w-1/5 h-6" />
-          <Placeholder className="w-20 h-6 rounded-full" />
+      <div
+        className={cn(
+          "flex flex-col gap-2 rounded-md border border-zinc-300 bg-white px-4 py-4 text-left font-cmu opacity-100 transition-all last:mb-4 hover:opacity-100 sm:px-8 sm:py-6 sm:text-lg sm:opacity-70",
+          "dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:opacity-100",
+        )}
+      >
+        <header className="flex w-full flex-row items-center justify-between gap-2 pb-4">
+          <Placeholder className="h-6 w-2/5 sm:w-1/5" />
+          <Placeholder className="h-6 w-20 rounded-full" />
         </header>
-        <Placeholder className="w-full h-20 sm:h-10 sm:w-2/3 place-self-center mb-4" />
-        <Placeholder className="w-1/2 place-self-center mb-4" />
-        <Placeholder className="w-full sm:w-1/3 h-6 place-self-center" />
-        <footer className="flex flex-col gap-2 sm:flex-row w-full items-start sm:items-center justify-between">
-          <Placeholder className="w-1/4 h-6 sm:w-1/5" />
-          <Placeholder className="w-full h-6 sm:w-1/5" />
+        <Placeholder className="mb-4 h-20 w-full place-self-center sm:h-10 sm:w-2/3" />
+        <Placeholder className="mb-4 w-1/2 place-self-center" />
+        <Placeholder className="h-6 w-full place-self-center sm:w-1/3" />
+        <footer className="flex w-full flex-col items-start justify-between gap-2 sm:flex-row sm:items-center">
+          <Placeholder className="h-6 w-1/4 sm:w-1/5" />
+          <Placeholder className="h-6 w-full sm:w-1/5" />
         </footer>
       </div>
     );
   }
 
   return (
-    <div className="flex last:mb-4 opacity-100 bg-white sm:opacity-70 transition-all hover:opacity-100 font-cmu sm:text-lg flex-col sm:py-6 py-4 sm:px-8 px-4 gap-2 border border-zinc-300 rounded-md text-left">
-      <header className="flex flex-row justify-between items-center w-full gap-2">
+    <div
+      className={cn(
+        "flex flex-col gap-2 rounded-md border border-zinc-300 bg-white px-4 py-4 text-left font-cmu opacity-100 transition-all last:mb-4 hover:opacity-100 sm:px-8 sm:py-6 sm:text-lg sm:opacity-70",
+        "dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:opacity-100",
+      )}
+    >
+      <header className="flex w-full flex-row items-center justify-between gap-2">
         <a
-          className="flex transition-all flex-row items-center gap-1.5 max-sm:underline text-zinc-500 hover:text-arxiv-red hover:underline font-mono"
+          className="dark:hover:text-arxiv-red-light flex flex-row items-center gap-1.5 font-mono text-zinc-500 transition-all hover:text-arxiv-red hover:underline max-sm:underline"
           href={paper.id[0]}
           target="_blank"
           rel="noreferrer"
@@ -80,20 +91,21 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
       </header>
       <button
         className={cn(
-          "relative max-sm:select-none select-text border-b border-b-transparent hover:border-b-zinc-200 transition-all"
+          "relative select-text border-b border-b-transparent transition-all hover:border-b-zinc-200 max-sm:select-none",
+          "dark:hover:border-b-zinc-700",
         )}
         {...bind()}
       >
         <div
           className={cn(
-            "w-0 bg-zinc-400/50 opacity-50 absolute mix-blend-multiply bottom-0 h-[1px] rounded-lg transition-all duration-500",
-            isPressed || showAbstract ? "w-full opacity-100" : "w-0"
+            "absolute bottom-0 h-[1px] w-0 rounded-lg bg-zinc-400/50 opacity-50 transition-all duration-500",
+            isPressed || showAbstract ? "w-full opacity-100" : "w-0",
           )}
         ></div>
         <div
           className={cn(
-            "w-0 bg-zinc-500/50 z-10 opacity-50 absolute mix-blend-multiply bottom-0 h-[1px] rounded-lg transition-all duration-500",
-            isPressed ? "w-full opacity-100" : "w-0"
+            "absolute bottom-0 z-10 h-[1px] w-0 rounded-lg bg-zinc-500/50 opacity-50 transition-all duration-500",
+            isPressed ? "w-full opacity-100" : "w-0",
           )}
         ></div>
         <Title title={paper.title[0]} />
@@ -103,16 +115,16 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
       <>
         <div
           className={cn(
-            "transition-all overflow-clip origin-top",
-            showAbstract ? "scale-y-100 h-full" : "scale-y-0 h-0"
+            "origin-top overflow-clip transition-all",
+            showAbstract ? "h-full scale-y-100" : "h-0 scale-y-0",
           )}
         >
-          <div className="text-zinc-900 select-none font-bold text-center w-full">
+          <div className="w-full select-none text-center font-bold text-zinc-900 dark:text-zinc-50">
             Abstract.
           </div>
           <MarkdownBlock
             className={
-              "text-balance sm:text-justify break-words hyphens-auto place-self-center"
+              "place-self-center hyphens-auto text-balance break-words sm:text-justify"
             }
             text={paper.summary[0]}
           />
@@ -120,10 +132,10 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
 
         <div
           className={cn(
-            "transition-all text-pretty text-zinc-400 font-mono italic text-sm select-none text-center w-full",
+            "w-full select-none text-pretty text-center font-mono text-sm italic text-zinc-400 transition-all",
             !showAbstract
-              ? "scale-100 opacity-100 pb-4"
-              : "scale-0 opacity-0 h-0"
+              ? "scale-100 pb-4 opacity-100"
+              : "h-0 scale-0 opacity-0",
           )}
         >
           <span className="max-sm:hidden">long-press</span>
@@ -132,10 +144,10 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
         </div>
       </>
 
-      <footer className="flex flex-col sm:flex-row w-full items-start sm:items-center justify-between">
+      <footer className="flex w-full flex-col items-start justify-between sm:flex-row sm:items-center">
         <Links links={paper.link} id={paper.id} />
         <div
-          className="flex flex-row gap-1.5 items-center"
+          className="flex flex-row items-center gap-1.5"
           onClick={() => {
             setShowUpdatedOn(!showUpdatedOn);
           }}
@@ -143,12 +155,12 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
           <span className="text-zinc-500">
             <BiTime />
           </span>
-          <span className="text-zinc-500 select-none cursor-pointer">
+          <span className="cursor-pointer select-none text-zinc-500">
             {showUpdatedOn ? "Updated" : "Published"} on:
           </span>{" "}
           <span>
             {moment(
-              new Date(paper[showUpdatedOn ? "updated" : "published"][0])
+              new Date(paper[showUpdatedOn ? "updated" : "published"][0]),
             ).format("MMMM Do, YYYY")}
           </span>
         </div>

@@ -10,7 +10,7 @@ const Links = ({
   id: ArxivEntry["id"];
 }) => {
   return (
-    <section className="flex flex-row gap-2 items-center">
+    <section className="flex flex-row items-center gap-2">
       {/* <span className="w-[1px] bg-zinc-400 select-none h-6 rounded-full"></span> */}
       {links
         .filter((link) => link.$.title)
@@ -18,7 +18,7 @@ const Links = ({
           <a
             key={link.$.href}
             href={link.$.href}
-            className="transition-all flex flex-row gap-1 items-center max-sm:underline text-zinc-500 hover:text-arxiv-red hover:underline"
+            className="dark:hover:text-arxiv-red-light flex flex-row items-center gap-1 text-zinc-500 transition-all hover:text-arxiv-red hover:underline max-sm:underline"
           >
             {link.$.type === "application/pdf" ? <BsFilePdf /> : <BiLink />}
             {link.$.title}

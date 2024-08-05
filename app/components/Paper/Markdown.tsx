@@ -1,4 +1,6 @@
+import { useDarkMode } from "@/app/hooks/useDarkMode";
 import { useQueryState } from "@/app/store/common";
+import { cn } from "@/app/utils/common";
 import { MathJax } from "better-react-mathjax";
 import Keywords from "react-keywords";
 
@@ -10,14 +12,15 @@ const MarkdownBlock = ({
   className?: string;
 }) => {
   const debouncedSearchQuery = useQueryState(
-    (state) => state.debouncedSearchQuery
+    (state) => state.debouncedSearchQuery,
   );
 
+  const { isDarkMode } = useDarkMode();
   return (
     <MathJax>
-      <div className={className}>
+      <div className={cn(className, "transition-colors")}>
         <Keywords
-          color="#b31b1b"
+          color={isDarkMode ? "#b34b4b" : "#b31b1b"}
           backgroundColor=""
           caseIgnored
           value={debouncedSearchQuery}

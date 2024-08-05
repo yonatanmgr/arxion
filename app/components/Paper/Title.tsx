@@ -3,7 +3,7 @@ import MarkdownBlock from "./Markdown";
 const Title = ({ title }: { title: string }) => {
   return (
     <MarkdownBlock
-      className="sm:text-2xl text-xl font-bold w-full text-center text-balance py-2 sm:py-4"
+      className="w-full text-balance py-2 text-center text-xl font-bold sm:py-4 sm:text-2xl"
       text={`${title.replace("\n", " ")}`}
     />
   );

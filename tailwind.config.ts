@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  darkMode: ["class"],
+  darkMode: ["selector", '[data-theme="dark"]'],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -55,6 +55,7 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         "arxiv-red": "#b31b1b",
+        "arxiv-red-light": "#b34b4b",
       },
       // borderRadius: {
       //   lg: `var(--radius)`,

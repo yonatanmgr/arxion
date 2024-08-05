@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { useDebounceValue } from "usehooks-ts";
 import ArxivPaper from "../Paper";
 import { useEffect, useState } from "react";
-import { Combobox } from "../ui/combobox";
+import { Combobox, ComboboxSchema, GroupedCombobox } from "../ui/combobox";
 import { CATEGORIES } from "@/app/categories";
 import { Button } from "../ui/button";
 import { cn } from "@/app/utils/common";
@@ -19,14 +19,14 @@ const PapersSearch = () => {
   const searchQuery = useQueryState((state) => state.searchQuery);
   const setSearchQuery = useQueryState((state) => state.setSearchQuery);
   const setDebouncedSearchQuery = useQueryState(
-    (state) => state.setDebouncedSearchQuery
+    (state) => state.setDebouncedSearchQuery,
   );
 
   const allSubjects = CATEGORIES.map((category) =>
     category.subjects.map((subject) => ({
       ...subject,
       category: category.category,
-    }))
+    })),
   ).flat();
 
   const debouncedSearchQuery = useDebounceValue(searchQuery, 300)[0];
@@ -35,7 +35,7 @@ const PapersSearch = () => {
     setDebouncedSearchQuery(debouncedSearchQuery);
     if (
       !allSubjects.some((subject) =>
-        debouncedSearchQuery.startsWith("cat:" + subject.abbreviation)
+        debouncedSearchQuery.startsWith("cat:" + subject.abbreviation),
       )
     ) {
       setSubject("");
@@ -47,8 +47,10 @@ const PapersSearch = () => {
       if (searchQuery.includes("AND") || !searchQuery.startsWith("cat:")) {
         if (searchQuery.startsWith("cat:")) {
           setSearchQuery(`cat:${subject} AND${searchQuery.split("AND")[1]}`);
-        } else {
+        } else if (searchQuery) {
           setSearchQuery(`cat:${subject} AND ${searchQuery}`);
+        } else {
+          setSearchQuery(`cat:${subject}`);
         }
       } else {
         setSearchQuery(`cat:${subject}`);
@@ -64,7 +66,7 @@ const PapersSearch = () => {
         const xml = await papersApi.fetchArxiv(
           debouncedSearchQuery,
           RESULT_LIMIT,
-          page
+          page,
         );
         return xml;
       }
@@ -75,7 +77,7 @@ const PapersSearch = () => {
       //   keepPreviousData: true,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-    }
+    },
   );
 
   useEffect(() => {
@@ -88,14 +90,27 @@ const PapersSearch = () => {
   //   ? papers?.filter((paper) => paper.category[0].$.term == subject) ?? []
   //   : papers ?? [];
 
+  const groupedSubjects = CATEGORIES.map((category) => ({
+    label: category.category,
+    options: [
+      ...category.subjects.map((subject) => ({
+        value: subject.abbreviation,
+        label: `${subject.abbreviation} (${subject.full_name})`,
+      })),
+    ],
+  }));
+
   return (
-    <div className="flex font-cmu flex-col overflow-y-hidden max-sm:mb-3 max-h-[100dvh] gap-4">
+    <div className="flex max-h-[100dvh] flex-col gap-4 overflow-y-hidden font-cmu max-sm:mb-3">
       <section
-        className={cn("flex flex-col w-full", showFilters ? "gap-2" : "")}
+        className={cn("flex w-full flex-col", showFilters ? "gap-2" : "")}
       >
-        <section className="flex flex-row grow">
+        <section className="flex grow flex-row">
           <input
-            className="p-2 w-full mr-2 border border-zinc-300 font-mono text-lg rounded-lg px-4 placeholder:italic"
+            className={cn(
+              "mr-2 w-full rounded-lg border border-zinc-300 p-2 px-4 font-mono text-lg placeholder:italic",
+              "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-300",
+            )}
             type="text"
             placeholder="Search arXiv papers..."
             autoFocus
@@ -105,13 +120,10 @@ const PapersSearch = () => {
           />
           <div className={cn("max-sm:hidden", showFilters && "mr-2")}>
             {showFilters && (
-              <Combobox
+              <GroupedCombobox
                 value={subject}
                 onChange={(value) => setSubject(value)}
-                schema={allSubjects.map((subject) => ({
-                  value: subject.abbreviation,
-                  label: `${subject.abbreviation} (${subject.category}: ${subject.full_name})`,
-                }))}
+                schema={groupedSubjects}
               />
             )}
           </div>
@@ -119,25 +131,27 @@ const PapersSearch = () => {
             variant={"outline"}
             onClick={() => setShowFilters((prev) => !prev)}
             className={cn(
-              "w-12 h-12 text-base transition-all active:bg-zinc-200 hover:bg-zinc-100 justify-between font-mono border border-zinc-300 rounded-lg px-4",
-              showFilters
-                ? "bg-zinc-900 text-zinc-50 hover:bg-zinc-800 hover:text-zinc-100 active:bg-zinc-700"
-                : ""
+              "h-12 w-12 justify-between rounded-lg border border-zinc-300 px-3.5 font-mono text-base transition-colors hover:bg-zinc-100 active:bg-zinc-200",
+              "dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-700",
+              showFilters &&
+                "bg-zinc-900 text-zinc-50 hover:bg-zinc-800 hover:text-zinc-100 active:bg-zinc-700 dark:bg-zinc-800",
             )}
           >
-            <LucideFilter className="inline-block" />
+            <LucideFilter
+              className={cn(
+                "inline-block text-zinc-800 transition-colors dark:text-zinc-50",
+                showFilters && "text-zinc-50",
+              )}
+            />
           </Button>
         </section>
 
         <div className="sm:hidden">
           {showFilters && (
-            <Combobox
+            <GroupedCombobox
               value={subject}
               onChange={(value) => setSubject(value)}
-              schema={allSubjects.map((subject) => ({
-                value: subject.abbreviation,
-                label: `${subject.abbreviation} (${subject.category}: ${subject.full_name})`,
-              }))}
+              schema={groupedSubjects}
             />
           )}
         </div>
@@ -145,11 +159,11 @@ const PapersSearch = () => {
       <section
         className={cn(
           "flex flex-row justify-between",
-          !debouncedSearchQuery && "justify-center"
+          !debouncedSearchQuery && "justify-center",
         )}
       >
         {!debouncedSearchQuery && !isFetching && (
-          <h2 className="font-mono text-zinc-500 select-none text-center">
+          <h2 className="select-none text-center font-mono text-zinc-500">
             Results will appear here...
           </h2>
         )}
@@ -175,8 +189,8 @@ const PapersSearch = () => {
           )
         )}
         {isFetching && (
-          <h2 className="font-mono text-zinc-500 flex flex-row gap-2 items-center">
-            <CgSpinner className="animate-spin inline-block" />
+          <h2 className="flex flex-row items-center gap-2 font-mono text-zinc-500">
+            <CgSpinner className="inline-block animate-spin" />
             <span>Searching...</span>
           </h2>
         )}
@@ -185,7 +199,7 @@ const PapersSearch = () => {
             <Button
               variant={"outline"}
               onClick={() => setPage((prev) => prev - 1)}
-              className="font-mono h-6"
+              className="h-6 font-mono dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 dark:active:bg-zinc-700"
               disabled={page == 0 || !papers}
             >
               Prev
@@ -193,7 +207,7 @@ const PapersSearch = () => {
             <Button
               variant={"outline"}
               onClick={() => setPage((prev) => prev + 1)}
-              className="font-mono h-6"
+              className="h-6 font-mono dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 dark:active:bg-zinc-700"
               disabled={!papers || papers.length < RESULT_LIMIT}
             >
               Next
@@ -205,7 +219,7 @@ const PapersSearch = () => {
       {isFetching ? (
         <ArxivPaper paper={null} />
       ) : (
-        <section className="flex flex-col gap-4 grow overflow-y-auto snap-y snap-proximity">
+        <section className="flex grow snap-y snap-proximity flex-col gap-4 overflow-y-auto">
           {papers?.map((entry, index) => (
             <ArxivPaper paper={entry} key={index} />
           ))}
