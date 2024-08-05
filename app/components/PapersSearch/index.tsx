@@ -108,8 +108,8 @@ const PapersSearch = () => {
         <section className="flex grow flex-row">
           <input
             className={cn(
-              "mr-2 w-full rounded-lg border border-zinc-300 p-2 px-4 font-mono text-lg placeholder:italic",
-              "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-300",
+              "mr-2 w-full rounded-lg border border-zinc-300 p-2 px-4 font-mono text-lg outline-none transition-colors placeholder:italic focus-within:border-zinc-400",
+              "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-300 dark:focus-within:border-zinc-500",
             )}
             type="text"
             placeholder="Search arXiv papers..."
