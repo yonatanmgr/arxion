@@ -34,11 +34,7 @@ const Home = () => {
           className="absolute bottom-3 right-2 z-50 h-10 w-10 border border-zinc-300 bg-white p-0 transition-colors hover:bg-zinc-100 dark:border-zinc-700/50 dark:bg-zinc-800 dark:hover:bg-zinc-700 sm:top-2"
           onClick={toggle}
         >
-          {isDarkMode ? (
-            <LucideMoon className="h-full text-xl text-zinc-800 dark:text-zinc-50" />
-          ) : (
-            <LucideSun className="h-full text-xl text-zinc-800 dark:text-zinc-50" />
-          )}
+          <LucideSunMoon className="h-full text-xl text-zinc-800 dark:text-zinc-50" />
         </Button>
         <h1
           onClick={() => {
