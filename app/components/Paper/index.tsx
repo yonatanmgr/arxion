@@ -75,7 +75,7 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
     >
       <header className="flex w-full flex-row items-center justify-between gap-2">
         <a
-          className="dark:hover:text-arxiv-red-light flex flex-row items-center gap-1.5 font-mono text-zinc-500 transition-all hover:text-arxiv-red hover:underline max-sm:underline"
+          className="flex flex-row items-center gap-1.5 font-mono text-zinc-500 transition-all hover:text-arxiv-red hover:underline max-sm:underline dark:hover:text-arxiv-red-light"
           href={paper.id[0]}
           target="_blank"
           rel="noreferrer"
@@ -119,12 +119,12 @@ const ArxivPaper = ({ paper }: { paper: ArxivEntry | null }) => {
             showAbstract ? "h-full scale-y-100" : "h-0 scale-y-0",
           )}
         >
-          <div className="w-full select-none text-center font-bold text-zinc-900 dark:text-zinc-50">
+          <div className="w-full select-none text-center font-bold text-zinc-900 transition-colors dark:text-zinc-50">
             Abstract.
           </div>
           <MarkdownBlock
             className={
-              "place-self-center hyphens-auto text-balance break-words sm:text-justify"
+              "place-self-center hyphens-auto text-balance break-words text-zinc-900 sm:text-justify dark:text-zinc-50"
             }
             text={paper.summary[0]}
           />

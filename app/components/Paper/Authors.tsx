@@ -21,7 +21,7 @@ const Authors = ({ authors }: { authors: ArxivEntry["author"] }) => {
           .map((author) => (
             <span
               key={author.name[0]}
-              className="group flex cursor-pointer flex-row items-center gap-1 italic hover:underline"
+              className="group flex cursor-pointer flex-row items-center gap-1 italic transition-colors hover:underline"
               onClick={() => {
                 setSearchQuery(`au:"${author.name[0]}"`);
               }}
