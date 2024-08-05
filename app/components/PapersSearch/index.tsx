@@ -40,7 +40,7 @@ const PapersSearch = () => {
     ) {
       setSubject("");
     }
-  }, [setDebouncedSearchQuery, debouncedSearchQuery]);
+  }, [setDebouncedSearchQuery, debouncedSearchQuery, allSubjects]);
 
   useEffect(() => {
     if (subject) {
