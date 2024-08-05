@@ -30,7 +30,7 @@ export default function RootLayout({
         >
           {children}
           <Analytics />
-          <footer className="absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-500 transition-colors dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 sm:text-sm">
+          <footer className="absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-500 transition-colors dark:border-zinc-700 dark:bg-zinc-800 sm:text-sm">
             Thank you to arXiv for use of its open access interoperability.
           </footer>
         </body>
