@@ -27,7 +27,7 @@ const ResultsHeader = ({
     )}
   >
     {!debouncedSearchQuery && !isFetching && (
-      <h2 className="select-none text-center font-mono text-zinc-500">
+      <h2 className="font-mono text-center select-none text-zinc-500">
         Results will appear here...
       </h2>
     )}
@@ -52,10 +52,7 @@ const ResultsHeader = ({
         )}
       </h2>
     ) : (
-      !isFetching &&
-      debouncedSearchQuery !== "" && (
-        <h2 className="font-mono text-zinc-500">No results found</h2>
-      )
+      !isFetching && debouncedSearchQuery !== "" && <span></span>
     )}
     {isFetching && (
       <h2 className="flex flex-row items-center gap-2 font-mono text-zinc-500">
@@ -64,13 +61,15 @@ const ResultsHeader = ({
       </h2>
     )}
 
-    <Pagination
-      debouncedSearchQuery={debouncedSearchQuery}
-      isFetching={isFetching}
-      papers={papers}
-      page={page}
-      setPage={setPage}
-    />
+    {papers && papers.length > 0 && (
+      <Pagination
+        debouncedSearchQuery={debouncedSearchQuery}
+        isFetching={isFetching}
+        papers={papers}
+        page={page}
+        setPage={setPage}
+      />
+    )}
   </section>
 );
 

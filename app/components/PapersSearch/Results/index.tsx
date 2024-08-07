@@ -15,7 +15,7 @@ const Results = ({ papers }: ResultsProps) => {
   }, [papers]);
 
   return (
-    <section className="flex grow flex-col gap-4 overflow-y-auto">
+    <section className="flex flex-col gap-4 overflow-y-auto grow">
       <AnimatePresence>
         {papers?.map((entry, index) => (
           <ArxivPaper paper={entry} key={index} />
