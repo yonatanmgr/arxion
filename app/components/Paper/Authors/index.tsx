@@ -1,17 +1,13 @@
 import { AUTHOR_LIMIT } from "@/app/constants";
-import { useCurrentQueryState } from "@/app/store/common";
 import { TArxivEntry } from "@/app/types";
 import { cn } from "@/app/utils/common";
+import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
-import Keywords from "react-keywords";
 
 const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
   const [showAll, setShowAll] = useState(false);
-  const setSearchQuery = useCurrentQueryState((state) => state.setSearchQuery);
-  const debouncedSearchQuery = useCurrentQueryState(
-    (state) => state.debouncedSearchQuery,
-  );
+  const [, setSearchQuery] = useQueryState("query");
 
   return (
     <div className="w-full pb-4 text-center">
@@ -21,7 +17,7 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
           .map((author) => (
             <span
               key={author.name[0]}
-              className="group flex cursor-pointer flex-row items-center gap-1 italic transition-colors hover:underline"
+              className="flex flex-row items-center gap-1 italic transition-colors cursor-pointer group hover:underline"
               onClick={() => {
                 setSearchQuery(`au:"${author.name[0]}"`);
               }}
@@ -34,15 +30,8 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
               >
                 <BiLinkExternal className="inline-block" />
               </a>
-              <Keywords
-                color="#b31b1b"
-                backgroundColor=""
-                caseIgnored
-                value={debouncedSearchQuery}
-              >
-                {author.name[0]}
-                {authors.indexOf(author) !== authors.length - 1 ? "," : ""}
-              </Keywords>
+              {author.name[0]}
+              {authors.indexOf(author) !== authors.length - 1 ? "," : ""}
             </span>
           ))}
         {authors.length > AUTHOR_LIMIT && (
