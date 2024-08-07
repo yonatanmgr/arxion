@@ -107,7 +107,7 @@ const PapersSearch = () => {
         papers={papers}
       />
       {!papers && !isFetching && debouncedSearchQuery && (
-        <div className="flex h-[66dvh] items-center justify-center rounded-md max-sm:h-[33dvh]">
+        <div className="flex h-[66dvh] items-center justify-center rounded-md max-sm:h-[24dvh]">
           <p className="font-mono text-xl italic text-center select-none text-balance text-zinc-500/50 dark:text-zinc-400/50">
             No papers matched the query{" "}
             <span className="not-italic">&quot;{searchQuery}&quot;</span>
