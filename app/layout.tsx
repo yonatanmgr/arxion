@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import { useCurrentQueryState } from "./store/common";
 import { TooltipProvider } from "@/app/components/ui/tooltip";
-import { Button } from "./components/ui/button";
-import { LucideSunMoon } from "lucide-react";
-import { useDarkMode } from "usehooks-ts";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { cn } from "./utils/common";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "arXion",
@@ -30,6 +27,7 @@ export default function RootLayout({
         >
           <Suspense>{children}</Suspense>
           <Analytics />
+          <SpeedInsights />
           <footer className="absolute bottom-0 left-0 w-screen py-1 font-mono text-xs text-center transition-colors border-t select-none text-balance border-zinc-300 bg-zinc-100 text-zinc-400 sm:text-sm dark:border-zinc-700 dark:bg-zinc-800">
             Thank you to arXiv for use of its open access interoperability.
           </footer>
