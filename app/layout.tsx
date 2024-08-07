@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import { useQueryState } from "./store/common";
+import { useCurrentQueryState } from "./store/common";
 import { TooltipProvider } from "@/app/components/ui/tooltip";
 import { Button } from "./components/ui/button";
 import { LucideSunMoon } from "lucide-react";

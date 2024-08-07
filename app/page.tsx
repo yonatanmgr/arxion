@@ -1,25 +1,21 @@
 "use client";
 
 import { QueryClientProvider, QueryClient } from "react-query";
-import { useQueryState } from "./store/common";
 import { MathJaxContext } from "better-react-mathjax";
 import { MATHJAX_CONFIG } from "./constants";
 import PapersSearch from "./components/PapersSearch";
-import {
-  LucideLibrary,
-  LucideMoon,
-  LucideSearch,
-  LucideSearchX,
-  LucideSun,
-  LucideSunMoon,
-} from "lucide-react";
+import { LucideLibrary, LucideSunMoon } from "lucide-react";
 import { useEffect } from "react";
 import { useDarkMode } from "@/app/hooks/useDarkMode";
 import { Button } from "./components/ui/button";
+import { useQueryState } from "nuqs";
 
 const queryClient = new QueryClient();
 
 const Home = () => {
+  const [, setSearchQuery] = useQueryState("query");
+  const [, setPage] = useQueryState("page");
+
   const { isDarkMode, toggle } = useDarkMode({
     defaultValue: false,
     localStorageKey: "arxion:darkMode",
@@ -45,7 +41,8 @@ const Home = () => {
         </Button>
         <h1
           onClick={() => {
-            useQueryState.setState({ searchQuery: "" });
+            setSearchQuery(null);
+            setPage(null);
           }}
           className="flex flex-row items-center gap-1 text-4xl font-bold text-center transition-colors cursor-pointer w-fit font-cmu text-zinc-800 hover:text-arxiv-red max-sm:text-2xl dark:text-zinc-50 dark:hover:text-red-500"
         >

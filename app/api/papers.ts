@@ -30,7 +30,7 @@ const fetchArxiv = async (query: string, limit: number, page: number) => {
       max_results: limit,
       sortBy: "relevance",
       sortOrder: "descending",
-      start: page * limit,
+      start: (page > 0 ? page : 1) * limit,
     },
   });
   const xml = await response.data;

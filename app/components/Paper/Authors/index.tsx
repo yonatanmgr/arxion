@@ -1,5 +1,5 @@
 import { AUTHOR_LIMIT } from "@/app/constants";
-import { useQueryState } from "@/app/store/common";
+import { useCurrentQueryState } from "@/app/store/common";
 import { TArxivEntry } from "@/app/types";
 import { cn } from "@/app/utils/common";
 import { useState } from "react";
@@ -8,8 +8,8 @@ import Keywords from "react-keywords";
 
 const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
   const [showAll, setShowAll] = useState(false);
-  const setSearchQuery = useQueryState((state) => state.setSearchQuery);
-  const debouncedSearchQuery = useQueryState(
+  const setSearchQuery = useCurrentQueryState((state) => state.setSearchQuery);
+  const debouncedSearchQuery = useCurrentQueryState(
     (state) => state.debouncedSearchQuery,
   );
 

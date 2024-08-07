@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useDebounceValue } from "usehooks-ts";
 
 import papersApi from "@/app/api/papers";
-import { useQueryState } from "@/app/store/common";
+import { useCurrentQueryState } from "@/app/store/common";
 import { CATEGORIES } from "@/app/categories";
 import { RESULT_LIMIT } from "@/app/constants";
 
@@ -13,15 +13,16 @@ import Filters from "./Filters";
 import ResultsHeader from "./ResultsHeader";
 import Results from "./Results";
 import { flattenCategories, buildGroupedSubjects } from "@/app/utils/common";
+import { parseAsInteger, useQueryState } from "nuqs";
 
 const PapersSearch = () => {
   const [subject, setSubject] = useState("");
   const [showFilters, setShowFilters] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page] = useQueryState("page", parseAsInteger);
+  const safePage = page !== null ? page : 1;
 
-  const searchQuery = useQueryState((state) => state.searchQuery);
-  const setSearchQuery = useQueryState((state) => state.setSearchQuery);
-  const setDebouncedSearchQuery = useQueryState(
+  const [searchQuery, setSearchQuery] = useQueryState("query");
+  const setDebouncedSearchQuery = useCurrentQueryState(
     (state) => state.setDebouncedSearchQuery,
   );
 
@@ -34,7 +35,7 @@ const PapersSearch = () => {
     setDebouncedSearchQuery(debouncedSearchQuery);
     if (
       !allSubjects.some((subject) =>
-        debouncedSearchQuery.startsWith(`cat:${subject.abbreviation}`),
+        debouncedSearchQuery?.startsWith(`cat:${subject.abbreviation}`),
       )
     ) {
       setSubject("");
@@ -45,8 +46,8 @@ const PapersSearch = () => {
     if (!subject) return;
 
     let newQuery = `cat:${subject}`;
-    if (searchQuery.includes("AND") || !searchQuery.startsWith("cat:")) {
-      newQuery = searchQuery.startsWith("cat:")
+    if (searchQuery?.includes("AND") || !searchQuery?.startsWith("cat:")) {
+      newQuery = searchQuery?.startsWith("cat:")
         ? `cat:${subject} AND${searchQuery.split("AND")[1]}`
         : `cat:${subject} AND ${searchQuery}`;
     }
@@ -55,13 +56,13 @@ const PapersSearch = () => {
   }, [subject, searchQuery, setSearchQuery]);
 
   const { data: papers, isFetching } = useQuery(
-    ["arxiv", debouncedSearchQuery, page],
+    ["arxiv", debouncedSearchQuery, safePage],
     async () => {
-      if (debouncedSearchQuery) {
+      if (debouncedSearchQuery && safePage) {
         return await papersApi.fetchArxiv(
           debouncedSearchQuery,
           RESULT_LIMIT,
-          page,
+          safePage - 1,
         );
       }
     },
@@ -72,12 +73,6 @@ const PapersSearch = () => {
       refetchOnWindowFocus: false,
     },
   );
-
-  useEffect(() => {
-    if (debouncedSearchQuery) {
-      setPage(0);
-    }
-  }, [debouncedSearchQuery]);
 
   return (
     <div className="flex max-h-[100dvh] flex-col gap-4 overflow-y-hidden font-cmu max-sm:mb-3">
@@ -95,12 +90,10 @@ const PapersSearch = () => {
         debouncedSearchQuery={debouncedSearchQuery}
         isFetching={isFetching}
         papers={papers}
-        page={page}
-        setPage={setPage}
       />
-      {!papers && !isFetching && debouncedSearchQuery !== "" && (
+      {!papers && !isFetching && debouncedSearchQuery && (
         <div className="flex h-[66dvh] items-center justify-center rounded-md max-sm:h-[90dvh]">
-          <p className="font-mono text-xl italic text-center select-none text-balance text-zinc-500/50 dark:text-zinc-400/50">
+          <p className="select-none text-balance text-center font-mono text-xl italic text-zinc-500/50 dark:text-zinc-400/50">
             No papers matched the query{" "}
             <span className="not-italic">&quot;{searchQuery}&quot;</span>
           </p>

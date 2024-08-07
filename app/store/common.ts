@@ -1,16 +1,12 @@
 import { create } from "zustand";
 
 interface SQueryState {
-  searchQuery: string;
-  debouncedSearchQuery: string;
-  setSearchQuery: (query: string) => void;
-  setDebouncedSearchQuery: (query: string) => void;
+  debouncedSearchQuery: string | null;
+  setDebouncedSearchQuery: (query: string | null) => void;
 }
 
-export const useQueryState = create<SQueryState>((set) => ({
-  searchQuery: "",
+export const useCurrentQueryState = create<SQueryState>((set) => ({
   debouncedSearchQuery: "",
-  setSearchQuery: (query: string) => set({ searchQuery: query }),
-  setDebouncedSearchQuery: (query: string) =>
+  setDebouncedSearchQuery: (query: string | null) =>
     set({ debouncedSearchQuery: query }),
 }));
