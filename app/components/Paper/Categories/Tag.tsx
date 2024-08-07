@@ -19,7 +19,7 @@ interface TagProps {
 const Tag = ({ subject, className }: TagProps) => {
   const [isPressed, setIsPressed] = useState(false);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-  const isSmallViewport = useMediaQuery("(max-width: 500px)");
+  const isSmallViewport = useMediaQuery("(max-width: 639px)");
 
   const handleLongPress = () => {
     setIsTooltipOpen(true);
@@ -69,7 +69,7 @@ const Tag = ({ subject, className }: TagProps) => {
         <TooltipContent className="border-zinc-400 bg-zinc-900 text-zinc-50">
           <div className="flex max-h-[200px] max-w-96 flex-col gap-2 overflow-y-auto text-base max-sm:max-w-[calc(100dvw-50px)]">
             <a
-              className="italic text-zinc-50 underline"
+              className="italic underline text-zinc-50"
               href={`https://arxiv.org/list/${subject}/recent`}
               target="_blank"
               rel="noreferrer"

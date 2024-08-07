@@ -9,12 +9,14 @@ import { useEffect } from "react";
 import { useDarkMode } from "@/app/hooks/useDarkMode";
 import { Button } from "./components/ui/button";
 import { useQueryState } from "nuqs";
+import { useMediaQuery } from "usehooks-ts";
 
 const queryClient = new QueryClient();
 
 const Home = () => {
   const [, setSearchQuery] = useQueryState("query");
   const [, setPage] = useQueryState("page");
+  const isSmallViewport = useMediaQuery("(max-width: 639px)");
 
   const { isDarkMode, toggle } = useDarkMode({
     defaultValue: false,
@@ -47,7 +49,7 @@ const Home = () => {
           className="flex flex-row items-center gap-1 text-4xl font-bold text-center transition-colors cursor-pointer w-fit font-cmu text-zinc-800 hover:text-arxiv-red max-sm:text-2xl dark:text-zinc-50 dark:hover:text-red-500"
         >
           arXion
-          <LucideLibrary size={32} />
+          <LucideLibrary size={isSmallViewport ? 20 : 32} />
         </h1>
         <h2 className="font-mono text-center text-zinc-500 max-sm:text-sm sm:mb-4">
           a simple arXiv explorer
