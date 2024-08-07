@@ -42,23 +42,38 @@ const PapersSearch = () => {
     }
   }, [debouncedSearchQuery, allSubjects, setDebouncedSearchQuery]);
 
+  // when we choose a subject, prefix the search query with the subject abbreviation
   useEffect(() => {
-    if (!subject) return;
-
-    let newQuery = `cat:${subject}`;
-    if (searchQuery?.includes("AND") || !searchQuery?.startsWith("cat:")) {
-      newQuery = searchQuery?.startsWith("cat:")
-        ? `cat:${subject} AND${searchQuery.split("AND")[1]}`
-        : `cat:${subject} AND ${searchQuery}`;
+    if (subject) {
+      // if the query is empty, just set the subject
+      if (!debouncedSearchQuery) {
+        setSearchQuery(`cat:${subject}`);
+      } else {
+        // if the query is not empty, add the subject to the query
+        if (searchQuery?.startsWith(`cat:`)) {
+          // split the query by AND and replace the first part with a new subject
+          const [, ...rest] = debouncedSearchQuery.split("AND");
+          if (rest.length === 0) {
+            setSearchQuery(`cat:${subject}`);
+          } else setSearchQuery(`cat:${subject} AND${rest.join("AND")}`);
+        } else {
+          setSearchQuery(`cat:${subject} AND ${debouncedSearchQuery}`);
+        }
+      }
     }
-
-    setSearchQuery(newQuery);
-  }, [subject, searchQuery, setSearchQuery]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subject, setSearchQuery]);
 
   const { data: papers, isFetching } = useQuery(
     ["arxiv", debouncedSearchQuery, safePage],
     async () => {
-      if (debouncedSearchQuery && safePage) {
+      if (
+        debouncedSearchQuery &&
+        ["AND", "OR", "NOT"].every(
+          (operator) => !debouncedSearchQuery.endsWith(operator),
+        ) &&
+        safePage
+      ) {
         return await papersApi.fetchArxiv(
           debouncedSearchQuery,
           RESULT_LIMIT,
