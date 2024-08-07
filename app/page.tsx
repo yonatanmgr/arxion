@@ -31,7 +31,7 @@ const Home = () => {
       <header className="flex select-none flex-col items-center justify-center gap-2 max-sm:mb-2 max-sm:flex max-sm:flex-row max-sm:items-baseline max-sm:justify-between">
         <Button
           variant="secondary"
-          className="absolute bottom-3 right-2 z-50 h-10 w-10 border border-zinc-300 bg-white p-0 transition-colors hover:bg-zinc-100 dark:border-zinc-700/50 dark:bg-zinc-800 dark:hover:bg-zinc-700 sm:top-2"
+          className="absolute bottom-3 right-2 z-50 h-10 w-10 border border-zinc-300 bg-white p-0 transition-colors hover:bg-zinc-100 sm:top-2 dark:border-zinc-700/50 dark:bg-zinc-800 dark:hover:bg-zinc-700"
           onClick={toggle}
         >
           <LucideSunMoon className="h-full text-xl text-zinc-800 dark:text-zinc-50" />
@@ -40,7 +40,7 @@ const Home = () => {
           onClick={() => {
             useQueryState.setState({ searchQuery: "" });
           }}
-          className="w-fit cursor-pointer text-center font-cmu text-4xl font-bold text-zinc-800 transition-colors hover:text-arxiv-red dark:text-zinc-50 dark:hover:text-red-500 max-sm:text-2xl"
+          className="w-fit cursor-pointer text-center font-cmu text-4xl font-bold text-zinc-800 transition-colors hover:text-arxiv-red max-sm:text-2xl dark:text-zinc-50 dark:hover:text-red-500"
         >
           arXion
         </h1>

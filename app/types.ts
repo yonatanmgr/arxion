@@ -1,4 +1,4 @@
-export type ArxivEntry = {
+export type TArxivEntry = {
   id: string[];
   updated: string[];
   published: string[];
@@ -36,13 +36,15 @@ export type ArxivEntry = {
   }[];
 };
 
-export type Subject = {
+export type TSubject = {
   abbreviation: string;
   full_name: string;
   description: string;
 };
 
-export type Category = {
+export type TCategory = {
   category: string;
-  subjects: Subject[];
+  subjects: TSubject[];
 };
+
+export type TSubjectWithCategory = TSubject & { category: string };

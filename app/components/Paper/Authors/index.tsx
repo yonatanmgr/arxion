@@ -1,12 +1,12 @@
 import { AUTHOR_LIMIT } from "@/app/constants";
 import { useQueryState } from "@/app/store/common";
-import { ArxivEntry } from "@/app/types";
+import { TArxivEntry } from "@/app/types";
 import { cn } from "@/app/utils/common";
 import { useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 import Keywords from "react-keywords";
 
-const Authors = ({ authors }: { authors: ArxivEntry["author"] }) => {
+const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
   const [showAll, setShowAll] = useState(false);
   const setSearchQuery = useQueryState((state) => state.setSearchQuery);
   const debouncedSearchQuery = useQueryState(

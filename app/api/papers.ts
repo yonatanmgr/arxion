@@ -1,4 +1,4 @@
-import { ArxivEntry } from "../types";
+import { TArxivEntry } from "../types";
 import { client } from "./client";
 import { parseString } from "xml2js";
 // import search from "arXiv-api-ts";
@@ -51,7 +51,7 @@ const fetchArxiv = async (query: string, limit: number, page: number) => {
   //   sortOrder: "descending",
   // });
 
-  return new Promise<ArxivEntry[]>((resolve, reject) => {
+  return new Promise<TArxivEntry[]>((resolve, reject) => {
     parseString(xml, (err, result) => {
       if (err) {
         reject(err);
