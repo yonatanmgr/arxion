@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/app/components/ui/tooltip";
 import { Button } from "./components/ui/button";
 import { LucideSunMoon } from "lucide-react";
 import { useDarkMode } from "usehooks-ts";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { cn } from "./utils/common";
 
 export const metadata: Metadata = {
@@ -28,9 +28,9 @@ export default function RootLayout({
             "bg-zinc-50 text-zinc-950 transition-colors dark:bg-zinc-950 dark:text-zinc-50",
           )}
         >
-          {children}
+          <Suspense>{children}</Suspense>
           <Analytics />
-          <footer className="absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-400 transition-colors sm:text-sm dark:border-zinc-700 dark:bg-zinc-800">
+          <footer className="absolute bottom-0 left-0 w-screen py-1 font-mono text-xs text-center transition-colors border-t select-none text-balance border-zinc-300 bg-zinc-100 text-zinc-400 sm:text-sm dark:border-zinc-700 dark:bg-zinc-800">
             Thank you to arXiv for use of its open access interoperability.
           </footer>
         </body>
