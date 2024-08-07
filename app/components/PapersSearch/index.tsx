@@ -64,7 +64,7 @@ const PapersSearch = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subject, setSearchQuery]);
 
-  const { data: papers, isFetching } = useQuery(
+  const { data, isFetching } = useQuery(
     ["arxiv", debouncedSearchQuery, safePage],
     async () => {
       if (
@@ -104,17 +104,26 @@ const PapersSearch = () => {
       <ResultsHeader
         debouncedSearchQuery={debouncedSearchQuery}
         isFetching={isFetching}
-        papers={papers}
+        papers={data?.papers}
+        totalResults={data?.totalResults ?? 0}
       />
-      {!papers && !isFetching && debouncedSearchQuery && (
-        <div className="flex h-[66dvh] items-center justify-center rounded-md max-sm:h-[16dvh]">
-          <p className="font-mono text-xl italic text-center select-none text-balance text-zinc-500/50 dark:text-zinc-400/50">
-            No papers matched the query{" "}
-            <span className="not-italic">&quot;{searchQuery}&quot;</span>
-          </p>
-        </div>
+      {!data?.papers &&
+        (data?.totalResults == 0 ||
+          data?.totalResults !== (data?.papers ?? []).length) &&
+        !isFetching &&
+        debouncedSearchQuery && (
+          <div className="flex h-[66dvh] items-center justify-center rounded-md max-sm:h-[16dvh]">
+            <p className="select-none text-balance text-center font-mono text-xl italic text-zinc-500/50 dark:text-zinc-400/50">
+              No papers matched the query{" "}
+              <span className="not-italic">&quot;{searchQuery}&quot;</span>
+            </p>
+          </div>
+        )}
+      {isFetching ? (
+        <ArxivPaper paper={null} />
+      ) : (
+        <Results papers={data?.papers} />
       )}
-      {isFetching ? <ArxivPaper paper={null} /> : <Results papers={papers} />}
     </div>
   );
 };

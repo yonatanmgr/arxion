@@ -30,7 +30,7 @@ const Links = ({ links }: LinksProps) => {
           key={link.$.href}
           href={link.$.href}
           rel="noopener noreferrer"
-          className="flex flex-row items-center gap-1 text-zinc-500 transition-all hover:text-arxiv-red hover:underline max-sm:underline dark:hover:text-arxiv-red-light"
+          className="flex select-none flex-row items-center gap-1 text-zinc-500 transition-all hover:text-arxiv-red hover:underline max-sm:underline dark:hover:text-arxiv-red-light"
         >
           {getIconByType(link.$.type)}
           {link.$.title}

@@ -10,18 +10,20 @@ interface ResultsHeaderProps {
   debouncedSearchQuery: string | null;
   isFetching: boolean;
   papers: TArxivEntry[] | undefined;
+  totalResults: number;
 }
 
 const ResultsHeader = ({
   debouncedSearchQuery,
   isFetching,
   papers,
+  totalResults,
 }: ResultsHeaderProps) => {
   const [page] = useQueryState("page", parseAsInteger);
 
   const safePage = page !== null ? page - 1 : 0;
   const showPagination = Boolean(
-    debouncedSearchQuery && papers && papers.length > 0,
+    isFetching || (debouncedSearchQuery && papers && papers.length > 0),
   );
 
   return (
@@ -32,7 +34,7 @@ const ResultsHeader = ({
       )}
     >
       {!debouncedSearchQuery && !isFetching && (
-        <h2 className="font-mono text-center select-none text-zinc-500">
+        <h2 className="select-none text-center font-mono text-zinc-500">
           Results will appear here...
         </h2>
       )}
@@ -46,13 +48,12 @@ const ResultsHeader = ({
             )
           ) : papers?.length < RESULT_LIMIT ? (
             <span>
-              Showing results {safePage * RESULT_LIMIT + 1}-
-              {safePage * RESULT_LIMIT + papers?.length}
+              Results {safePage * RESULT_LIMIT + 1}-{totalResults}
             </span>
           ) : (
             <span>
-              Showing results {safePage * RESULT_LIMIT + 1}-
-              {(safePage + 1) * papers.length}
+              Results {safePage * RESULT_LIMIT + 1}-
+              {(safePage + 1) * papers.length} of {totalResults}
             </span>
           )}
         </h2>

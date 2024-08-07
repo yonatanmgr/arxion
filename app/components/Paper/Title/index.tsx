@@ -2,6 +2,7 @@ import { cn } from "@/app/utils/common";
 import WithMathJax from "../../common/WithMathJax";
 import { useCallback, useState } from "react";
 import { useLongPress } from "use-long-press";
+import { convertLatexToUnicode } from "@/app/utils/text";
 
 interface TitleProps {
   title: string;
@@ -50,8 +51,9 @@ const Title = ({ title, showAbstract, setShowAbstract }: TitleProps) => {
           "w-full text-balance py-2 text-center text-xl font-bold sm:py-4 sm:text-2xl",
           isPressed && !showAbstract && "animate-pulse",
         )}
-        text={`${title.replace("\n", " ")}`}
-      />
+      >
+        {`${title.replace("\n", " ")}`}
+      </WithMathJax>
     </button>
   );
 };

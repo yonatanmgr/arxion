@@ -21,14 +21,14 @@ export default function RootLayout({
       <TooltipProvider>
         <body
           className={cn(
-            "max-xs:px-8 relative flex h-[100dvh] flex-col overflow-hidden px-4 pb-[30px] pt-4 selection:bg-arxiv-red/10 sm:pt-16 lg:px-32 xl:px-64",
+            "max-xs:px-8 relative flex h-[100dvh] flex-col overflow-hidden px-4 pb-[30px] pt-4 selection:bg-arxiv-red/10 sm:pt-16 lg:px-32 xl:px-64 dark:selection:bg-arxiv-red-light/20",
             "bg-zinc-50 text-zinc-950 transition-colors dark:bg-zinc-950 dark:text-zinc-50",
           )}
         >
           <Suspense>{children}</Suspense>
           <Analytics />
           <SpeedInsights />
-          <footer className="absolute bottom-0 left-0 w-screen py-1 font-mono text-xs text-center transition-colors border-t select-none text-balance border-zinc-300 bg-zinc-100 text-zinc-400 sm:text-sm dark:border-zinc-700 dark:bg-zinc-800">
+          <footer className="absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-400 transition-colors sm:text-sm dark:border-zinc-700 dark:bg-zinc-800">
             Thank you to arXiv for use of its open access interoperability.
           </footer>
         </body>

@@ -17,7 +17,7 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
           .map((author) => (
             <span
               key={author.name[0]}
-              className="flex flex-row items-center gap-1 italic transition-colors cursor-pointer group hover:underline"
+              className="group flex cursor-pointer flex-row items-center gap-1 italic transition-colors hover:underline"
               onClick={() => {
                 setSearchQuery(`au:"${author.name[0]}"`);
               }}
@@ -37,7 +37,7 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
         {authors.length > AUTHOR_LIMIT && (
           <button
             className={cn(
-              "ml-1.5 rounded-md border border-zinc-200 bg-zinc-100 px-2 font-mono text-sm font-bold",
+              "ml-1.5 select-none rounded-md border border-zinc-200 bg-zinc-100 px-2 font-mono text-sm font-bold",
               "transition-colors dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50",
             )}
             onClick={() => setShowAll(!showAll)}

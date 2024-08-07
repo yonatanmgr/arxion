@@ -39,7 +39,7 @@ const Pagination = ({
           variant={"outline"}
           onClick={() => handlePagination("next")}
           className="h-6 w-12 px-3.5 font-mono dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 dark:active:bg-zinc-700"
-          disabled={!papers || papers.length < RESULT_LIMIT || isFetching}
+          disabled={!papers || papers.length <= RESULT_LIMIT || isFetching}
         >
           <LucideArrowRight className="inline" />
         </Button>
