@@ -20,6 +20,9 @@ const ResultsHeader = ({
   const [page] = useQueryState("page", parseAsInteger);
 
   const safePage = page !== null ? page - 1 : 0;
+  const showPagination = Boolean(
+    debouncedSearchQuery && papers && papers.length > 0,
+  );
 
   return (
     <section
@@ -63,7 +66,7 @@ const ResultsHeader = ({
         </h2>
       )}
 
-      {papers && papers.length > 0 && (
+      {showPagination && (
         <Pagination
           debouncedSearchQuery={debouncedSearchQuery}
           isFetching={isFetching}
