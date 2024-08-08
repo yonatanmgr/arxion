@@ -45,7 +45,11 @@ const ArxivPaper = ({ paper }: ArxivPaperProps) => {
         setShowAbstract={setShowAbstract}
       />
       <Authors authors={paper.author} />
-      <Abstract abstract={paper.summary[0]} showAbstract={showAbstract} />
+      <Abstract
+        paperId={paper.id[0]}
+        abstract={paper.summary[0]}
+        showAbstract={showAbstract}
+      />
 
       <footer className="flex w-full flex-col items-start justify-between sm:flex-row sm:items-center">
         <Links links={paper.link} />
