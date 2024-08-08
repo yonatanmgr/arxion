@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
-import { useDebounceValue } from "usehooks-ts";
 
 import papersApi from "@/app/api/papers";
 import { useCurrentQueryState } from "@/app/store/common";
@@ -29,35 +28,47 @@ const PapersSearch = () => {
   const allSubjects = useMemo(() => flattenCategories(CATEGORIES), []);
   const groupedSubjects = useMemo(() => buildGroupedSubjects(CATEGORIES), []);
 
-  const debouncedSearchQuery = useDebounceValue(searchQuery, 300)[0];
+  const fetchArxiv = async (
+    query: string | null,
+    limit: number,
+    page: number,
+  ) => {
+    if (
+      query &&
+      ["AND", "OR", "NOT"].every((operator) => !query.endsWith(operator)) &&
+      page
+    ) {
+      return await papersApi.fetchArxiv(query, limit, page - 1);
+    }
+  };
 
   useEffect(() => {
-    setDebouncedSearchQuery(debouncedSearchQuery);
+    setDebouncedSearchQuery(searchQuery);
     if (
       !allSubjects.some((subject) =>
-        debouncedSearchQuery?.startsWith(`cat:${subject.abbreviation}`),
+        searchQuery?.startsWith(`cat:${subject.abbreviation}`),
       )
     ) {
       setSubject("");
     }
-  }, [debouncedSearchQuery, allSubjects, setDebouncedSearchQuery]);
+  }, [searchQuery, allSubjects, setDebouncedSearchQuery]);
 
   // when we choose a subject, prefix the search query with the subject abbreviation
   useEffect(() => {
     if (subject) {
       // if the query is empty, just set the subject
-      if (!debouncedSearchQuery) {
+      if (!searchQuery) {
         setSearchQuery(`cat:${subject}`);
       } else {
         // if the query is not empty, add the subject to the query
         if (searchQuery?.startsWith(`cat:`)) {
           // split the query by AND and replace the first part with a new subject
-          const [, ...rest] = debouncedSearchQuery.split("AND");
+          const [, ...rest] = searchQuery.split("AND");
           if (rest.length === 0) {
             setSearchQuery(`cat:${subject}`);
           } else setSearchQuery(`cat:${subject} AND${rest.join("AND")}`);
         } else {
-          setSearchQuery(`cat:${subject} AND ${debouncedSearchQuery}`);
+          setSearchQuery(`cat:${subject} AND ${searchQuery}`);
         }
       }
     }
@@ -65,24 +76,10 @@ const PapersSearch = () => {
   }, [subject, setSearchQuery]);
 
   const { data, isFetching } = useQuery(
-    ["arxiv", debouncedSearchQuery, safePage],
-    async () => {
-      if (
-        debouncedSearchQuery &&
-        ["AND", "OR", "NOT"].every(
-          (operator) => !debouncedSearchQuery.endsWith(operator),
-        ) &&
-        safePage
-      ) {
-        return await papersApi.fetchArxiv(
-          debouncedSearchQuery,
-          RESULT_LIMIT,
-          safePage - 1,
-        );
-      }
-    },
+    ["arxiv", searchQuery, safePage],
+    () => fetchArxiv(searchQuery, RESULT_LIMIT, safePage),
     {
-      enabled: !!debouncedSearchQuery,
+      enabled: !!searchQuery,
       retry: 0,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
@@ -99,10 +96,11 @@ const PapersSearch = () => {
         subject={subject}
         setSubject={setSubject}
         groupedSubjects={groupedSubjects}
+        isFetching={isFetching}
       />
 
       <ResultsHeader
-        debouncedSearchQuery={debouncedSearchQuery}
+        debouncedSearchQuery={searchQuery}
         isFetching={isFetching}
         papers={data?.papers}
         totalResults={data?.totalResults ?? 0}
@@ -111,7 +109,7 @@ const PapersSearch = () => {
         (data?.totalResults == 0 ||
           data?.totalResults !== (data?.papers ?? []).length) &&
         !isFetching &&
-        debouncedSearchQuery && (
+        searchQuery && (
           <div className="flex h-[66dvh] items-center justify-center rounded-md max-sm:h-[16dvh]">
             <p className="select-none text-balance text-center font-mono text-xl italic text-zinc-500/50 dark:text-zinc-400/50">
               No papers matched the query{" "}

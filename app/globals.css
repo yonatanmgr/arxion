@@ -103,3 +103,6 @@
 .katex { font-size: 1.05em !important; }
 
 
+input[type = 'search']::-webkit-search-cancel-button{
+  display: none;
+}

@@ -72,6 +72,7 @@ const ResultsHeader = ({
           debouncedSearchQuery={debouncedSearchQuery}
           isFetching={isFetching}
           papers={papers}
+          totalResults={totalResults}
         />
       )}
     </section>
