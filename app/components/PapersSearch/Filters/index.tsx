@@ -98,7 +98,12 @@ const Filters = ({
         </div>
         <Button
           variant={"outline"}
-          onClick={() => setShowFilters(!showFilters)}
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowFilters(!showFilters);
+            e.stopPropagation();
+          }}
           className={cn(
             "h-12 w-12 justify-between rounded-lg border border-zinc-300 px-3.5 font-mono text-base transition-colors hover:bg-zinc-100 active:bg-zinc-200",
             "dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-700",
