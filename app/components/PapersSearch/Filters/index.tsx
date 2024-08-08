@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GroupedCombobox } from "../../ui/combobox";
 import { Button } from "../../ui/button";
 import { LucideFilter, LucideSearch } from "lucide-react";
@@ -36,6 +36,10 @@ const Filters = ({
   const [, setPage] = useQueryState("page", parseAsInteger);
   const isSmallViewport = useMediaQuery("(max-width: 639px)");
   const [localQuery, setLocalQuery] = React.useState(searchQuery);
+
+  useEffect(() => {
+    setLocalQuery(searchQuery);
+  }, [searchQuery]);
 
   const handleSearch = (
     e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLInputElement>,
