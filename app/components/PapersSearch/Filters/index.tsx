@@ -64,7 +64,7 @@ const Filters = ({
           )}
           type="search"
           placeholder={
-            isSmallViewport ? "Search arXiv..." : "Search arXiv papers..."
+            isSmallViewport ? "Search papers..." : "Search arXiv papers..."
           }
           autoFocus={!localQuery}
           autoComplete="off"
