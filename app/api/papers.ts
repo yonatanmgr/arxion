@@ -24,6 +24,7 @@ const fields = ["ti", "au", "abs", "co", "jr", "cat", "rn", "id"];
  *
  * @param query - The search query for Arxiv entries.
  * @param limit - The maximum number of results to fetch.
+ * @param page - The page number to fetch.
  * @returns A promise that resolves to an array of ArxivEntry objects.
  */
 const fetchArxiv = async (query: string, limit: number, page: number) => {
