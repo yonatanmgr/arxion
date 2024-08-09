@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   title: "arXion",
   description: "A simple arXiv explorer",
   applicationName: "arXion",
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   openGraph: {
     type: "website",
