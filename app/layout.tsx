@@ -8,7 +8,26 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "arXion",
-  description: "A simple arXiv search engine",
+  description: "A simple arXiv explorer",
+  applicationName: "arXion",
+  viewport: "width=device-width, initial-scale=1",
+  robots: "index, follow",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://arxion.vercel.app/",
+    siteName: "arXion",
+    title: "arXion",
+    description: "A simple arXiv explorer",
+    images: [
+      {
+        url: "https://github.com/user-attachments/assets/0febb239-f635-4b31-93ee-eb02a2b9c3bb",
+        width: 800,
+        height: 600,
+        alt: "arXion",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
