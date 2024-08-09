@@ -32,6 +32,7 @@ const Pagination = ({
     return (
       <div className="flex flex-row gap-2">
         <Button
+          aria-label="Previous page"
           variant={"outline"}
           onClick={() => handlePagination("prev")}
           className="h-6 w-12 px-3.5 font-mono dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 dark:active:bg-zinc-700"
@@ -40,6 +41,7 @@ const Pagination = ({
           <LucideArrowLeft className="inline" />
         </Button>
         <Button
+          aria-label="Next page"
           variant={"outline"}
           onClick={() => handlePagination("next")}
           className="h-6 w-12 px-3.5 font-mono dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-700/50 dark:hover:text-zinc-50 dark:active:bg-zinc-700"

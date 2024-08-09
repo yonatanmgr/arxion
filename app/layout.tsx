@@ -5,6 +5,59 @@ import { TooltipProvider } from "@/app/components/ui/tooltip";
 import { Suspense } from "react";
 import { cn } from "./utils/common";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import localFont from "next/font/local";
+
+const computerModern = localFont({
+  src: [
+    {
+      path: "./fonts/cmunrm.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/cmunti.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/cmunbx.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/cmunbi.woff2",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-computer-modern",
+});
+
+const computerTypewriter = localFont({
+  src: [
+    {
+      path: "./fonts/cmuntt.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/cmunit.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "./fonts/cmuntb.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/cmuntx.woff2",
+      weight: "700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-computer-typewriter",
+});
 
 export const metadata: Metadata = {
   title: "arXion",
@@ -36,7 +89,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${computerModern.variable} ${computerTypewriter.variable}`}
+    >
       <TooltipProvider>
         <body
           className={cn(
@@ -47,7 +103,7 @@ export default function RootLayout({
           <Suspense>{children}</Suspense>
           <Analytics />
           <SpeedInsights />
-          <footer className="absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-400 transition-colors sm:text-sm dark:border-zinc-700 dark:bg-zinc-800">
+          <footer className="absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-500 transition-colors sm:text-sm dark:border-zinc-700 dark:bg-zinc-800">
             Thank you to arXiv for use of its open access interoperability.
           </footer>
         </body>

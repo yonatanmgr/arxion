@@ -87,7 +87,7 @@ const PapersSearch = () => {
   );
 
   return (
-    <div className="flex max-h-[100dvh] flex-col gap-4 overflow-y-hidden font-cmu max-sm:mb-3">
+    <div className="font-serif flex max-h-[100dvh] flex-col gap-4 overflow-y-hidden max-sm:mb-3">
       <Filters
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}

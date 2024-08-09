@@ -75,6 +75,8 @@ const Filters = ({
           onSubmit={handleSearch}
         />
         <Button
+          aria-label="Search"
+          name="search-button"
           type="submit"
           variant={"outline"}
           onClick={handleSearch}
@@ -97,6 +99,8 @@ const Filters = ({
           )}
         </div>
         <Button
+          aria-label="Toggle filters"
+          name="filter-toggle"
           variant={"outline"}
           type="button"
           onClick={(e) => {
