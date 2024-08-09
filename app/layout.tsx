@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { cn } from "./utils/common";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
+import { VercelToolbar } from "@vercel/toolbar/next";
 
 const computerModern = localFont({
   src: [
@@ -88,6 +89,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const shouldInjectToolbar = process.env.NODE_ENV === "development";
+
   return (
     <html
       lang="en"
@@ -101,9 +104,13 @@ export default function RootLayout({
           )}
         >
           <Suspense>{children}</Suspense>
+          {shouldInjectToolbar && <VercelToolbar />}
           <Analytics />
           <SpeedInsights />
-          <footer className="absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-500 transition-colors sm:text-sm dark:border-zinc-700 dark:bg-zinc-800">
+          <footer
+            role="contentinfo"
+            className="absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-500 transition-colors sm:text-sm dark:border-zinc-700 dark:bg-zinc-800"
+          >
             Thank you to arXiv for use of its open access interoperability.
           </footer>
         </body>

@@ -1,4 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+const withVercelToolbar = (
+    await import('@vercel/toolbar/plugins/next')
+).default();
 
-export default nextConfig;
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+};
+
+const withToolbarConfig = withVercelToolbar(nextConfig);
+
+export default withToolbarConfig;

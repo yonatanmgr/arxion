@@ -34,7 +34,7 @@ const ResultsHeader = ({
       )}
     >
       {!debouncedSearchQuery && !isFetching && (
-        <h2 className="select-none text-center font-mono text-zinc-500 opacity-80">
+        <h2 className="select-none text-center font-mono text-zinc-500">
           Results will appear here...
         </h2>
       )}
