@@ -21,13 +21,14 @@ export const metadata: Metadata = {
     description: "A simple arXiv explorer",
     images: [
       {
-        url: "https://github.com/user-attachments/assets/0febb239-f635-4b31-93ee-eb02a2b9c3bb",
+        url: "og-image.png",
         width: 800,
         height: 600,
         alt: "arXion",
       },
     ],
   },
+  metadataBase: new URL("https://arxion.vercel.app/"),
 };
 
 export default function RootLayout({
