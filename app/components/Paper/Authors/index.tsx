@@ -23,6 +23,7 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
               }}
             >
               <a
+                aria-label={`Search for papers by ${author.name[0]}`}
                 href={`https://arxiv.org/search/?searchtype=author&query=${author.name[0]}`}
                 target="_blank"
                 rel="noreferrer"
@@ -36,7 +37,9 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
           ))}
         {authors.length > AUTHOR_LIMIT && (
           <button
-            aria-label="Show/hide all authors"
+            aria-label={
+              showAll ? "Show less..." : `Show all ${authors.length} authors`
+            }
             className={cn(
               "ml-1.5 select-none rounded-md border border-zinc-200 bg-zinc-100 px-2 font-mono text-sm font-bold",
               "transition-colors dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50",

@@ -15,13 +15,13 @@ const Results = ({ papers }: ResultsProps) => {
   }, [papers]);
 
   return (
-    <section className="flex flex-col gap-4 overflow-y-auto grow">
-      <AnimatePresence>
+    <AnimatePresence>
+      <ul className="flex grow flex-col gap-4 overflow-y-auto">
         {papers?.map((entry, index) => (
           <ArxivPaper paper={entry} key={index} />
         ))}
-      </AnimatePresence>
-    </section>
+      </ul>
+    </AnimatePresence>
   );
 };
 

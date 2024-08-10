@@ -22,7 +22,7 @@ const Abstract = ({ abstract, showAbstract, paperId }: AbstractProps) => {
           <div className="w-full select-none text-center font-bold text-zinc-900 transition-colors dark:text-zinc-50">
             Abstract.
           </div>
-          <WithMathJax className="place-self-center hyphens-auto text-balance break-words text-zinc-900 sm:text-justify dark:text-zinc-50">
+          <WithMathJax className="place-self-center hyphens-auto break-words text-zinc-900 max-sm:text-balance sm:text-left dark:text-zinc-50">
             {abstract}
           </WithMathJax>
         </motion.div>
@@ -34,7 +34,7 @@ const Abstract = ({ abstract, showAbstract, paperId }: AbstractProps) => {
           height: showAbstract ? 0 : "auto",
         }}
         transition={{ duration: 0.2, ease: cubicBezier(0.4, 0, 0.2, 1) }}
-        className="w-full select-none overflow-hidden text-pretty text-center font-mono text-sm italic text-zinc-400"
+        className="w-full select-none overflow-hidden text-pretty text-center font-mono text-sm italic text-zinc-500"
       >
         <span className="max-sm:hidden">long-press</span>
         <span className="sm:hidden">Touch and hold</span> the title to view
