@@ -1,7 +1,8 @@
 import { BiLinkExternal } from "react-icons/bi";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/tooltip";
 import { TArxivEntry } from "@/app/types";
-import { getSubjectWithCategory, cn } from "@/app/utils/common";
+import { cn } from "@/app/utils/common";
+import { getSubjectWithCategory } from "@/app/utils/categories";
 import { useState, useMemo } from "react";
 import { ClassNameValue } from "tailwind-merge";
 import { useMediaQuery, useClickAnyWhere } from "usehooks-ts";
@@ -69,7 +70,7 @@ const Tag = ({ subject, className }: TagProps) => {
         <TooltipContent className="border-zinc-400 bg-zinc-900 text-zinc-50">
           <div className="flex max-h-[200px] max-w-96 flex-col gap-2 overflow-y-auto text-base max-sm:max-w-[calc(100dvw-50px)]">
             <a
-              className="italic underline text-zinc-50"
+              className="italic text-zinc-50 underline"
               href={`https://arxiv.org/list/${subject}/recent`}
               target="_blank"
               rel="noreferrer"

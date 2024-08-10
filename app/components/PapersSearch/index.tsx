@@ -11,7 +11,10 @@ import ArxivPaper from "../Paper";
 import Filters from "./Filters";
 import ResultsHeader from "./ResultsHeader";
 import Results from "./Results";
-import { flattenCategories, buildGroupedSubjects } from "@/app/utils/common";
+import {
+  flattenCategories,
+  buildGroupedSubjects,
+} from "@/app/utils/categories";
 import { parseAsInteger, useQueryState } from "nuqs";
 
 const PapersSearch = () => {
