@@ -1,5 +1,5 @@
 import { ClassNameValue } from "tailwind-merge";
-import { cn } from "../utils/common";
+import { cn } from "@/app/utils/common";
 
 interface LogoProps {
   onClick: () => void;
@@ -12,7 +12,7 @@ const Logo = ({ onClick, className }: LogoProps) => (
     fill="currentColor"
     className={cn(
       "flex h-12 w-fit cursor-pointer flex-row items-center gap-1 fill-zinc-800 text-center font-serif font-bold transition-colors hover:fill-arxiv-red max-sm:h-8 dark:fill-zinc-50 dark:hover:fill-red-500",
-      className,
+      className
     )}
     width="364"
     height="117"

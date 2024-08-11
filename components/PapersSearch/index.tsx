@@ -2,7 +2,6 @@ import { useState, useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
 
 import papersApi from "@/app/api/papers";
-import { useCurrentQueryState } from "@/app/store/common";
 import { CATEGORIES } from "@/app/categories";
 import { RESULT_LIMIT } from "@/app/constants";
 
@@ -11,30 +10,24 @@ import ArxivPaper from "../Paper";
 import Filters from "./Filters";
 import ResultsHeader from "./ResultsHeader";
 import Results from "./Results";
-import {
-  flattenCategories,
-  buildGroupedSubjects,
-} from "@/app/utils/categories";
+import { buildGroupedSubjects } from "@/app/utils/categories";
 import { parseAsInteger, useQueryState } from "nuqs";
+import { usePapersStore } from "@/app/state/papers-store";
 
 const PapersSearch = () => {
   const [subject, setSubject] = useState("");
   const [showFilters, setShowFilters] = useState(false);
-  const [page] = useQueryState("page", parseAsInteger);
-  const safePage = page !== null ? page : 1;
-
   const [searchQuery, setSearchQuery] = useQueryState("query");
-  const setDebouncedSearchQuery = useCurrentQueryState(
-    (state) => state.setDebouncedSearchQuery,
-  );
+  const [page] = useQueryState("page", parseAsInteger);
+  const { setPapers } = usePapersStore();
 
-  const allSubjects = useMemo(() => flattenCategories(CATEGORIES), []);
+  const safePage = page !== null ? page : 1;
   const groupedSubjects = useMemo(() => buildGroupedSubjects(CATEGORIES), []);
 
-  const fetchArxiv = async (
+  const fetchQueryResult = async (
     query: string | null,
     limit: number,
-    page: number,
+    page: number
   ) => {
     if (
       query &&
@@ -46,26 +39,11 @@ const PapersSearch = () => {
   };
 
   useEffect(() => {
-    setDebouncedSearchQuery(searchQuery);
-    if (
-      !allSubjects.some((subject) =>
-        searchQuery?.startsWith(`cat:${subject.abbreviation}`),
-      )
-    ) {
-      setSubject("");
-    }
-  }, [searchQuery, allSubjects, setDebouncedSearchQuery]);
-
-  // when we choose a subject, prefix the search query with the subject abbreviation
-  useEffect(() => {
     if (subject) {
-      // if the query is empty, just set the subject
       if (!searchQuery) {
         setSearchQuery(`cat:${subject}`);
       } else {
-        // if the query is not empty, add the subject to the query
         if (searchQuery?.startsWith(`cat:`)) {
-          // split the query by AND and replace the first part with a new subject
           const [, ...rest] = searchQuery.split("AND");
           if (rest.length === 0) {
             setSearchQuery(`cat:${subject}`);
@@ -75,19 +53,24 @@ const PapersSearch = () => {
         }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subject, setSearchQuery]);
 
-  const { data, isFetching } = useQuery(
+  const { data, isFetching, isFetched } = useQuery(
     ["arxiv", searchQuery, safePage],
-    () => fetchArxiv(searchQuery, RESULT_LIMIT, safePage),
+    () => fetchQueryResult(searchQuery, RESULT_LIMIT, safePage),
     {
       enabled: !!searchQuery,
       retry: 0,
       refetchOnMount: false,
       refetchOnWindowFocus: false,
-    },
+    }
   );
+
+  useEffect(() => {
+    if (isFetched) {
+      setPapers(data?.papers ?? []);
+    }
+  }, [isFetched]);
 
   return (
     <main
@@ -95,8 +78,6 @@ const PapersSearch = () => {
       className="flex max-h-[100dvh] flex-col gap-4 overflow-y-hidden font-serif max-sm:mb-3"
     >
       <Filters
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
         showFilters={showFilters}
         setShowFilters={setShowFilters}
         subject={subject}
@@ -106,7 +87,6 @@ const PapersSearch = () => {
       />
 
       <ResultsHeader
-        debouncedSearchQuery={searchQuery}
         isFetching={isFetching}
         papers={data?.papers}
         totalResults={data?.totalResults ?? 0}

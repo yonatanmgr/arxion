@@ -1,23 +1,18 @@
 import React from "react";
-import { Button } from "../../ui/button";
+import { Button } from "@/components/ui/button";
 import { LucideArrowLeft, LucideArrowRight } from "lucide-react";
 import { RESULT_LIMIT } from "@/app/constants";
 import { TArxivEntry } from "@/app/types";
 import { useQueryState, parseAsInteger } from "nuqs";
 
 interface PaginationProps {
-  debouncedSearchQuery: string | null;
   isFetching: boolean;
   papers: TArxivEntry[] | undefined;
   totalResults: number;
 }
 
-const Pagination = ({
-  debouncedSearchQuery,
-  isFetching,
-  papers,
-  totalResults,
-}: PaginationProps) => {
+const Pagination = ({ isFetching, papers, totalResults }: PaginationProps) => {
+  const [searchQuery] = useQueryState("query");
   const [page, setPage] = useQueryState("page", parseAsInteger);
 
   const handlePagination = (direction: "prev" | "next") => {
@@ -28,7 +23,7 @@ const Pagination = ({
   const isLastPage =
     ((page ?? 1) - 1) * RESULT_LIMIT + (papers ?? []).length >= totalResults;
 
-  if (debouncedSearchQuery) {
+  if (searchQuery) {
     return (
       <div className="flex flex-row gap-2">
         <Button

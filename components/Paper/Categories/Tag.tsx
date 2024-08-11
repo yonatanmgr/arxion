@@ -1,5 +1,9 @@
 import { BiLinkExternal } from "react-icons/bi";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { TArxivEntry } from "@/app/types";
 import { cn } from "@/app/utils/common";
 import { getSubjectWithCategory } from "@/app/utils/categories";
@@ -44,7 +48,7 @@ const Tag = ({ subject, className }: TagProps) => {
 
   const subjectWithCategory = useMemo(
     () => getSubjectWithCategory(subject),
-    [subject],
+    [subject]
   );
 
   if (subjectWithCategory) {
@@ -60,7 +64,7 @@ const Tag = ({ subject, className }: TagProps) => {
             className={cn(
               "select-none truncate max-sm:max-w-[140px]",
               className,
-              isPressed && !isTooltipOpen && "animate-pulse",
+              isPressed && !isTooltipOpen && "animate-pulse"
             )}
             {...bind()}
           >

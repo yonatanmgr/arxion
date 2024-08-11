@@ -4,6 +4,7 @@ import { BsFilePdf } from "react-icons/bs";
 
 interface LinksProps {
   links: TArxivEntry["link"];
+  arXivUrl: TArxivEntry["id"][0];
 }
 
 const getIconByType = (type: string) => {
@@ -17,13 +18,22 @@ const getIconByType = (type: string) => {
   }
 };
 
-const Links = ({ links }: LinksProps) => {
+const Links = ({ links, arXivUrl }: LinksProps) => {
   const linksWithTitle = links.filter((link) => link.$.title);
   if (linksWithTitle.length === 0) return <span></span>;
 
   return (
     <section aria-label="Links" className="flex flex-row items-center gap-2">
-      {linksWithTitle.map((link) => (
+      {[
+        {
+          $: {
+            href: arXivUrl,
+            type: "other",
+            title: "arXiv",
+          },
+        },
+        ...linksWithTitle,
+      ].map((link) => (
         <a
           aria-label={link.$.title}
           target="_blank"

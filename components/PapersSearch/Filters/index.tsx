@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
-import { GroupedCombobox } from "../../ui/combobox";
-import { Button } from "../../ui/button";
+import React, { useEffect, useState } from "react";
+import { GroupedCombobox } from "@/components/ui/combobox";
+import { Button } from "@/components/ui/button";
 import { LucideFilter, LucideSearch } from "lucide-react";
 import { cn } from "@/app/utils/common";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { useMediaQuery } from "usehooks-ts";
 
 interface FiltersProps {
-  searchQuery: string | null;
-  setSearchQuery: (query: string | null) => void;
   showFilters: boolean;
   setShowFilters: (show: boolean) => void;
   subject: string;
@@ -24,8 +22,6 @@ interface FiltersProps {
 }
 
 const Filters = ({
-  searchQuery,
-  setSearchQuery,
   showFilters,
   setShowFilters,
   subject,
@@ -35,14 +31,15 @@ const Filters = ({
 }: FiltersProps) => {
   const [, setPage] = useQueryState("page", parseAsInteger);
   const isSmallViewport = useMediaQuery("(max-width: 639px)");
-  const [localQuery, setLocalQuery] = React.useState(searchQuery);
+  const [searchQuery, setSearchQuery] = useQueryState("query");
+  const [localQuery, setLocalQuery] = useState(searchQuery);
 
   useEffect(() => {
     setLocalQuery(searchQuery);
   }, [searchQuery]);
 
   const handleSearch = (
-    e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLInputElement>,
+    e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLInputElement>
   ) => {
     e.preventDefault();
     if (!isFetching) {
@@ -60,7 +57,7 @@ const Filters = ({
           name="search"
           className={cn(
             "mr-2 w-full rounded-lg border border-zinc-300 p-2 px-4 font-mono text-lg outline-none transition-colors placeholder:italic focus-within:border-zinc-400",
-            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus-within:border-zinc-500",
+            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus-within:border-zinc-500"
           )}
           type="search"
           placeholder={
@@ -84,7 +81,7 @@ const Filters = ({
           className={cn(
             "mr-2 h-12 w-12 justify-between rounded-lg border border-zinc-300 px-3.5 font-mono text-base transition-colors hover:bg-zinc-100 active:bg-zinc-200",
             "dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-700",
-            "disabled:pointer-events-none disabled:opacity-60",
+            "disabled:pointer-events-none disabled:opacity-60"
           )}
         >
           <LucideSearch className="inline-block text-zinc-800 transition-colors dark:text-zinc-50" />
@@ -112,13 +109,13 @@ const Filters = ({
             "h-12 w-12 justify-between rounded-lg border border-zinc-300 px-3.5 font-mono text-base transition-colors hover:bg-zinc-100 active:bg-zinc-200",
             "dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-700",
             showFilters &&
-              "bg-zinc-900 text-zinc-50 hover:bg-zinc-800 hover:text-zinc-100 active:bg-zinc-700 dark:bg-zinc-800",
+              "bg-zinc-900 text-zinc-50 hover:bg-zinc-800 hover:text-zinc-100 active:bg-zinc-700 dark:bg-zinc-800"
           )}
         >
           <LucideFilter
             className={cn(
               "inline-block text-zinc-800 transition-colors dark:text-zinc-50",
-              showFilters && "text-zinc-50",
+              showFilters && "text-zinc-50"
             )}
           />
         </Button>

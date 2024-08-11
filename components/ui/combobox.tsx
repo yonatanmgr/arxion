@@ -11,7 +11,7 @@ import {
   CommandList,
   CommandGroup,
   CommandItem,
-} from "@/app/components/ui/command";
+} from "@/components/ui/command";
 import { Button } from "./button";
 
 interface Option {
@@ -44,7 +44,7 @@ export const Combobox: NextComponentType<{}, {}, ComboboxProps> = ({
           aria-expanded={open}
           className={cn(
             "h-12 w-full justify-between rounded-lg border border-zinc-300 px-4 font-mono text-base hover:bg-zinc-100 sm:w-[200px]",
-            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
+            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
           )}
         >
           <span className="truncate">
@@ -58,7 +58,7 @@ export const Combobox: NextComponentType<{}, {}, ComboboxProps> = ({
       <PopoverContent
         className={cn(
           "w-[calc(100dvw-30px)] border-zinc-300 p-0 text-base sm:w-fit",
-          "dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50",
+          "dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50"
         )}
         align="end"
       >
@@ -83,7 +83,7 @@ export const Combobox: NextComponentType<{}, {}, ComboboxProps> = ({
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4 min-w-4",
-                      value === option.value ? "opacity-100" : "opacity-0",
+                      value === option.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                   {option.label}
@@ -122,7 +122,7 @@ const GroupedCombobox = ({
           aria-expanded={open}
           className={cn(
             "h-12 w-full justify-between rounded-lg border border-zinc-300 px-4 font-mono text-base hover:bg-zinc-100 sm:w-[200px]",
-            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50",
+            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
           )}
         >
           <span className="truncate">
@@ -138,7 +138,7 @@ const GroupedCombobox = ({
       <PopoverContent
         className={cn(
           "w-[calc(100dvw-30px)] border-zinc-300 p-0 text-base sm:w-fit",
-          "dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50",
+          "dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50"
         )}
         align="end"
       >
@@ -168,7 +168,7 @@ const GroupedCombobox = ({
                     <Check
                       className={cn(
                         "mr-2 h-4 w-4 min-w-4",
-                        value === option.value ? "opacity-100" : "opacity-0",
+                        value === option.value ? "opacity-100" : "opacity-0"
                       )}
                     />
                     {option ? option.label : "Select subject..."}

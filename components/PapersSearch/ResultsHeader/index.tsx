@@ -7,40 +7,39 @@ import Pagination from "../Pagination";
 import { parseAsInteger, useQueryState } from "nuqs";
 
 interface ResultsHeaderProps {
-  debouncedSearchQuery: string | null;
   isFetching: boolean;
   papers: TArxivEntry[] | undefined;
   totalResults: number;
 }
 
 const ResultsHeader = ({
-  debouncedSearchQuery,
   isFetching,
   papers,
   totalResults,
 }: ResultsHeaderProps) => {
+  const [searchQuery] = useQueryState("query");
   const [page] = useQueryState("page", parseAsInteger);
 
   const safePage = page !== null ? page - 1 : 0;
   const showPagination = Boolean(
-    isFetching || (debouncedSearchQuery && papers && papers.length > 0),
+    isFetching || (searchQuery && papers && papers.length > 0)
   );
 
   return (
     <section
       className={cn(
         "flex flex-row justify-between",
-        !debouncedSearchQuery && "justify-center",
+        !searchQuery && "justify-center"
       )}
     >
-      {!debouncedSearchQuery && !isFetching && (
+      {!searchQuery && !isFetching && (
         <h2 className="select-none text-center font-mono text-zinc-500">
           Results will appear here...
         </h2>
       )}
       {papers?.length && !isFetching ? (
         <h2 className="font-mono text-zinc-500">
-          {papers?.length < RESULT_LIMIT && page === 0 ? (
+          {papers?.length < RESULT_LIMIT && page === 1 ? (
             papers?.length === 1 ? (
               <span>One result found</span>
             ) : (
@@ -58,10 +57,10 @@ const ResultsHeader = ({
           )}
         </h2>
       ) : (
-        !isFetching && debouncedSearchQuery && <span></span>
+        !isFetching && searchQuery && <span></span>
       )}
       {isFetching && (
-        <h2 className="flex flex-row items-center gap-2 font-mono text-zinc-500">
+        <h2 className="flex select-none flex-row items-center gap-2 font-mono text-zinc-500">
           <CgSpinner className="inline-block animate-spin" />
           <span>Searching...</span>
         </h2>
@@ -69,7 +68,6 @@ const ResultsHeader = ({
 
       {showPagination && (
         <Pagination
-          debouncedSearchQuery={debouncedSearchQuery}
           isFetching={isFetching}
           papers={papers}
           totalResults={totalResults}

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { BiLinkExternal } from "react-icons/bi";
-import { TArxivEntry } from "../../types";
+import { TArxivEntry } from "@/app/types";
 import Authors from "./Authors";
 import Categories from "./Categories";
 import Links from "./Links";
@@ -9,6 +8,9 @@ import PaperPlaceholder from "./Placeholder";
 import Abstract from "./Abstract";
 import Card from "../common/Card";
 import PublishDate from "./PublishDate";
+import { Link, useTransitionRouter } from "next-view-transitions";
+import { slideInOut } from "@/app/utils/animate";
+import { LucideBookOpen } from "lucide-react";
 
 interface ArxivPaperProps {
   paper: TArxivEntry | null;
@@ -16,23 +18,30 @@ interface ArxivPaperProps {
 
 const ArxivPaper = ({ paper }: ArxivPaperProps) => {
   const [showAbstract, setShowAbstract] = useState(false);
+  const router = useTransitionRouter();
 
   if (!paper) {
     return <PaperPlaceholder />;
   }
+  const paperId = paper.id[0].replace("http://arxiv.org/abs/", "");
 
   return (
     <Card>
       <header className="flex w-full flex-row items-center justify-between gap-2">
-        <a
-          className="flex flex-row items-center gap-1.5 font-mono text-zinc-500 transition-all hover:text-arxiv-red hover:underline max-sm:underline dark:hover:text-arxiv-red-light"
-          href={paper.id[0]}
-          target="_blank"
-          rel="noreferrer"
+        <Link
+          className="flex flex-row items-center gap-2 font-mono text-zinc-500 transition-all hover:text-arxiv-red hover:underline max-sm:underline dark:hover:text-arxiv-red-light"
+          onClick={(e) => {
+            e.preventDefault();
+            router.push(`/paper/${paperId.replace("/", "_")}`, {
+              scroll: false,
+              onTransitionReady: slideInOut,
+            });
+          }}
+          href={`/paper/${paperId.replace("/", "_")}`}
         >
-          <BiLinkExternal />
-          {paper.id[0].replace("http://arxiv.org/abs/", "")}
-        </a>
+          <LucideBookOpen className="h-4 w-4" />
+          {paperId}
+        </Link>
         <Categories
           primaryCategory={paper["arxiv:primary_category"]}
           categories={paper.category}
@@ -52,7 +61,7 @@ const ArxivPaper = ({ paper }: ArxivPaperProps) => {
       />
 
       <footer className="flex w-full flex-col items-start justify-between sm:flex-row sm:items-center">
-        <Links links={paper.link} />
+        <Links links={paper.link} arXivUrl={paper.id[0]} />
         <PublishDate
           publishedOn={paper.published[0]}
           updatedOn={paper.updated[0]}

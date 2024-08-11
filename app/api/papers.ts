@@ -56,8 +56,32 @@ const fetchArxiv = async (query: string, limit: number, page: number) => {
   });
 };
 
+const fetchByIds = async (ids: string[]) => {
+  const response = await client.get("query", {
+    params: {
+      id_list: ids.join(","),
+    },
+  });
+
+  const xml = await response.data;
+
+  return new Promise<TResults>((resolve, reject) => {
+    parseString(xml, (err, result) => {
+      if (err) {
+        reject(err);
+      }
+      const totalResults = result.feed["opensearch:totalResults"][0]["_"];
+      resolve({
+        papers: result.feed.entry,
+        totalResults: parseInt(totalResults),
+      });
+    });
+  });
+};
+
 const papersApi = {
   fetchArxiv,
+  fetchByIds,
 };
 
 export default papersApi;
