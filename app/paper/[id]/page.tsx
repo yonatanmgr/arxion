@@ -16,9 +16,7 @@ const PaperPage = async ({ params }: { params: { id: string } }) => {
     .fetchByIds([params.id.replace("_", "/") as string])
     .then((res) => res.papers[0]);
 
-  if (paper) {
-    return <PaperContent paper={paper} />;
-  }
+  return <PaperContent paper={paper} />;
 };
 
 export default PaperPage;

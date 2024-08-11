@@ -1,10 +1,12 @@
-import { CgSpinner } from "react-icons/cg";
+import AnimatedBlob from "@/components/AnimatedBlob";
 
 export default function Loading() {
   return (
-    <h2 className="flex h-3/4 w-full select-none flex-row items-center justify-center gap-2 font-mono text-zinc-500">
-      <CgSpinner className="inline-block animate-spin" />
-      <span>Loading paper...</span>
-    </h2>
+    <section className="relative h-4/5">
+      <AnimatedBlob />
+      <span className="absolute left-1/2 top-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 animate-pulse select-none text-center font-mono text-lg text-zinc-600 mix-blend-difference dark:text-zinc-400">
+        Loading paper...
+      </span>
+    </section>
   );
 }

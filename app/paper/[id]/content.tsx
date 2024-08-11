@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { TArxivEntry } from "@/app/types";
 import WithMathJax from "@/components/common/WithMathJax";
+import Categories from "@/components/Paper/Categories";
 
 const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
   return (
@@ -22,11 +23,11 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
         <WithMathJax>
           <p className="text-pretty text-lg">{paper["summary"][0]}</p>
         </WithMathJax>
-        {/* <Categories
-            primaryCategory={paper["arxiv:primary_category"]}
-            categories={paper["category"] || []}
-            direction="ltr"
-          /> */}
+        <Categories
+          primaryCategory={paper["arxiv:primary_category"]}
+          categories={paper["category"] || []}
+          direction="ltr"
+        />
       </motion.main>
     </AnimatePresence>
   );
