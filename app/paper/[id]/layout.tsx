@@ -1,4 +1,5 @@
 "use client";
+
 import { ReactNode, Suspense, useEffect } from "react";
 import { useTransitionRouter } from "next-view-transitions";
 import { MathJaxContext } from "better-react-mathjax";
@@ -41,7 +42,7 @@ const PapersLayout = ({
             }}
             className="text-zinc-500 hover:text-arxiv-red hover:underline dark:hover:text-arxiv-red-light"
           >
-            ← Back to search...
+            ← Back to search
           </a>
           <span className="select-none text-zinc-500">
             {params.id.replace("_", "/")}
@@ -57,8 +58,7 @@ const PapersLayout = ({
           </Button>
         </header>
         <main className="flex-grow">
-          {/* <Loading /> */}
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+          <Suspense>{children}</Suspense>
         </main>
       </div>
     </MathJaxContext>

@@ -33,7 +33,6 @@ const ArxivPaper = ({ paper }: ArxivPaperProps) => {
           onClick={(e) => {
             e.preventDefault();
             router.push(`/paper/${paperId.replace("/", "_")}`, {
-              scroll: false,
               onTransitionReady: slideInOut,
             });
           }}

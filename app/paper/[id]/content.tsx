@@ -3,7 +3,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { TArxivEntry } from "@/app/types";
 import WithMathJax from "@/components/common/WithMathJax";
-import Categories from "@/components/Paper/Categories";
+// import Categories from "@/components/Paper/Categories";
+import PublishDate from "@/components/Paper/PublishDate";
 
 const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
   return (
@@ -15,19 +16,27 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
         transition={{ duration: 0.3 }}
         className="flex h-[calc(100dvh-9rem)] flex-col gap-4 overflow-y-auto font-serif max-sm:h-[calc(100dvh-6.5rem)]"
       >
+        <header className="flex flex-col gap-4">
+          <WithMathJax>
+            <h1 className="text-balance text-2xl font-bold">
+              {paper["title"][0]}
+            </h1>
+          </WithMathJax>
+          <span className="flex flex-col items-start justify-between gap-2 text-base sm:flex-row sm:items-center">
+            <PublishDate
+              publishedOn={paper["published"][0]}
+              updatedOn={paper["updated"][0]}
+            />
+            {/* <Categories
+              primaryCategory={paper["arxiv:primary_category"]}
+              categories={paper["category"] || []}
+              direction="ltr"
+            /> */}
+          </span>
+        </header>
         <WithMathJax>
-          <h1 className="text-balance text-2xl font-bold">
-            {paper["title"][0]}
-          </h1>
+          <p className="text-pretty text-[18px]">{paper["summary"][0]}</p>
         </WithMathJax>
-        <WithMathJax>
-          <p className="text-pretty text-lg">{paper["summary"][0]}</p>
-        </WithMathJax>
-        <Categories
-          primaryCategory={paper["arxiv:primary_category"]}
-          categories={paper["category"] || []}
-          direction="ltr"
-        />
       </motion.main>
     </AnimatePresence>
   );
