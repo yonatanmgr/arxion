@@ -4,11 +4,9 @@ import { useTransitionRouter } from "next-view-transitions";
 import { MathJaxContext } from "better-react-mathjax";
 import { MATHJAX_CONFIG } from "@/app/constants";
 import Loading from "./loading";
-import { AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { LucideSunMoon } from "lucide-react";
 import { useDarkMode } from "@/app/hooks/useDarkMode";
-import { TooltipProvider } from "@/components/ui/tooltip";
 
 const PapersLayout = ({
   children,
@@ -59,10 +57,8 @@ const PapersLayout = ({
           </Button>
         </header>
         <main className="flex-grow">
-          <AnimatePresence mode="wait">
-            {/* <Loading /> */}
-            <Suspense fallback={<Loading />}>{children}</Suspense>
-          </AnimatePresence>
+          {/* <Loading /> */}
+          <Suspense fallback={<Loading />}>{children}</Suspense>
         </main>
       </div>
     </MathJaxContext>

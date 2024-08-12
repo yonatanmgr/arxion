@@ -71,10 +71,12 @@ const fetchByIds = async (ids: string[]) => {
         reject(err);
       }
       const totalResults = result.feed["opensearch:totalResults"][0]["_"];
-      resolve({
-        papers: result.feed.entry,
-        totalResults: parseInt(totalResults),
-      });
+      setTimeout(() => {
+        resolve({
+          papers: result.feed.entry,
+          totalResults: parseInt(totalResults),
+        });
+      }, 1000);
     });
   });
 };
