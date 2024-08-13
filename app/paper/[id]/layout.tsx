@@ -59,7 +59,7 @@ const PapersLayout = ({
               onClick={navigateBackToSearch}
               className="text-zinc-500 hover:text-arxiv-red hover:underline dark:hover:text-arxiv-red-light"
             >
-              ← Back to search
+              ← Back <span className="max-sm:hidden"> to search</span>
             </Link>
           </Suspense>
           <form

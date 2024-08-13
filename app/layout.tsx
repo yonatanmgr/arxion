@@ -119,7 +119,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               >
                 Thank you to arXiv for use of its open access interoperability.
               </footer>
-              <div className="fixed -bottom-9 left-0 h-10 w-full select-none border-8 border-dashed border-yellow-400 bg-transparent font-mono sm:-left-10 sm:top-0 sm:w-40 sm:-rotate-[40deg]">
+              <div className="fixed -bottom-[39px] left-0 h-10 w-full select-none border-8 border-dashed border-yellow-400 bg-transparent font-mono sm:-left-10 sm:top-0 sm:w-40 sm:-rotate-[40deg]">
                 DEV DEV DEV DEV
               </div>
             </Suspense>

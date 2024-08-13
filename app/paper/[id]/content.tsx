@@ -25,7 +25,7 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
             </h1>
           </WithMathJax>
           <span className="flex flex-col items-start justify-between gap-2 text-base sm:flex-row sm:items-center">
-            <section className="flex flex-row items-center gap-2">
+            <section className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <PublishDate
                 publishedOn={paper["published"][0]}
                 updatedOn={paper["updated"][0]}

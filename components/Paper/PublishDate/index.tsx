@@ -2,6 +2,7 @@ import { cn } from "@/app/utils/common";
 import moment from "moment";
 import { useState, useCallback } from "react";
 import { BiCalendar, BiTime } from "react-icons/bi";
+import { useMediaQuery } from "usehooks-ts";
 
 interface DateProps {
   publishedOn: string;
@@ -15,6 +16,7 @@ const PublishDate = ({
   variant = "switch",
 }: DateProps) => {
   const [showUpdatedOn, setShowUpdatedOn] = useState(variant == "updated");
+  const isSmallViewport = useMediaQuery("(max-width: 639px)");
 
   const handleUpdatedOnClick = useCallback(() => {
     if (variant == "switch") {
@@ -27,21 +29,23 @@ const PublishDate = ({
 
   return (
     <div className="flex flex-row items-center gap-1.5">
-      <span className="text-zinc-500">
-        {showUpdatedOn || variant == "updated" ? <BiTime /> : <BiCalendar />}
-      </span>
-      <span
-        onClick={handleUpdatedOnClick}
-        className={cn(
-          "select-none text-zinc-500 dark:text-zinc-400 ",
-          variant == "switch" && "cursor-pointer hover:underline"
-        )}
-      >
-        {showUpdatedOn || variant == "updated" ? "Updated" : "Published"} at:
+      <span className="flex flex-row gap-1 items-center">
+        <span className="text-zinc-500">
+          {showUpdatedOn || variant == "updated" ? <BiTime /> : <BiCalendar />}
+        </span>
+        <span
+          onClick={handleUpdatedOnClick}
+          className={cn(
+            "select-none text-zinc-500 dark:text-zinc-400 ",
+            variant == "switch" && "cursor-pointer hover:underline"
+          )}
+        >
+          {showUpdatedOn || variant == "updated" ? "Updated" : "Published"} at:
+        </span>
       </span>
       <span>
         {asMoment.format("MMMM Do, YYYY")}{" "}
-        {variant !== "switch" && `(${asMoment.fromNow()})`}
+        {variant !== "switch" && !isSmallViewport && `(${asMoment.fromNow()})`}
       </span>
     </div>
   );

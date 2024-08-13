@@ -64,7 +64,6 @@ const fetchByIds = async (ids: string[]) => {
   });
 
   const xml = await response.data;
-  console.log(xml);
   return new Promise<TResults>((resolve, reject) => {
     parseString(xml, (err, result) => {
       if (err) {
