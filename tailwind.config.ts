@@ -71,11 +71,17 @@ const config: Config = {
           from: { transform: "rotate(360deg)" },
           to: { transform: "rotate(0deg)" },
         },
+        "light-pulse": {
+          "0%": { opacity: "80%" },
+          "50%": { opacity: "100%" },
+          "100%": { opacity: "80%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "spin-reverse": "spin-reverse 1s linear infinite",
+        "light-pulse": "light-pulse 1s ease-in-out infinite",
       },
       transitionDuration: {
         2000: "2000ms",

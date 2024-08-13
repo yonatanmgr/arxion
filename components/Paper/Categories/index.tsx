@@ -33,7 +33,7 @@ const Categories = ({
       <Tag
         subject={primaryTerm}
         className={cn(
-          "select-none rounded-full border border-zinc-200 bg-zinc-800 px-2.5 py-0.5 font-mono text-sm text-zinc-50 transition-all hover:bg-zinc-700 active:scale-95",
+          "select-none rounded-full border border-zinc-300 bg-zinc-100 px-3 py-0.5 font-mono text-sm text-zinc-800 transition-all dark:hover:bg-zinc-700 active:scale-95",
           "dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-50 dark:hover:bg-zinc-600"
         )}
       />

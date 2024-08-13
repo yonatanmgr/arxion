@@ -64,19 +64,19 @@ const fetchByIds = async (ids: string[]) => {
   });
 
   const xml = await response.data;
-
+  console.log(xml);
   return new Promise<TResults>((resolve, reject) => {
     parseString(xml, (err, result) => {
       if (err) {
+        console.error(err);
         reject(err);
       }
+
       const totalResults = result.feed["opensearch:totalResults"][0]["_"];
-      setTimeout(() => {
-        resolve({
-          papers: result.feed.entry,
-          totalResults: parseInt(totalResults),
-        });
-      }, 1000);
+      resolve({
+        papers: result.feed.entry,
+        totalResults: parseInt(totalResults),
+      });
     });
   });
 };

@@ -13,6 +13,8 @@ import { ViewTransitions } from "next-view-transitions";
 
 // FONTS
 import localFont from "next/font/local";
+import AnimatedBlob from "@/components/AnimatedBlob";
+import { cn } from "./utils/common";
 const computerModern = localFont({
   src: [
     {
@@ -103,7 +105,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <ViewTransitions>
         <TooltipProvider>
-          <body className="max-xs:px-8 relative flex h-[100dvh] flex-col overflow-hidden bg-zinc-50 px-4 pb-[30px] pt-4 text-zinc-950 transition-all selection:bg-arxiv-red/10 sm:pt-16 lg:px-32 xl:px-64 dark:bg-zinc-950 dark:text-zinc-50 dark:selection:bg-arxiv-red-light/20">
+          <body className="max-xs:px-8 relative flex h-[100dvh] flex-col overflow-hidden bg-zinc-50 px-4 pb-[30px] pt-4 text-zinc-900 transition-all selection:bg-arxiv-red/10 sm:pt-16 lg:px-32 xl:px-64 dark:bg-zinc-950 dark:text-zinc-50 dark:selection:bg-arxiv-red-light/20">
             <Suspense>
               {children}
               {shouldInjectToolbar && <VercelToolbar />}
@@ -111,10 +113,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <SpeedInsights />
               <footer
                 role="contentinfo"
-                className="absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-500 transition-colors sm:text-sm dark:border-zinc-700 dark:bg-zinc-800"
+                className={cn(
+                  "absolute bottom-0 left-0 w-screen select-none text-balance border-t border-zinc-300 bg-zinc-100 py-1 text-center font-mono text-xs text-zinc-500 transition-colors sm:text-sm dark:border-zinc-700 dark:bg-zinc-800",
+                )}
               >
                 Thank you to arXiv for use of its open access interoperability.
               </footer>
+              <div className="fixed -bottom-9 left-0 h-10 w-full select-none border-8 border-dashed border-yellow-400 bg-transparent font-mono sm:-left-10 sm:top-0 sm:w-40 sm:-rotate-[40deg]">
+                DEV DEV DEV DEV
+              </div>
             </Suspense>
           </body>
         </TooltipProvider>

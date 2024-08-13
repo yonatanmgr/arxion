@@ -9,7 +9,7 @@ interface AbstractProps {
 
 const Abstract = ({ abstract, showAbstract, paperId }: AbstractProps) => {
   return (
-    <AnimatePresence mode="sync">
+    <AnimatePresence>
       {showAbstract && (
         <motion.div
           key={`abstract_${paperId}`}
@@ -28,13 +28,14 @@ const Abstract = ({ abstract, showAbstract, paperId }: AbstractProps) => {
         </motion.div>
       )}
       <motion.div
+        key={`abstract-info_${paperId}`}
         initial={false}
         animate={{
           opacity: showAbstract ? 0 : 1,
           height: showAbstract ? 0 : "auto",
         }}
         transition={{ duration: 0.2, ease: cubicBezier(0.4, 0, 0.2, 1) }}
-        className="w-full select-none overflow-hidden text-pretty text-center font-mono text-sm italic text-zinc-500"
+        className="w-full select-none overflow-hidden text-pretty text-center font-mono text-sm italic text-zinc-500 dark:text-zinc-400"
       >
         <span className="max-sm:hidden">long-press</span>
         <span className="sm:hidden">Touch and hold</span> the title to view

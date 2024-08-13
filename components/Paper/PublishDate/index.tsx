@@ -1,3 +1,4 @@
+import { cn } from "@/app/utils/common";
 import moment from "moment";
 import { useState, useCallback } from "react";
 import { BiCalendar, BiTime } from "react-icons/bi";
@@ -5,30 +6,43 @@ import { BiCalendar, BiTime } from "react-icons/bi";
 interface DateProps {
   publishedOn: string;
   updatedOn: string;
+  variant?: "published" | "updated" | "switch";
 }
 
-const PublishDate = ({ publishedOn, updatedOn }: DateProps) => {
-  const [showUpdatedOn, setShowUpdatedOn] = useState(false);
+const PublishDate = ({
+  publishedOn,
+  updatedOn,
+  variant = "switch",
+}: DateProps) => {
+  const [showUpdatedOn, setShowUpdatedOn] = useState(variant == "updated");
 
   const handleUpdatedOnClick = useCallback(() => {
-    setShowUpdatedOn((prev) => !prev);
+    if (variant == "switch") {
+      setShowUpdatedOn((prev) => !prev);
+    }
   }, []);
 
   const asDate = new Date(showUpdatedOn ? updatedOn : publishedOn);
-  const formattedDate = moment(asDate).format("MMMM Do, YYYY");
+  const asMoment = moment(asDate);
 
   return (
     <div className="flex flex-row items-center gap-1.5">
       <span className="text-zinc-500">
-        {showUpdatedOn ? <BiTime /> : <BiCalendar />}
+        {showUpdatedOn || variant == "updated" ? <BiTime /> : <BiCalendar />}
       </span>
       <span
         onClick={handleUpdatedOnClick}
-        className="cursor-pointer select-none text-zinc-500 hover:underline"
+        className={cn(
+          "select-none text-zinc-500 dark:text-zinc-400 ",
+          variant == "switch" && "cursor-pointer hover:underline"
+        )}
       >
-        {showUpdatedOn ? "Updated" : "Published"} on:
+        {showUpdatedOn || variant == "updated" ? "Updated" : "Published"} at:
       </span>
-      <span>{formattedDate}</span>
+      <span>
+        {asMoment.format("MMMM Do, YYYY")}{" "}
+        {variant !== "switch" && `(${asMoment.fromNow()})`}
+      </span>
     </div>
   );
 };

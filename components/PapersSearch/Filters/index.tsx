@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { LucideFilter, LucideSearch } from "lucide-react";
 import { cn } from "@/app/utils/common";
 import { parseAsInteger, useQueryState } from "nuqs";
-import { useMediaQuery } from "usehooks-ts";
 
 interface FiltersProps {
   showFilters: boolean;
@@ -30,7 +29,6 @@ const Filters = ({
   isFetching,
 }: FiltersProps) => {
   const [, setPage] = useQueryState("page", parseAsInteger);
-  const isSmallViewport = useMediaQuery("(max-width: 639px)");
   const [searchQuery, setSearchQuery] = useQueryState("query");
   const [localQuery, setLocalQuery] = useState(searchQuery);
 
@@ -60,9 +58,7 @@ const Filters = ({
             "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder-zinc-500 dark:focus-within:border-zinc-500"
           )}
           type="search"
-          placeholder={
-            isSmallViewport ? "Search papers..." : "Search arXiv papers..."
-          }
+          placeholder={"Search papers..."}
           autoFocus={!localQuery}
           autoComplete="off"
           value={localQuery ?? ""}

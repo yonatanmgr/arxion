@@ -1,10 +1,11 @@
 import { RESULT_LIMIT } from "@/app/constants";
 import { TArxivEntry } from "@/app/types";
 import { cn } from "@/app/utils/common";
-import React from "react";
+import React, { useEffect } from "react";
 import { CgSpinner } from "react-icons/cg";
 import Pagination from "../Pagination";
 import { parseAsInteger, useQueryState } from "nuqs";
+import AnimatedBlob from "@/components/AnimatedBlob";
 
 interface ResultsHeaderProps {
   isFetching: boolean;
@@ -66,6 +67,10 @@ const ResultsHeader = ({
         </h2>
       )}
 
+      <AnimatedBlob
+        className="fixed left-1/2 -translate-x-1/2 -translate-y-1/2 -top-0 scale-x-150 -z-50 scale-y-[0.04] sm:scale-x-[4] sm:scale-y-[0.06]"
+        isVisible={isFetching}
+      />
       {showPagination && (
         <Pagination
           isFetching={isFetching}

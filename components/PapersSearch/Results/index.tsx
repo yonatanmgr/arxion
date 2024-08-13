@@ -16,10 +16,11 @@ const Results = ({ papers }: ResultsProps) => {
 
   return (
     <AnimatePresence>
-      <ul className="flex grow flex-col gap-4 overflow-y-auto">
-        {papers?.map((entry, index) => (
-          <ArxivPaper paper={entry} key={index} />
-        ))}
+      <ul
+        key={"papers-list"}
+        className="flex grow flex-col gap-4 overflow-y-auto overflow-x-visible"
+      >
+        {papers?.map((entry) => <ArxivPaper paper={entry} key={entry.id[0]} />)}
       </ul>
     </AnimatePresence>
   );
