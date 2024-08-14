@@ -12,14 +12,14 @@ const Error = ({
   return (
     <div className="flex flex-col items-center justify-center gap-2 font-serif select-none h-4/5">
       <h1 className="text-6xl font-bold text-zinc-500 dark:text-zinc-400">
-        {error.digest ? error.name : "404"}
+        {error.digest ? "Error" : "404"}
       </h1>
       <h2 className="text-xl italic font-bold text-zinc-500 dark:text-zinc-400">
-        {error.digest ? error.digest : "Page Not Found"}
+        {error.digest ? "An error occured" : "Page Not Found"}
       </h2>
       <p className="text-center text-balance text-zinc-500 dark:text-zinc-400">
         {error.digest
-          ? error.message
+          ? "An error occured while fetching the paper."
           : "The page you are looking for does not exist."}
       </p>
       {reset && (
