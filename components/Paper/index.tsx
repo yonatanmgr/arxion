@@ -8,11 +8,11 @@ import PaperPlaceholder from "./Placeholder";
 import Abstract from "./Abstract";
 import Card from "../common/Card";
 import PublishDate from "./PublishDate";
-import { Link, useTransitionRouter } from "next-view-transitions";
-import { slideInOut } from "@/app/utils/animate";
 import { LucideBookOpen } from "lucide-react";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useQueryState } from "nuqs";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ArxivPaperProps {
   paper: TArxivEntry | null;
@@ -20,9 +20,9 @@ interface ArxivPaperProps {
 
 const ArxivPaper = ({ paper }: ArxivPaperProps) => {
   const [showAbstract, setShowAbstract] = useState(false);
-  const router = useTransitionRouter();
   const [searchQuery] = useQueryState("query");
   const [page] = useQueryState("page");
+  const router = useRouter();
 
   const [, setLastSearchParams] = useLocalStorage(
     "arxion:lastSearchParams",

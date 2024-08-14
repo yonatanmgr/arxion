@@ -5,18 +5,13 @@ import type { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata(
-  { params, searchParams }: Props,
+  { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const id = params.id.replace("_", "/");
-
-  const paper = await papersApi
-    .fetchByIds([id as string])
-    .then((res) => res.papers[0]);
 
   const location =
     typeof window !== "undefined"
@@ -24,21 +19,21 @@ export async function generateMetadata(
       : "https://arxion.vercel.app";
 
   return {
-    title: `arXion - ${paper.title[0]}`,
-    description: paper.summary[0].slice(0, 450),
+    title: `arXion - ${id}`,
+    description: "A simple arXiv explorer",
     openGraph: {
       type: "website",
       locale: "en_US",
       url: `${location}/paper/${params.id}`,
       siteName: "arXion",
-      title: "arXion",
-      description: "A simple arXiv explorer",
+      title: `arXion - ${id}`,
+      description: `View ${id} on arXion`,
       images: [
         {
           url: `${location}/api/og?id=${params.id}`,
           width: 1200,
           height: 630,
-          alt: paper.title[0],
+          alt: id,
         },
       ],
     },
@@ -50,7 +45,6 @@ const PaperPage = async ({ params }: { params: { id: string } }) => {
   const paper = await papersApi
     .fetchByIds([params.id.replace("_", "/") as string])
     .then((res) => {
-      console.log(res);
       if ("papers" in res && res.papers.length > 0) {
         return res.papers[0];
       }
