@@ -18,26 +18,31 @@ export async function generateMetadata(
     .fetchByIds([id as string])
     .then((res) => res.papers[0]);
 
+  const location =
+    typeof window !== "undefined"
+      ? window.location.host
+      : "https://arxion.vercel.app";
+
   return {
     title: `arXion - ${paper.title[0]}`,
     description: paper.summary[0].slice(0, 450),
     openGraph: {
       type: "website",
       locale: "en_US",
-      url: `${import.meta.url}/paper/${params.id}`,
+      url: `${location}/paper/${params.id}`,
       siteName: "arXion",
       title: "arXion",
       description: "A simple arXiv explorer",
       images: [
         {
-          url: `${import.meta.url}/api/og?id=${params.id}`,
+          url: `${location}/api/og?id=${params.id}`,
           width: 1200,
           height: 630,
           alt: paper.title[0],
         },
       ],
     },
-    metadataBase: new URL(import.meta.url),
+    metadataBase: new URL(location),
   };
 }
 
