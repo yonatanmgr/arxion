@@ -36,22 +36,20 @@ const ArxivPaper = ({ paper }: ArxivPaperProps) => {
 
   return (
     <Card>
-      <header className="flex w-full flex-row items-center justify-between gap-2">
+      <header className="flex flex-row items-center justify-between w-full gap-2">
         <Link
-          className="flex flex-row items-center gap-2 font-mono dark:text-zinc-400 text-zinc-500 transition-all hover:text-arxiv-red hover:underline max-sm:underline dark:hover:text-arxiv-red-light"
+          className="flex flex-row items-center gap-2 font-mono transition-all dark:text-zinc-400 text-zinc-500 hover:text-arxiv-red hover:underline max-sm:underline dark:hover:text-arxiv-red-light"
           onClick={(e) => {
             e.preventDefault();
             const params = new URLSearchParams();
             params.set("query", searchQuery || "");
             params.set("page", page || "");
             setLastSearchParams(params.toString());
-            router.push(`/paper/${paperId.replace("/", "_")}`, {
-              onTransitionReady: slideInOut,
-            });
+            router.replace(`/paper/${paperId.replace("/", "_")}`);
           }}
           href={`/paper/${paperId.replace("/", "_")}`}
         >
-          <LucideBookOpen className="h-4 w-4" />
+          <LucideBookOpen className="w-4 h-4" />
           {paperId}
         </Link>
         <Categories
@@ -72,7 +70,7 @@ const ArxivPaper = ({ paper }: ArxivPaperProps) => {
         showAbstract={showAbstract}
       />
 
-      <footer className="flex w-full flex-col items-start justify-between sm:flex-row sm:items-center">
+      <footer className="flex flex-col items-start justify-between w-full sm:flex-row sm:items-center">
         <Links links={paper.link} arXivUrl={paper.id[0]} />
         <PublishDate
           publishedOn={paper.published[0]}

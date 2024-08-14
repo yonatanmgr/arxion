@@ -1,19 +1,19 @@
+"use client";
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { LucideArrowLeft, LucideArrowRight } from "lucide-react";
 import { RESULT_LIMIT } from "@/app/constants";
-import { TArxivEntry } from "@/app/types";
 import { useQueryState, parseAsInteger } from "nuqs";
+import { usePapers } from "@/app/hooks/usePapers";
 
-interface PaginationProps {
-  isFetching: boolean;
-  papers: TArxivEntry[] | undefined;
-  totalResults: number;
-}
-
-const Pagination = ({ isFetching, papers, totalResults }: PaginationProps) => {
+const Pagination = () => {
   const [searchQuery] = useQueryState("query");
   const [page, setPage] = useQueryState("page", parseAsInteger);
+
+  const safePage = page !== null ? page : 1;
+
+  const { papers, totalResults, isFetching } = usePapers(searchQuery, safePage);
 
   const handlePagination = (direction: "prev" | "next") => {
     if (page !== null) {
@@ -21,7 +21,8 @@ const Pagination = ({ isFetching, papers, totalResults }: PaginationProps) => {
     }
   };
   const isLastPage =
-    ((page ?? 1) - 1) * RESULT_LIMIT + (papers ?? []).length >= totalResults;
+    ((page ?? 1) - 1) * RESULT_LIMIT + (papers ?? []).length >=
+    (totalResults ?? 0);
 
   if (searchQuery) {
     return (

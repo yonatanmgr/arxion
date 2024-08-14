@@ -1,36 +1,43 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React, { useEffect, useMemo, useState } from "react";
 import { GroupedCombobox } from "@/components/ui/combobox";
 import { Button } from "@/components/ui/button";
 import { LucideFilter, LucideSearch } from "lucide-react";
 import { cn } from "@/app/utils/common";
 import { parseAsInteger, useQueryState } from "nuqs";
+import { usePapers } from "@/app/hooks/usePapers";
+import { buildGroupedSubjects } from "@/app/utils/categories";
+import { CATEGORIES } from "@/app/categories";
 
-interface FiltersProps {
-  showFilters: boolean;
-  setShowFilters: (show: boolean) => void;
-  subject: string;
-  setSubject: (subject: string) => void;
-  groupedSubjects: {
-    label: string;
-    options: {
-      value: string;
-      label: string;
-    }[];
-  }[];
-  isFetching: boolean;
-}
+const Filters = () => {
+  const [subject, setSubject] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
+  const groupedSubjects = useMemo(() => buildGroupedSubjects(CATEGORIES), []);
 
-const Filters = ({
-  showFilters,
-  setShowFilters,
-  subject,
-  setSubject,
-  groupedSubjects,
-  isFetching,
-}: FiltersProps) => {
-  const [, setPage] = useQueryState("page", parseAsInteger);
+  const [page, setPage] = useQueryState("page", parseAsInteger);
   const [searchQuery, setSearchQuery] = useQueryState("query");
   const [localQuery, setLocalQuery] = useState(searchQuery);
+  const safePage = page !== null ? page : 1;
+
+  const { isFetching } = usePapers(searchQuery, safePage);
+
+  useEffect(() => {
+    if (subject) {
+      if (!searchQuery) {
+        setSearchQuery(`cat:${subject}`);
+      } else {
+        if (searchQuery?.startsWith(`cat:`)) {
+          const [, ...rest] = searchQuery.split("AND");
+          if (rest.length === 0) {
+            setSearchQuery(`cat:${subject}`);
+          } else setSearchQuery(`cat:${subject} AND${rest.join("AND")}`);
+        } else {
+          setSearchQuery(`cat:${subject} AND ${searchQuery}`);
+        }
+      }
+    }
+  }, [subject, setSearchQuery]);
 
   useEffect(() => {
     setLocalQuery(searchQuery);
@@ -50,7 +57,7 @@ const Filters = ({
 
   return (
     <section className={cn("flex w-full flex-col", showFilters ? "gap-2" : "")}>
-      <form className="flex grow flex-row">
+      <form className="flex flex-row grow">
         <input
           name="search"
           className={cn(
@@ -80,7 +87,7 @@ const Filters = ({
             "disabled:pointer-events-none disabled:opacity-60"
           )}
         >
-          <LucideSearch className="inline-block text-zinc-800 transition-colors dark:text-zinc-50" />
+          <LucideSearch className="inline-block transition-colors text-zinc-800 dark:text-zinc-50" />
         </Button>
         <div className={cn("max-sm:hidden", showFilters && "mr-2")}>
           {showFilters && (

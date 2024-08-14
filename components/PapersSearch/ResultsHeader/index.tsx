@@ -1,27 +1,21 @@
+"use client";
+
 import { RESULT_LIMIT } from "@/app/constants";
-import { TArxivEntry } from "@/app/types";
 import { cn } from "@/app/utils/common";
 import React, { useEffect } from "react";
 import { CgSpinner } from "react-icons/cg";
 import Pagination from "../Pagination";
 import { parseAsInteger, useQueryState } from "nuqs";
 import AnimatedBlob from "@/components/AnimatedBlob";
+import { usePapers } from "@/app/hooks/usePapers";
 
-interface ResultsHeaderProps {
-  isFetching: boolean;
-  papers: TArxivEntry[] | undefined;
-  totalResults: number;
-}
-
-const ResultsHeader = ({
-  isFetching,
-  papers,
-  totalResults,
-}: ResultsHeaderProps) => {
+const ResultsHeader = () => {
   const [searchQuery] = useQueryState("query");
   const [page] = useQueryState("page", parseAsInteger);
+  const safePage = page !== null ? page : 1;
 
-  const safePage = page !== null ? page - 1 : 0;
+  const { papers, totalResults, isFetching } = usePapers(searchQuery, safePage);
+
   const showPagination = Boolean(
     isFetching || (searchQuery && papers && papers.length > 0)
   );
@@ -34,7 +28,7 @@ const ResultsHeader = ({
       )}
     >
       {!searchQuery && !isFetching && (
-        <h2 className="select-none text-center font-mono text-zinc-500">
+        <h2 className="font-mono text-center select-none text-zinc-500">
           Results will appear here...
         </h2>
       )}
@@ -48,12 +42,12 @@ const ResultsHeader = ({
             )
           ) : papers?.length < RESULT_LIMIT ? (
             <span>
-              Results {safePage * RESULT_LIMIT + 1}-{totalResults}
+              Results {(safePage - 1) * RESULT_LIMIT + 1}-{totalResults}
             </span>
           ) : (
             <span>
-              Results {safePage * RESULT_LIMIT + 1}-
-              {(safePage + 1) * papers.length} of {totalResults}
+              Results {(safePage - 1) * RESULT_LIMIT + 1}-
+              {(safePage - 1 + 1) * papers.length} of {totalResults}
             </span>
           )}
         </h2>
@@ -61,7 +55,7 @@ const ResultsHeader = ({
         !isFetching && searchQuery && <span></span>
       )}
       {isFetching && (
-        <h2 className="flex select-none flex-row items-center gap-2 font-mono text-zinc-500">
+        <h2 className="flex flex-row items-center gap-2 font-mono select-none text-zinc-500">
           <CgSpinner className="inline-block animate-spin" />
           <span>Searching...</span>
         </h2>
@@ -71,13 +65,7 @@ const ResultsHeader = ({
         className="fixed left-1/2 -translate-x-1/2 -translate-y-1/2 -top-0 scale-x-150 -z-50 scale-y-[0.04] sm:scale-x-[4] sm:scale-y-[0.06]"
         isVisible={isFetching}
       />
-      {showPagination && (
-        <Pagination
-          isFetching={isFetching}
-          papers={papers}
-          totalResults={totalResults}
-        />
-      )}
+      {showPagination && <Pagination />}
     </section>
   );
 };
