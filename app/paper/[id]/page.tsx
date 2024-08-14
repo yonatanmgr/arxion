@@ -24,20 +24,20 @@ export async function generateMetadata(
     openGraph: {
       type: "website",
       locale: "en_US",
-      url: `https://arxion.vercel.app/paper/${params.id}`,
+      url: `${import.meta.url}/paper/${params.id}`,
       siteName: "arXion",
       title: "arXion",
       description: "A simple arXiv explorer",
       images: [
         {
-          url: `https://arxion.vercel.app/api/og?id=${params.id}`,
+          url: `${import.meta.url}/api/og?id=${params.id}`,
           width: 1200,
           height: 630,
           alt: paper.title[0],
         },
       ],
     },
-    metadataBase: new URL("https://arxion.vercel.app/"),
+    metadataBase: new URL(import.meta.url),
   };
 }
 
