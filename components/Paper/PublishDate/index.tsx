@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/app/utils/common";
 import moment from "moment";
 import { useState, useCallback } from "react";
@@ -16,7 +18,9 @@ const PublishDate = ({
   variant = "switch",
 }: DateProps) => {
   const [showUpdatedOn, setShowUpdatedOn] = useState(variant == "updated");
-  const isSmallViewport = useMediaQuery("(max-width: 639px)");
+  const isExtralargeViewport = useMediaQuery("(max-width: 1370px)");
+  const isMediumViewport =
+    useMediaQuery("(min-width: 768px)") && isExtralargeViewport;
 
   const handleUpdatedOnClick = useCallback(() => {
     if (variant == "switch") {
@@ -40,12 +44,14 @@ const PublishDate = ({
             variant == "switch" && "cursor-pointer hover:underline"
           )}
         >
-          {showUpdatedOn || variant == "updated" ? "Updated" : "Published"} at:
+          {showUpdatedOn || variant == "updated" ? "Updated" : "Published"}:
         </span>
       </span>
       <span>
-        {asMoment.format("MMMM Do, YYYY")}{" "}
-        {variant !== "switch" && !isSmallViewport && `(${asMoment.fromNow()})`}
+        {asMoment.format(!isMediumViewport ? "MMM Do YY'" : "MMMM Do, YYYY")}{" "}
+        {variant !== "switch" &&
+          !isExtralargeViewport &&
+          `(${asMoment.fromNow()})`}
       </span>
     </div>
   );

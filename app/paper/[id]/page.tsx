@@ -1,5 +1,5 @@
 import papersApi from "@/app/api/papers";
-import PaperContent from "./content";
+import PaperContent from "./PaperContent";
 import Error from "./error";
 import type { Metadata, ResolvingMetadata } from "next";
 

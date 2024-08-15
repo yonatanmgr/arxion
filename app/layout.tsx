@@ -13,7 +13,6 @@ import { ViewTransitions } from "next-view-transitions";
 
 // FONTS
 import localFont from "next/font/local";
-import AnimatedBlob from "@/components/AnimatedBlob";
 import { cn } from "./utils/common";
 const computerModern = localFont({
   src: [
@@ -119,11 +118,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
               >
                 Thank you to arXiv for use of its open access interoperability.
               </footer>
-               {shouldInjectToolbar && (
+              {shouldInjectToolbar && (
                 <div className="fixed -bottom-[39px] left-0 h-10 w-full select-none border-8 border-dashed border-yellow-400 bg-transparent font-mono sm:-left-10 sm:top-0 sm:w-40 sm:-rotate-[40deg]">
                   DEV DEV DEV DEV
                 </div>
-               )}
+              )}
             </Suspense>
           </body>
         </TooltipProvider>

@@ -1,6 +1,7 @@
 import Filters from "./Filters";
 import ResultsHeader from "./ResultsHeader";
 import Results from "./Results";
+import { Suspense } from "react";
 
 const PapersSearch = () => {
   return (
@@ -10,7 +11,9 @@ const PapersSearch = () => {
     >
       <Filters />
       <ResultsHeader />
-      <Results />
+      <Suspense>
+        <Results />
+      </Suspense>
     </main>
   );
 };

@@ -38,7 +38,7 @@ export async function GET(request: Request) {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "white",
+              backgroundColor: "#f4f4f5",
             }}
           >
             <div tw="bg-gray-50 flex h-full">
