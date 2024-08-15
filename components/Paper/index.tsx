@@ -38,7 +38,7 @@ const ArxivPaper = ({ paper }: ArxivPaperProps) => {
     <Card>
       <header className="flex flex-row items-center justify-between w-full gap-2">
         <Link
-          className="flex flex-row items-center gap-2 font-mono transition-all dark:text-zinc-400 text-zinc-500 hover:text-arxiv-red hover:underline max-sm:underline dark:hover:text-arxiv-red-light"
+          className="flex flex-row items-center gap-2 font-mono transition-all dark:text-zinc-400 text-zinc-500 sm:hover:text-arxiv-red sm:hover:underline max-sm:underline dark:sm:hover:text-arxiv-red-light"
           onClick={(e) => {
             e.preventDefault();
             const params = new URLSearchParams();

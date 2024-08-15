@@ -41,7 +41,7 @@ const PublishDate = ({
           onClick={handleUpdatedOnClick}
           className={cn(
             "select-none text-zinc-500 dark:text-zinc-400 ",
-            variant == "switch" && "cursor-pointer hover:underline"
+            variant == "switch" && "cursor-pointer sm:hover:underline"
           )}
         >
           {showUpdatedOn || variant == "updated" ? "Updated" : "Published"}:

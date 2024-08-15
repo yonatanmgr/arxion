@@ -24,7 +24,7 @@ import AnimatedBlob from "@/components/AnimatedBlob";
 //       </p>
 //       <button
 //         onClick={reset}
-//         className="font-mono text-arxiv-red hover:underline dark:text-arxiv-red-light"
+//         className="font-mono text-arxiv-red sm:hover:underline dark:text-arxiv-red-light"
 //       >
 //         Try again
 //       </button>
@@ -51,7 +51,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="font-mono text-arxiv-red hover:underline dark:text-arxiv-red-light"
+        className="font-mono text-arxiv-red sm:hover:underline dark:text-arxiv-red-light"
       >
         Go back to search
       </Link>

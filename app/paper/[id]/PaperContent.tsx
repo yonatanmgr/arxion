@@ -48,8 +48,8 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
                   key={a.name[0]}
                   className="group min-w-fit cursor-pointer gap-1 break-words text-lg italic transition-colors"
                 >
-                  <BiLinkExternal className="my-auto mb-1 inline-block opacity-50 transition-all sm:text-[0px] sm:group-hover:text-sm" />
-                  <span className="group-hover:ml-1.5 group-hover:underline max-sm:ml-1.5">
+                  <BiLinkExternal className="sm:group-sm:hover:text-sm my-auto mb-1 inline-block opacity-50 transition-all sm:text-[0px]" />
+                  <span className="group-sm:hover:ml-1.5 group-sm:hover:underline max-sm:ml-1.5">
                     {a.name[0]}
                   </span>
                 </Link>
@@ -68,7 +68,7 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
                     : `+ Show all ${author.length} authors`
                 }
                 className={cn(
-                  "min-w-fit select-none rounded-lg border border-zinc-300/50 bg-zinc-200/50 px-2 py-1 font-mono text-zinc-500 hover:bg-zinc-200 active:scale-95 dark:hover:bg-zinc-800",
+                  "min-w-fit select-none rounded-lg border border-zinc-300/50 bg-zinc-200/50 px-2 py-1 font-mono text-zinc-500 active:scale-95 sm:hover:bg-zinc-200 dark:sm:hover:bg-zinc-800",
                   "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-400",
                   showAllAuthors && "ml-2",
                 )}

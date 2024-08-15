@@ -82,8 +82,8 @@ const Filters = () => {
           onClick={handleSearch}
           disabled={isFetching}
           className={cn(
-            "mr-2 h-12 w-12 justify-between rounded-lg border border-zinc-300 px-3.5 font-mono text-base transition-colors hover:bg-zinc-100 active:bg-zinc-200",
-            "dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-700",
+            "mr-2 h-12 w-12 justify-between rounded-lg border border-zinc-300 px-3.5 font-mono text-base transition-colors sm:hover:bg-zinc-100 active:bg-zinc-200",
+            "dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:sm:hover:bg-zinc-800 dark:sm:hover:text-zinc-50 dark:active:bg-zinc-700",
             "disabled:pointer-events-none disabled:opacity-60"
           )}
         >
@@ -109,10 +109,10 @@ const Filters = () => {
             e.stopPropagation();
           }}
           className={cn(
-            "h-12 w-12 justify-between rounded-lg border border-zinc-300 px-3.5 font-mono text-base transition-colors hover:bg-zinc-100 active:bg-zinc-200",
-            "dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-700",
+            "h-12 w-12 justify-between rounded-lg border border-zinc-300 px-3.5 font-mono text-base transition-colors sm:hover:bg-zinc-100 active:bg-zinc-200",
+            "dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:sm:hover:bg-zinc-800 dark:sm:hover:text-zinc-50 dark:active:bg-zinc-700",
             showFilters &&
-              "bg-zinc-900 text-zinc-50 hover:bg-zinc-800 hover:text-zinc-100 active:bg-zinc-700 dark:bg-zinc-800"
+              "bg-zinc-900 text-zinc-50 sm:hover:bg-zinc-800 sm:hover:text-zinc-100 active:bg-zinc-700 dark:bg-zinc-800"
           )}
         >
           <LucideFilter

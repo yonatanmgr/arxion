@@ -12,7 +12,7 @@ import { usePapers } from "@/app/hooks/usePapers";
 const ResultsHeader = () => {
   const [searchQuery] = useQueryState("query");
   const [page] = useQueryState("page", parseAsInteger);
-  const safePage = page !== null ? page : 1;
+  const safePage = page !== null && page > 0 ? page : 1;
 
   const { papers, totalResults, isFetching } = usePapers(searchQuery, safePage);
 
@@ -34,7 +34,7 @@ const ResultsHeader = () => {
       )}
       {papers?.length && !isFetching ? (
         <h2 className="font-mono text-zinc-500">
-          {papers?.length < RESULT_LIMIT && page === 1 ? (
+          {papers?.length < RESULT_LIMIT && safePage === 1 ? (
             papers?.length === 1 ? (
               <span>One result found</span>
             ) : (
@@ -47,7 +47,7 @@ const ResultsHeader = () => {
           ) : (
             <span>
               Results {(safePage - 1) * RESULT_LIMIT + 1}-
-              {(safePage - 1 + 1) * papers.length} of {totalResults}
+              {safePage * papers.length} of {totalResults}
             </span>
           )}
         </h2>

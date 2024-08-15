@@ -58,7 +58,7 @@ const PapersLayout = ({
             href={`/?${lastSearchParams}`}
             as={`/?${lastSearchParams}`}
             onClick={navigateBackToSearch}
-            className="text-zinc-400 hover:text-arxiv-red hover:underline dark:hover:text-arxiv-red-light"
+            className="text-zinc-400 sm:hover:text-arxiv-red sm:hover:underline dark:sm:hover:text-arxiv-red-light"
           >
             ← Back <span className="max-sm:hidden"> to search</span>
           </Link>
@@ -81,7 +81,7 @@ const PapersLayout = ({
             aria-label="Toggle dark theme"
             name="theme-toggle"
             variant="secondary"
-            className="absolute bottom-3 right-2 z-40 h-10 w-10 border border-zinc-300 bg-white p-0 transition-colors hover:bg-zinc-100 sm:top-2 dark:border-zinc-700/50 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+            className="absolute bottom-3 right-2 z-40 h-10 w-10 border border-zinc-300 bg-white p-0 transition-colors sm:top-2 sm:hover:bg-zinc-100 dark:border-zinc-700/50 dark:bg-zinc-800 dark:sm:hover:bg-zinc-700"
             onClick={toggle}
           >
             <LucideSunMoon className="h-full text-xl text-zinc-800 dark:text-zinc-50" />

@@ -43,8 +43,8 @@ export const Combobox: NextComponentType<{}, {}, ComboboxProps> = ({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "h-12 w-full justify-between rounded-lg border border-zinc-300 px-4 font-mono text-base hover:bg-zinc-100 sm:w-[200px]",
-            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+            "h-12 w-full justify-between rounded-lg border border-zinc-300 px-4 font-mono text-base sm:hover:bg-zinc-100 sm:w-[200px]",
+            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:sm:hover:bg-zinc-800 dark:sm:hover:text-zinc-50"
           )}
         >
           <span className="truncate">
@@ -121,8 +121,8 @@ const GroupedCombobox = ({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "h-12 w-full justify-between rounded-lg border border-zinc-300 px-4 font-mono text-base hover:bg-zinc-100 sm:w-[200px]",
-            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+            "h-12 w-full justify-between rounded-lg border border-zinc-300 px-4 font-mono text-base sm:hover:bg-zinc-100 sm:w-[200px]",
+            "transition-colors dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:sm:hover:bg-zinc-800 dark:sm:hover:text-zinc-50"
           )}
         >
           <span className="truncate">

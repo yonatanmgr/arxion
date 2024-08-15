@@ -29,7 +29,7 @@ const Title = ({ title, showAbstract, setShowAbstract }: TitleProps) => {
   return (
     <button
       className={cn(
-        "relative select-text border-b border-b-transparent transition-all hover:border-b-zinc-200 max-sm:select-none dark:hover:border-b-zinc-700"
+        "relative select-text border-b border-b-transparent transition-all sm:hover:border-b-zinc-200 max-sm:select-none dark:sm:hover:border-b-zinc-700"
       )}
       {...bind()}
     >
