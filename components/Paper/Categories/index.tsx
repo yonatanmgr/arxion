@@ -42,7 +42,7 @@ const Categories = ({
           subject={category.$.term}
           key={category.$.term}
           className={cn(
-            "pointer-events-none select-none rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 font-mono text-sm text-zinc-800 transition-all sm:hover:bg-zinc-100 active:scale-95 max-sm:hidden sm:scale-95 sm:opacity-0 sm:group-sm:hover:pointer-events-auto sm:group-sm:hover:scale-100 sm:group-sm:hover:opacity-100",
+            "pointer-events-none select-none rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-0.5 font-mono text-sm text-zinc-800 transition-all sm:hover:bg-zinc-100 active:scale-95 max-sm:hidden sm:scale-95 sm:opacity-0 sm:sm:group-hover:pointer-events-auto sm:sm:group-hover:scale-100 sm:sm:group-hover:opacity-100",
             "dark:border-zinc-800 dark:bg-zinc-700/50 dark:text-zinc-50 dark:sm:hover:bg-zinc-700"
           )}
         />

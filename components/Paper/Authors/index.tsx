@@ -27,7 +27,7 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
                 href={`https://arxiv.org/search/?searchtype=author&query=${author.name[0]}`}
                 target="_blank"
                 rel="noreferrer"
-                className="transition-all group-sm:hover:text-sm sm:text-[0px]"
+                className="transition-all sm:group-hover:text-sm sm:text-[0px]"
               >
                 <BiLinkExternal className="inline-block" />
               </a>
