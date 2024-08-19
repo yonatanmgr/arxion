@@ -6,21 +6,25 @@ export const GET = async (request: NextRequest) => {
   const ids = searchParams.get("ids")?.split(",");
 
   if (!ids) {
-    return {
-      status: 400,
-      json: {
+    return NextResponse.json(
+      {
         error: "ids parameter is required",
       },
-    };
+      {
+        status: 400,
+      },
+    );
   }
 
   if (ids.length > 5) {
-    return {
-      status: 413,
-      json: {
-        error: "id list is too long",
+    return NextResponse.json(
+      {
+        error: "too many ids",
       },
-    };
+      {
+        status: 413,
+      },
+    );
   }
 
   const response = await papersApi.enrichByArxivId(ids);
