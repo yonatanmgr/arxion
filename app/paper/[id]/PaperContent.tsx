@@ -211,9 +211,9 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
                     setShowTldr(!showTldr);
                   }}
                   className={cn(
-                    "flex w-full cursor-pointer flex-row items-center gap-3 text-pretty px-4 py-3 font-mono text-lg font-bold hover:bg-zinc-200 active:bg-zinc-300",
+                    "flex w-full cursor-pointer flex-row items-center gap-3 text-pretty px-4 py-3 font-mono text-lg font-bold active:bg-zinc-300 sm:hover:bg-zinc-200",
                     showTldr ? "rounded-t-lg" : "rounded-lg",
-                    "transition-colors dark:hover:bg-zinc-700/50 dark:active:bg-zinc-700",
+                    "transition-colors dark:active:bg-zinc-700 sm:dark:hover:bg-zinc-700/50",
                   )}
                 >
                   <AnimatedBlob
