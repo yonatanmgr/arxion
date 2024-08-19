@@ -33,11 +33,6 @@ export const GET = async (request: NextRequest) => {
       },
     });
   } else {
-    return {
-      status: 404,
-      json: {
-        error: "Not found",
-      },
-    };
+    return NextResponse.error();
   }
 };

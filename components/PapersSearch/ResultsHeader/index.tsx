@@ -2,12 +2,12 @@
 
 import { RESULT_LIMIT } from "@/app/lib/constants/common";
 import { cn } from "@/app/lib/utils/common";
-import React, { useEffect } from "react";
-import { CgSpinner } from "react-icons/cg";
+import React from "react";
 import Pagination from "../Pagination";
 import { parseAsInteger, useQueryState } from "nuqs";
 import AnimatedBlob from "@/components/AnimatedBlob";
 import { usePapers } from "@/app/hooks/usePapers";
+import { LucideLoaderCircle } from "lucide-react";
 
 const ResultsHeader = () => {
   const [searchQuery] = useQueryState("query");
@@ -56,7 +56,7 @@ const ResultsHeader = () => {
       )}
       {isFetching && (
         <h2 className="flex flex-row items-center gap-2 font-mono select-none text-zinc-500">
-          <CgSpinner className="inline-block animate-spin" />
+          <LucideLoaderCircle size={16} className="inline-block animate-spin" />
           <span>Searching...</span>
         </h2>
       )}

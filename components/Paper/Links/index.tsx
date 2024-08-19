@@ -1,8 +1,7 @@
 import { TArxivEntry } from "@/app/types";
 import { cn } from "@/app/lib/utils/common";
-import { BiLinkExternal, BiLink } from "react-icons/bi";
-import { BsFilePdf } from "react-icons/bs";
 import { ClassNameValue } from "tailwind-merge";
+import { SquareArrowOutUpRight, LucideLink, FileText } from "lucide-react";
 
 interface LinksProps {
   links: TArxivEntry["link"];
@@ -14,11 +13,11 @@ interface LinksProps {
 const getIconByType = (type: string) => {
   switch (type) {
     case "application/pdf":
-      return <BsFilePdf />;
+      return <FileText size={16} />;
     case "other":
-      return <BiLinkExternal />;
+      return <SquareArrowOutUpRight size={16} />;
     default:
-      return <BiLink />;
+      return <LucideLink size={16} />;
   }
 };
 
@@ -53,7 +52,7 @@ const Links = ({
           href={link.$.href}
           rel="noopener noreferrer"
           className={cn(
-            "flex select-none dark:text-zinc-400 flex-row items-center gap-1 text-zinc-500 transition-all sm:hover:text-arxiv-red sm:hover:underline max-sm:underline dark:sm:hover:text-arxiv-red-light",
+            "flex select-none dark:text-zinc-400 flex-row items-center gap-1.5 items-center text-zinc-500 transition-all sm:hover:text-arxiv-red sm:hover:underline max-sm:underline dark:sm:hover:text-arxiv-red-light",
             linkClassName
           )}
         >

@@ -6,7 +6,7 @@ import WithMathJax from "@/components/common/WithMathJax";
 import PublishDate from "@/components/Paper/PublishDate";
 import { Fragment, useState } from "react";
 import { AUTHOR_LIMIT } from "@/app/lib/constants/common";
-import { BiLinkExternal } from "react-icons/bi";
+import { SquareArrowOutUpRight } from "lucide-react";
 import { cn } from "@/app/lib/utils/common";
 import Link from "next/link";
 import Links from "@/components/Paper/Links";
@@ -130,7 +130,7 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
                   rel="noreferrer"
                   className="group min-w-fit cursor-pointer gap-1 break-words text-lg italic transition-colors"
                 >
-                  <BiLinkExternal className="my-auto mb-1 inline-block opacity-50 transition-all sm:text-[0px] sm:sm:group-hover:text-sm" />
+                  <SquareArrowOutUpRight className="my-auto mb-0.5 mb-1 inline-block opacity-50 transition-all sm:w-0 sm:group-hover:w-4" />
                   <span className="max-sm:ml-1.5 sm:group-hover:ml-1.5 sm:group-hover:underline">
                     {a.name[0]}
                   </span>

@@ -1,4 +1,3 @@
-import { BiLinkExternal } from "react-icons/bi";
 import {
   Tooltip,
   TooltipContent,
@@ -11,6 +10,7 @@ import { useState, useMemo } from "react";
 import { ClassNameValue } from "tailwind-merge";
 import { useMediaQuery, useClickAnyWhere } from "usehooks-ts";
 import { useLongPress } from "use-long-press";
+import { SquareArrowOutUpRight } from "lucide-react";
 
 type TArxivSubject =
   | TArxivEntry["category"][number]["$"]["term"]
@@ -82,7 +82,8 @@ const Tag = ({ subject, className }: TagProps) => {
               target="_blank"
               rel="noreferrer"
             >
-              <BiLinkExternal className="inline" /> {category}: {full_name}
+              <SquareArrowOutUpRight size={16} className="inline" /> {category}:{" "}
+              {full_name}
             </a>
             <span>{description}</span>
           </div>

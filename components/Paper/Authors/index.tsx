@@ -3,9 +3,12 @@ import { TArxivEntry } from "@/app/types";
 import { cn } from "@/app/lib/utils/common";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
-import { BiLinkExternal } from "react-icons/bi";
 import { NewButton } from "@/components/ui/new-button";
-import { LucideUserMinus2, LucideUserPlus2 } from "lucide-react";
+import {
+  LucideUserMinus2,
+  LucideUserPlus2,
+  SquareArrowOutUpRight,
+} from "lucide-react";
 
 const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
   const [showAll, setShowAll] = useState(false);
@@ -29,9 +32,8 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
                 href={`https://arxiv.org/search/?searchtype=author&query=${author.name[0]}`}
                 target="_blank"
                 rel="noreferrer"
-                className="transition-all sm:group-hover:text-sm sm:text-[0px]"
               >
-                <BiLinkExternal className="inline-block" />
+                <SquareArrowOutUpRight className="transition-all inline-block sm:group-hover:w-4 sm:w-0 mb-0.5" />
               </a>
               {author.name[0]}
               {authors.indexOf(author) !== authors.length - 1 ? "," : ""}

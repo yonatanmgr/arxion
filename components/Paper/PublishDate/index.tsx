@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@/app/lib/utils/common";
+import { CalendarDays, Clock4 } from "lucide-react";
 import moment from "moment";
 import { useState, useCallback } from "react";
-import { BiCalendar, BiTime } from "react-icons/bi";
 import { useMediaQuery } from "usehooks-ts";
 
 interface DateProps {
@@ -33,7 +33,11 @@ const PublishDate = ({
     <div className="flex flex-row items-center gap-1.5">
       <span className="flex flex-row gap-2 items-center">
         <span className="text-zinc-500">
-          {showUpdatedOn || variant == "updated" ? <BiTime /> : <BiCalendar />}
+          {showUpdatedOn || variant == "updated" ? (
+            <Clock4 size={16} />
+          ) : (
+            <CalendarDays size={16} />
+          )}
         </span>
         <span
           onClick={handleUpdatedOnClick}
