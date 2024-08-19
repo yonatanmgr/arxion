@@ -1,3 +1,5 @@
+// Code adjusted from usehooks-ts
+
 import { useMediaQuery } from "usehooks-ts";
 import { useLocalStorage } from "./useLocalStorage";
 

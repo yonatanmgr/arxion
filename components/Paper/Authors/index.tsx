@@ -1,9 +1,11 @@
-import { AUTHOR_LIMIT } from "@/app/constants";
+import { AUTHOR_LIMIT } from "@/app/lib/constants/common";
 import { TArxivEntry } from "@/app/types";
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
+import { NewButton } from "@/components/ui/new-button";
+import { LucideUserMinus2, LucideUserPlus2 } from "lucide-react";
 
 const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
   const [showAll, setShowAll] = useState(false);
@@ -36,18 +38,22 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
             </span>
           ))}
         {authors.length > AUTHOR_LIMIT && (
-          <button
+          <NewButton
             aria-label={
               showAll ? "Show less..." : `Show all ${authors.length} authors`
             }
             className={cn(
-              "ml-1.5 select-none rounded-md border border-zinc-200 bg-zinc-100 px-2 font-mono text-sm font-bold",
-              "transition-colors dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50"
+              "cursor-default text-sm shadow-none ml-2 dark:hover:bg-zinc-900/50 dark:active:bg-zinc-900/10  dark:active:border-zinc-700"
             )}
-            onClick={() => setShowAll(!showAll)}
+            onClick={() => setShowAll((prev) => !prev)}
           >
+            {showAll ? (
+              <LucideUserMinus2 size={16} />
+            ) : (
+              <LucideUserPlus2 size={16} />
+            )}
             {showAll ? "Show less..." : `Show all ${authors.length} authors`}
-          </button>
+          </NewButton>
         )}
       </section>
     </div>

@@ -1,4 +1,4 @@
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 import WithMathJax from "../../common/WithMathJax";
 import { useState } from "react";
 import { useLongPress } from "use-long-press";

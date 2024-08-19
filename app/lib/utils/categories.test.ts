@@ -3,7 +3,8 @@ import {
   flattenCategories,
   buildGroupedSubjects,
 } from "./categories";
-import { TCategory } from "../types";
+
+import { TCategory } from "@/app/types";
 import { describe, expect, it, test } from "@jest/globals";
 
 const mockCategories: TCategory[] = [

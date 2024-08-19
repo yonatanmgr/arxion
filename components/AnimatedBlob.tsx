@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 import { AnimatePresence, motion } from "framer-motion";
 import { ClassNameValue } from "tailwind-merge";
 

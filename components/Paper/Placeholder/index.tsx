@@ -1,4 +1,4 @@
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 import { ClassNameValue } from "tailwind-merge";
 import Card from "../../common/Card";
 
@@ -6,7 +6,7 @@ export const Placeholder = ({ className }: { className: ClassNameValue }) => (
   <div
     className={cn(
       "h-10 w-full animate-pulse rounded-md bg-zinc-200 dark:bg-zinc-700",
-      className,
+      className
     )}
   ></div>
 );

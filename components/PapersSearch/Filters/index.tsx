@@ -4,11 +4,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import { GroupedCombobox } from "@/components/ui/combobox";
 import { Button } from "@/components/ui/button";
 import { LucideFilter, LucideSearch } from "lucide-react";
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 import { parseAsInteger, useQueryState } from "nuqs";
 import { usePapers } from "@/app/hooks/usePapers";
-import { buildGroupedSubjects } from "@/app/utils/categories";
-import { CATEGORIES } from "@/app/categories";
+import { buildGroupedSubjects } from "@/app/lib/utils/categories";
+import { CATEGORIES } from "@/app/lib/constants/categories";
 
 const Filters = () => {
   const [subject, setSubject] = useState("");

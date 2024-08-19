@@ -1,23 +1,18 @@
-import { TArxivEntry } from "../types";
-import { client } from "./client";
+import { TArxivEntry } from "@/app/types";
+import {
+  arxivClient,
+  semanticScholarClient,
+  semanticScholarClient_limited,
+} from "@/app/api/client";
 import { parseString } from "xml2js";
+import { FIELDS } from "@/app/lib/constants/api";
+import { Paper, transformSemanticScholarPaper } from "./services";
+import { apiConfig } from "../api.config";
 
-// import search from "arXiv-api-ts";
-
-// ti	Title
-// au	Author
-// abs	Abstract
-// co	Comment
-// jr	Journal Reference
-// cat	Subject Category
-// rn	Report Number
-// id	Id (use id_list instead)
-type TResults = {
+export type TResults = {
   papers: TArxivEntry[];
   totalResults: number;
 };
-
-const fields = ["ti", "au", "abs", "co", "jr", "cat", "rn", "id"];
 
 /**
  * Fetches Arxiv entries based on the provided query and limit.
@@ -28,9 +23,9 @@ const fields = ["ti", "au", "abs", "co", "jr", "cat", "rn", "id"];
  * @returns A promise that resolves to an array of ArxivEntry objects.
  */
 const fetchArxiv = async (query: string, limit: number, page: number) => {
-  const response = await client.get("query", {
+  const response = await arxivClient.get(apiConfig.arxiv.endpoints.query, {
     params: {
-      search_query: fields.some((f) => query.startsWith(f))
+      search_query: FIELDS.some((f) => query.startsWith(f))
         ? query
         : `all:${query}`,
       max_results: limit,
@@ -56,8 +51,14 @@ const fetchArxiv = async (query: string, limit: number, page: number) => {
   });
 };
 
+/**
+ * Fetches Arxiv entries based on the provided IDs.
+ *
+ * @param ids - The list of IDs to fetch.
+ * @returns A promise that resolves to an array of ArxivEntry objects.
+ */
 const fetchByIds = async (ids: string[]) => {
-  const response = await client.get("query", {
+  const response = await arxivClient.get(apiConfig.arxiv.endpoints.query, {
     params: {
       id_list: ids.join(","),
     },
@@ -80,9 +81,47 @@ const fetchByIds = async (ids: string[]) => {
   });
 };
 
+const enrichByArxivId = async (ids: string[]): Promise<Paper[]> => {
+  const requestFields = [
+    "title",
+    "abstract",
+    "tldr",
+    "fieldsOfStudy",
+    "externalIds",
+    "authors.name",
+    "authors.externalIds",
+    "authors.homepage",
+  ];
+
+  const response = await semanticScholarClient_limited.post(
+    apiConfig.semanticScholar_limited.endpoints.batch,
+    {
+      ids: ids.map((id) => `ARXIV:${id}`),
+    },
+    {
+      params: {
+        fields: requestFields.join(","),
+      },
+    },
+  );
+
+  if (response.status !== 200) {
+    const error = await response.data;
+    console.error(error);
+    return [];
+  }
+
+  const data = await response.data;
+  const papers = data
+    .map(transformSemanticScholarPaper)
+    .filter(Boolean) as Paper[];
+  return papers;
+};
+
 const papersApi = {
   fetchArxiv,
   fetchByIds,
+  enrichByArxivId,
 };
 
 export default papersApi;

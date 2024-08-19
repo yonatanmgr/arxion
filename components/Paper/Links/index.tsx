@@ -1,5 +1,5 @@
 import { TArxivEntry } from "@/app/types";
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 import { BiLinkExternal, BiLink } from "react-icons/bi";
 import { BsFilePdf } from "react-icons/bs";
 import { ClassNameValue } from "tailwind-merge";

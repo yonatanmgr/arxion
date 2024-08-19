@@ -2,13 +2,12 @@
 
 import AnimatedBlob from "@/components/AnimatedBlob";
 
-const Error = ({
-  error,
-  reset,
-}: {
+interface ErrorProps {
   error: Error & { digest?: string };
   reset?: () => void;
-}) => {
+}
+
+const Error = ({ error, reset }: ErrorProps) => {
   return (
     <div className="flex h-4/5 select-none flex-col items-center justify-center gap-2 font-serif">
       <h1 className="text-6xl font-bold text-zinc-500 dark:text-zinc-400">

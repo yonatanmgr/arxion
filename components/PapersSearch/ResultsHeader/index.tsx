@@ -1,7 +1,7 @@
 "use client";
 
-import { RESULT_LIMIT } from "@/app/constants";
-import { cn } from "@/app/utils/common";
+import { RESULT_LIMIT } from "@/app/lib/constants/common";
+import { cn } from "@/app/lib/utils/common";
 import React, { useEffect } from "react";
 import { CgSpinner } from "react-icons/cg";
 import Pagination from "../Pagination";

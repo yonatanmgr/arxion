@@ -2,7 +2,7 @@
 
 import { ReactNode, Suspense, useEffect, useState } from "react";
 import { MathJaxContext } from "better-react-mathjax";
-import { MATHJAX_CONFIG } from "@/app/constants";
+import { MATHJAX_CONFIG } from "@/app/lib/constants/mathjax";
 import Loading from "./loading";
 import { Button } from "@/components/ui/button";
 import { LucideSunMoon } from "lucide-react";

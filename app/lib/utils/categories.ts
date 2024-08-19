@@ -1,5 +1,5 @@
-import { CATEGORIES } from "../categories";
-import { TSubjectWithCategory, TCategory } from "../types";
+import { CATEGORIES } from "@/app/lib/constants/categories";
+import { TSubjectWithCategory, TCategory } from "@/app/types";
 
 /**
  * Finds a subject in the CATEGORIES array based on the provided abbreviation.
@@ -9,7 +9,6 @@ import { TSubjectWithCategory, TCategory } from "../types";
  * @param {string} abbreviation - The abbreviation of the subject to search for.
  * @returns {TSubjectWithCategory | undefined} - The subject with its category if found, otherwise undefined.
  */
-
 export const getSubjectWithCategory = (
   abbreviation: string,
 ): TSubjectWithCategory | undefined => {
@@ -28,13 +27,13 @@ export const getSubjectWithCategory = (
     return subjectWithCategory;
   }
 };
+
 /**
  * Flattens an array of categories into an array of subjects with their corresponding category.
  *
  * @param {TCategory[]} categories - The array of categories to flatten.
  * @returns {TSubjectWithCategory[]} - The flattened array of subjects with their categories.
  */
-
 export const flattenCategories = (
   categories: TCategory[],
 ): TSubjectWithCategory[] => {
@@ -45,13 +44,13 @@ export const flattenCategories = (
     })),
   );
 };
+
 /**
  * Groups subjects by their categories and returns an array of grouped subjects.
  *
  * @param {TCategory[]} categories - The array of categories to group subjects from.
  * @returns {Array<{ label: string; options: { value: string; label: string }[] }>} - The array of grouped subjects.
  */
-
 export const buildGroupedSubjects = (
   categories: TCategory[],
 ): Array<{ label: string; options: { value: string; label: string }[] }> => {

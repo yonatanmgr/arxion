@@ -1,15 +1,17 @@
 "use client";
-import { MathJaxContext } from "better-react-mathjax";
-import { MATHJAX_CONFIG } from "./constants";
-import PapersSearch from "@/components/PapersSearch";
-import { LucideSunMoon } from "lucide-react";
-import { useEffect } from "react";
+
 import { useDarkMode } from "@/app/hooks/useDarkMode";
-import { Button } from "@/components/ui/button";
-import { useQueryState } from "nuqs";
-import { cn } from "./utils/common";
 import Logo from "@/components/Logo";
+import PapersSearch from "@/components/PapersSearch";
+import { Button } from "@/components/ui/button";
+
+import { MathJaxContext } from "better-react-mathjax";
 import { AnimatePresence } from "framer-motion";
+import { LucideSunMoon } from "lucide-react";
+import { useQueryState } from "nuqs";
+import { useEffect } from "react";
+import { MATHJAX_CONFIG } from "./lib/constants/mathjax";
+import { cn } from "@/app/lib/utils/common";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useQueryState("query");

@@ -1,4 +1,5 @@
 import AnimatedBlob from "@/components/AnimatedBlob";
+
 import { CgSpinner } from "react-icons/cg";
 
 export default function Loading() {

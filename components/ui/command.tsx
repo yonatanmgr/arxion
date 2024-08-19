@@ -6,7 +6,7 @@ import { Command as CommandPrimitive } from "cmdk";
 import { Search } from "lucide-react";
 
 import { Dialog, DialogContent } from "./dialog";
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 
 const Command = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive>,
@@ -17,7 +17,7 @@ const Command = React.forwardRef<
     className={cn(
       "flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground",
       "dark:bg-zinc-900 dark:text-zinc-100",
-      className,
+      className
     )}
     {...props}
   />
@@ -51,7 +51,7 @@ const CommandInput = React.forwardRef<
       ref={ref}
       className={cn(
         "flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-zinc-500/50 disabled:cursor-not-allowed disabled:opacity-50",
-        className,
+        className
       )}
       {...props}
     />
@@ -95,7 +95,7 @@ const CommandGroup = React.forwardRef<
     className={cn(
       "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-base [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground",
       "dark:text-zinc-500 dark:[&_[cmdk-group-heading]]:text-zinc-600",
-      className,
+      className
     )}
     {...props}
   />
@@ -124,7 +124,7 @@ const CommandItem = React.forwardRef<
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-zinc-100 aria-selected:text-accent-foreground data-[disabled='true']:pointer-events-none data-[disabled='true']:opacity-50",
       "rounded-md dark:bg-zinc-900 dark:text-zinc-100 dark:aria-selected:bg-zinc-800 dark:aria-selected:text-zinc-50",
-      className,
+      className
     )}
     {...props}
   />
@@ -140,7 +140,7 @@ const CommandShortcut = ({
     <span
       className={cn(
         "ml-auto text-xs tracking-widest text-muted-foreground",
-        className,
+        className
       )}
       {...props}
     />

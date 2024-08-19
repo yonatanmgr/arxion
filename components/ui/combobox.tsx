@@ -3,7 +3,7 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import { NextComponentType } from "next";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 import {
   Command,
   CommandInput,

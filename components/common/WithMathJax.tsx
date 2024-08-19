@@ -1,4 +1,4 @@
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 import { MathJax } from "better-react-mathjax";
 import { PropsWithChildren } from "react";
 import { ClassNameValue } from "tailwind-merge";

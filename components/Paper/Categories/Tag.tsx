@@ -5,8 +5,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { TArxivEntry } from "@/app/types";
-import { cn } from "@/app/utils/common";
-import { getSubjectWithCategory } from "@/app/utils/categories";
+import { cn } from "@/app/lib/utils/common";
+import { getSubjectWithCategory } from "@/app/lib/utils/categories";
 import { useState, useMemo } from "react";
 import { ClassNameValue } from "tailwind-merge";
 import { useMediaQuery, useClickAnyWhere } from "usehooks-ts";

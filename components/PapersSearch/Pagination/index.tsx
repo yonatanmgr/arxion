@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { LucideArrowLeft, LucideArrowRight } from "lucide-react";
-import { RESULT_LIMIT } from "@/app/constants";
+import { RESULT_LIMIT } from "@/app/lib/constants/common";
 import { useQueryState, parseAsInteger } from "nuqs";
 import { usePapers } from "@/app/hooks/usePapers";
 

@@ -1,5 +1,5 @@
 import { ClassNameValue } from "tailwind-merge";
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 
 interface LogoProps {
   onClick: () => void;

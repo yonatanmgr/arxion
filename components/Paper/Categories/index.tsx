@@ -1,5 +1,5 @@
 import { TArxivEntry } from "@/app/types";
-import { cn } from "@/app/utils/common";
+import { cn } from "@/app/lib/utils/common";
 import { useMemo } from "react";
 import Tag from "./Tag";
 

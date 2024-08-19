@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import papersApi from "../papers";
+import papersApi from "../papers/papersApi";
 
 export async function GET(request: Request) {
   try {

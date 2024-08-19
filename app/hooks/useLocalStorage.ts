@@ -1,3 +1,5 @@
+// Code adjusted from usehooks-ts
+
 import { useCallback, useEffect, useState } from "react";
 
 import type { Dispatch, SetStateAction } from "react";

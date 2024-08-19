@@ -1,6 +1,7 @@
-import papersApi from "@/app/api/papers";
+import papersApi from "@/app/api/papers/papersApi";
 import PaperContent from "./PaperContent";
 import Error from "./error";
+
 import type { Metadata, ResolvingMetadata } from "next";
 
 type Props = {

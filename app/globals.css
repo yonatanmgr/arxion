@@ -2,71 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
-  font-family: "Computer Modern";
-  src: url("./fonts/cmunrm.woff2") format("woff2"),
-    url("./fonts/cmunrm.otf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: fallback;
-}
-@font-face {
-  font-family: "Computer Modern";
-  src: url("./fonts/cmunti.woff2") format("woff2"),
-    url("./fonts/cmunti.otf") format("truetype");
-  font-weight: normal;
-  font-style: italic;
-  font-display: fallback;
-}
-@font-face {
-  font-family: "Computer Modern";
-  src: url("./fonts/cmunbi.woff2") format("woff2"),
-    url("./fonts/cmunbi.otf") format("truetype");
-  font-weight: bold;
-  font-style: italic;
-  font-display: fallback;
-}
-@font-face {
-  font-family: "Computer Modern";
-  src: url("./fonts/cmunbx.woff2") format("woff2"),
-    url("./fonts/cmunbx.otf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-  font-display: fallback;
-}
-@font-face {
-  font-family: "Computer Typewriter";
-  src: url("./fonts/cmuntt.woff2") format("woff2"),
-    url("./fonts/cmuntt.otf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: fallback;
-}
-@font-face {
-  font-family: "Computer Typewriter";
-  src: url("./fonts/cmunit.woff2") format("woff2"),
-    url("./fonts/cmunit.otf") format("truetype");
-  font-weight: normal;
-  font-style: italic;
-  font-display: fallback;
-}
-@font-face {
-  font-family: "Computer Typewriter";
-  src: url("./fonts/cmuntb.woff2") format("woff2"),
-    url("./fonts/cmuntb.otf") format("truetype");
-  font-weight: bold;
-  font-style: normal;
-  font-display: fallback;
-}
-@font-face {
-  font-family: "Computer Typewriter";
-  src: url("./fonts/cmuntx.woff2") format("woff2"),
-    url("./fonts/cmuntx.otf") format("truetype");
-  font-weight: bold;
-  font-style: italic;
-  font-display: fallback;
-} */
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -144,21 +79,6 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
-/* 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-
-.katex { font-size: 1.05em !important; }
-
 
 input[type = 'search']::-webkit-search-cancel-button{
   display: none;
