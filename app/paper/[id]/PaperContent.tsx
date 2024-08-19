@@ -198,7 +198,7 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
           exit={{ opacity: 0, y: 10, filter: "blur(4px)", scale: 0.99 }}
           transition={{ duration: 0.3 }}
-          className="flex h-[calc(100dvh-9rem)] flex-col gap-4 overflow-y-auto font-serif max-sm:h-[calc(100dvh-6.5rem)]"
+          className="flex h-[calc(100dvh-9rem)] flex-col gap-4 overflow-y-auto overflow-x-hidden font-serif max-sm:h-[calc(100dvh-6.5rem)]"
         >
           {!error &&
             !isLoading &&
