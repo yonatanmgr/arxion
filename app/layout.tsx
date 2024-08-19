@@ -104,7 +104,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     >
       <ViewTransitions>
         <TooltipProvider>
-          <body className="relative flex h-[100dvh] flex-col overflow-hidden bg-zinc-50 px-4 pb-[30px] pt-4 text-zinc-900 transition-all selection:bg-arxiv-red/10 max-xs:px-8 sm:pt-16 lg:px-32 xl:px-64 dark:bg-zinc-950 dark:text-zinc-50 dark:selection:bg-arxiv-red-light/20">
+          <body className="relative flex h-[100dvh] flex-col overflow-hidden bg-zinc-50 px-4 pb-[30px] pt-4 text-zinc-900 transition-all selection:bg-arxiv-red/10 sm:pt-16 lg:px-32 xl:px-64 dark:bg-zinc-950 dark:text-zinc-50 dark:selection:bg-arxiv-red-light/20">
             <Suspense>
               {children}
               {shouldInjectToolbar && <VercelToolbar />}

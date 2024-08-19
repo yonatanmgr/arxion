@@ -54,7 +54,7 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
         className="flex h-[calc(100dvh-9rem)] flex-col gap-4 overflow-y-auto font-serif max-sm:h-[calc(100dvh-6.5rem)]"
       >
         <header className="flex flex-col gap-4">
-          <section className="flex w-full flex-row flex-wrap gap-2">
+          <section className="flex w-full flex-row gap-2 overflow-x-auto">
             <Tooltip>
               <TooltipTrigger asChild>
                 <NewButton
@@ -114,6 +114,32 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
                 </span>
               </TooltipContent>
             </Tooltip>
+            <NewButton
+              className="pointer-events-none cursor-default"
+              disabled={false}
+              onClick={() => {
+                setShouldFetch(true);
+              }}
+            >
+              <PublishDate
+                publishedOn={published[0]}
+                updatedOn={updated[0]}
+                variant="published"
+              />
+            </NewButton>
+            <NewButton
+              className="pointer-events-none cursor-default"
+              disabled={false}
+              onClick={() => {
+                setShouldFetch(true);
+              }}
+            >
+              <PublishDate
+                publishedOn={published[0]}
+                updatedOn={updated[0]}
+                variant="updated"
+              />
+            </NewButton>
           </section>
           <WithMathJax>
             <h1 className="text-balance text-2xl font-bold sm:text-3xl">
@@ -130,7 +156,7 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
                   rel="noreferrer"
                   className="group min-w-fit cursor-pointer gap-1 break-words text-lg italic transition-colors"
                 >
-                  <SquareArrowOutUpRight className="my-auto mb-0.5 mb-1 inline-block opacity-50 transition-all sm:w-0 sm:group-hover:w-4" />
+                  <SquareArrowOutUpRight className="my-auto mb-0.5 mb-1 inline-block w-4 opacity-50 transition-all sm:w-0 sm:group-hover:w-4" />
                   <span className="max-sm:ml-1.5 sm:group-hover:ml-1.5 sm:group-hover:underline">
                     {a.name[0]}
                   </span>
@@ -163,32 +189,6 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
               </NewButton>
             )}
           </section>
-          <span className="flex flex-row flex-wrap items-start justify-between gap-2 rounded-lg border-2 border-dashed border-zinc-300/50 bg-zinc-200/50 px-2 py-1 text-base transition-all sm:items-center dark:border-zinc-800 dark:bg-zinc-900">
-            <section className="flex flex-col gap-2 xs:flex-row xs:items-center">
-              <PublishDate
-                publishedOn={published[0]}
-                updatedOn={updated[0]}
-                variant="published"
-              />
-              {published[0] !== updated[0] && (
-                <>
-                  <span className="select-none opacity-50 max-xs:hidden">
-                    |
-                  </span>
-                  <PublishDate
-                    publishedOn={published[0]}
-                    updatedOn={updated[0]}
-                    variant="updated"
-                  />
-                </>
-              )}
-            </section>
-            {/* <Categories
-              primaryCategory={paper["arxiv:primary_category"]}
-              categories={paper["category"] || []}
-              direction="rtl"
-            /> */}
-          </span>
         </header>
 
         <motion.article

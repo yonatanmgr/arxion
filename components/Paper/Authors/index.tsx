@@ -33,7 +33,7 @@ const Authors = ({ authors }: { authors: TArxivEntry["author"] }) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <SquareArrowOutUpRight className="transition-all inline-block sm:group-hover:w-4 sm:w-0 mb-0.5" />
+                <SquareArrowOutUpRight className="transition-all inline-block w-4 sm:group-hover:w-4 sm:w-0 mb-0.5" />
               </a>
               {author.name[0]}
               {authors.indexOf(author) !== authors.length - 1 ? "," : ""}
