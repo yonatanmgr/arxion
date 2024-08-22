@@ -7,12 +7,10 @@ interface WithMathJaxProps extends PropsWithChildren {
   className?: ClassNameValue;
 }
 
-const WithMathJax = ({ children, className }: WithMathJaxProps) => {
-  return (
-    <MathJax>
-      <div className={cn(className, "transition-colors")}>{children}</div>
-    </MathJax>
-  );
-};
+const WithMathJax = ({ children, className }: WithMathJaxProps) => (
+  <MathJax>
+    <div className={cn(className, "transition-colors")}>{children}</div>
+  </MathJax>
+);
 
 export default WithMathJax;

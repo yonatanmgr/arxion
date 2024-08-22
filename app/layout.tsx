@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { Suspense } from "react";
+import "./globals.css";
 
 // VERCEL
 import { Analytics } from "@vercel/analytics/react";
@@ -12,8 +12,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ViewTransitions } from "next-view-transitions";
 
 // FONTS
-import localFont from "next/font/local";
 import { cn } from "@/app/lib/utils/common";
+import localFont from "next/font/local";
 const computerModern = localFont({
   src: [
     {
@@ -38,6 +38,7 @@ const computerModern = localFont({
     },
   ],
   variable: "--font-computer-modern",
+  display: "swap",
 });
 const computerTypewriter = localFont({
   src: [
@@ -63,6 +64,7 @@ const computerTypewriter = localFont({
     },
   ],
   variable: "--font-computer-typewriter",
+  display: "swap",
 });
 
 // METADATA

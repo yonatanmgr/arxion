@@ -9,8 +9,8 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      mono: ["var(--font-computer-typewriter)"],
-      serif: ["var(--font-computer-modern)"],
+      mono: ["var(--font-computer-typewriter)", "monospace"],
+      serif: ["var(--font-computer-modern)", "serif"],
     },
     container: {
       center: true,

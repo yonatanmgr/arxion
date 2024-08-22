@@ -1,13 +1,9 @@
-import { TArxivEntry } from "@/app/types";
-import {
-  arxivClient,
-  semanticScholarClient,
-  semanticScholarClient_limited,
-} from "@/app/api/client";
-import { parseString } from "xml2js";
+import { arxivClient, semanticScholarClient_limited } from "@/app/api/client";
 import { FIELDS } from "@/app/lib/constants/api";
-import { Paper, transformSemanticScholarPaper } from "./services";
+import { TArxivEntry } from "@/app/types";
+import { parseString } from "xml2js";
 import { apiConfig } from "../api.config";
+import { Paper, transformSemanticScholarPaper } from "./services";
 
 export type TResults = {
   papers: TArxivEntry[];

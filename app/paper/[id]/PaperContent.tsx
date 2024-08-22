@@ -1,30 +1,31 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { TArxivEntry } from "@/app/types";
-import WithMathJax from "@/components/common/WithMathJax";
-import PublishDate from "@/components/Paper/PublishDate";
-import { Fragment, useState } from "react";
-import { AUTHOR_LIMIT } from "@/app/lib/constants/common";
-import { SquareArrowOutUpRight } from "lucide-react";
-import { cn } from "@/app/lib/utils/common";
-import Link from "next/link";
-import Links from "@/components/Paper/Links";
 import { useEnrichedPaper } from "@/app/hooks/usePapers";
+import { AUTHOR_LIMIT } from "@/app/lib/constants/common";
+import { cn } from "@/app/lib/utils/common";
+import { TArxivEntry } from "@/app/types";
+import AnimatedBlob from "@/components/AnimatedBlob";
+import WithMathJax from "@/components/common/WithMathJax";
+import Links from "@/components/Paper/Links";
+import PublishDate from "@/components/Paper/PublishDate";
 import { NewButton } from "@/components/ui/new-button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+import { AnimatePresence, motion } from "framer-motion";
 import {
   LucideBot,
   LucideLoaderCircle,
   LucideScrollText,
   LucideUserMinus2,
   LucideUserPlus2,
+  SquareArrowOutUpRight,
 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import AnimatedBlob from "@/components/AnimatedBlob";
+import Link from "next/link";
+import { Fragment, useState } from "react";
 
 const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
   const { author, id, published, updated, title, summary, link } = paper;
@@ -84,7 +85,8 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
               </TooltipTrigger>
               <TooltipContent side="bottom">
                 <span className="text-sm text-zinc-500">
-                  Get a summary of this paper using Semantic Scholar API
+                  Tries to create a summary of the abstract using Semantic
+                  Scholar's API
                 </span>
               </TooltipContent>
             </Tooltip>
@@ -107,13 +109,28 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
               </TooltipTrigger>
               <TooltipContent side="bottom">
                 <span className="text-sm text-zinc-500">
-                  Open the HTML version of this paper on{" "}
+                  Opens the HTML version of this paper on{" "}
                   <Link className="underline" href="https://ar5iv.org">
                     ar5iv.org
                   </Link>
                 </span>
               </TooltipContent>
             </Tooltip>
+            {published[0] !== updated[0] && (
+              <NewButton
+                className="pointer-events-none cursor-default"
+                disabled={false}
+                onClick={() => {
+                  setShouldFetch(true);
+                }}
+              >
+                <PublishDate
+                  publishedOn={published[0]}
+                  updatedOn={updated[0]}
+                  variant="updated"
+                />
+              </NewButton>
+            )}
             <NewButton
               className="pointer-events-none cursor-default"
               disabled={false}
@@ -125,19 +142,6 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
                 publishedOn={published[0]}
                 updatedOn={updated[0]}
                 variant="published"
-              />
-            </NewButton>
-            <NewButton
-              className="pointer-events-none cursor-default"
-              disabled={false}
-              onClick={() => {
-                setShouldFetch(true);
-              }}
-            >
-              <PublishDate
-                publishedOn={published[0]}
-                updatedOn={updated[0]}
-                variant="updated"
               />
             </NewButton>
           </section>
@@ -156,7 +160,7 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
                   rel="noreferrer"
                   className="group min-w-fit cursor-pointer gap-1 break-words text-lg italic transition-colors"
                 >
-                  <SquareArrowOutUpRight className="my-auto mb-0.5 mb-1 inline-block w-4 opacity-50 transition-all sm:w-0 sm:group-hover:w-4" />
+                  <SquareArrowOutUpRight className="my-auto mb-1 inline-block w-4 opacity-50 transition-all sm:w-0 sm:group-hover:w-4" />
                   <span className="max-sm:ml-1.5 sm:group-hover:ml-1.5 sm:group-hover:underline">
                     {a.name[0]}
                   </span>
@@ -248,13 +252,13 @@ const PaperContent = ({ paper }: { paper: TArxivEntry }) => {
           <WithMathJax>
             <p className="text-pretty text-[18px]">{summary[0]}</p>
           </WithMathJax>
+          <Links
+            className="mb-8 w-full justify-start sm:justify-end"
+            linkClassName="text-lg"
+            arXivUrl={id[0]}
+            links={link}
+          />
         </motion.article>
-        <Links
-          className="mb-8 w-full justify-start sm:justify-end"
-          linkClassName="text-lg"
-          arXivUrl={id[0]}
-          links={link}
-        />
       </motion.main>
     </AnimatePresence>
   );

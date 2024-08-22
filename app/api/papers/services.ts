@@ -1,50 +1,8 @@
-type ExternalIds = {
-  [key: string]: string;
-};
-
-type TLDR = {
-  model: string;
-  text: string;
-};
-
-export type Paper = {
-  id: string;
-  title: string;
-  abstract: string;
-  tldr: string;
-  authors: Author[];
-  url: string;
-  arxivId: string;
-  venue: string;
-  year: number;
-  doi: string;
-  citations: number;
-  references: number;
-  fieldsOfStudy: string[];
-  externalIds: ExternalIds;
-};
-
-type SemanticScholarPaper = {
-  arxivId: string;
-  title: string;
-  abstract: string;
-  tldr: TLDR;
-  url: string;
-  venue: string;
-  year: number;
-  doi: string;
-  citations: number;
-  references: number;
-  externalIds: ExternalIds;
-  fieldsOfStudy: string[];
-  authors: Author[];
-};
+type ExternalIds = Record<string, string>;
 
 type Author = {
   authorId: string;
-  externalIds: {
-    [key: string]: string;
-  };
+  externalIds: ExternalIds;
   url: string;
   name: string;
   affiliations: string[];
@@ -54,27 +12,46 @@ type Author = {
   hIndex: number;
 };
 
+// Define Paper type
+export type Paper = {
+  id: string;
+  title: string;
+  abstract: string;
+  tldr?: string;
+  authors: Author[];
+  url: string;
+  arxivId: string;
+  venue: string;
+  year: number;
+  doi: string;
+  citations: number;
+  references: number;
+  fieldsOfStudy: string[];
+  externalIds: ExternalIds;
+};
+
+// Define SemanticScholarPaper type
+type TLDR = {
+  model: string;
+  text: string | null;
+};
+
+type SemanticScholarPaper = Omit<Paper, "id" | "tldr"> & {
+  tldr: TLDR | null;
+};
+
+// Transform function
 export const transformSemanticScholarPaper = (
-  paper: SemanticScholarPaper,
+  paper: SemanticScholarPaper | null,
 ): Paper | undefined => {
-  if (paper) {
-    return {
-      id: paper.arxivId,
-      title: paper.title,
-      abstract: paper.abstract,
-      tldr: (paper.tldr ?? { text: null }).text ?? undefined,
-      authors: paper.authors,
-      url: paper.url,
-      arxivId: paper.arxivId,
-      venue: paper.venue,
-      year: paper.year,
-      fieldsOfStudy: paper.fieldsOfStudy,
-      doi: paper.doi,
-      citations: paper.citations,
-      references: paper.references,
-      externalIds: paper.externalIds,
-    };
-  } else {
-    return undefined;
-  }
+  if (!paper) return undefined;
+
+  const { arxivId, tldr, ...rest } = paper;
+
+  return {
+    id: arxivId,
+    tldr: tldr?.text ?? undefined,
+    arxivId,
+    ...rest,
+  };
 };

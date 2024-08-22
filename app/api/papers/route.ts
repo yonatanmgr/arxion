@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import papersApi from "./papersApi";
 
 export const GET = async (request: NextRequest) => {
-  const searchParams = request.nextUrl.searchParams;
-  const ids = searchParams.get("ids")?.split(",");
+  const ids = request.nextUrl.searchParams.get("ids")?.split(",");
 
   if (!ids) {
     return NextResponse.json(
